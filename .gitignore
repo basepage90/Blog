@@ -2,4 +2,4 @@
 *.gitkeep
 
 # but keep the folder by keeping .gitkeep file
-# !/model/.gitkeep
+!**/.gitkeep
