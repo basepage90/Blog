@@ -1,5 +1,5 @@
 # for directory structure
-model/*.gitkeep
+*.gitkeep
 
 # but keep the folder by keeping .gitkeep file
 # !/model/.gitkeep
