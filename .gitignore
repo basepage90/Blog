@@ -1,5 +1,0 @@
-# for directory structure
-*.gitkeep
-
-# but keep the folder by keeping .gitkeep file
-!**/.gitkeep
