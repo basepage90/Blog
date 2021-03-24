@@ -1,0 +1,3 @@
+# but keep the folder by keeping .gitkeep file
+!**/.gitkeep
+.gitkeep
