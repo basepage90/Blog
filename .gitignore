@@ -1,3 +1,2 @@
 # for directory structure
-*.keep
-/docs/*.keep
+**/*.keep
