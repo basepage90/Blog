@@ -14,4 +14,5 @@ gin framework 로 만드는 website
 - directorty  재구성
     - router / controller / service / model
     - main router 에서 각 router group을 init 하도록 구성
+    
     ![ex_screenshot](./docs/dir_remake.png)
