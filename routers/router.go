@@ -16,5 +16,5 @@ func InitRouter() {
 		InitArticleRouter(rg)
 	}
 
-	r.Run()
+	r.Run(":8080")
 }

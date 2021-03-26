@@ -6,5 +6,5 @@ import (
 )
 
 func InitArticleRouter(Router *gin.RouterGroup) {
-	Router.GET("/article", ctrl.GetIndex)
+	Router.GET("/article/:article_id", ctrl.GetArticle)
 }

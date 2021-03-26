@@ -7,12 +7,12 @@ type Article struct {
 	Desc    string `json:"desc"`
 }
 
-var articleList = []Article{
+var ArticleList = []Article{
 	Article{Id: "id1", Title: "title1", Content: "content1", Desc: "desc1"},
 	Article{Id: "id2", Title: "title2", Content: "content2", Desc: "desc2"},
 	Article{Id: "id3", Title: "title3", Content: "content3", Desc: "desc3"},
 }
 
 func GetAllArticles() []Article {
-	return articleList
+	return ArticleList
 }
