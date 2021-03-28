@@ -1,3 +1,2 @@
-## nothing
-
-**/*.log
+## log
+*.log
