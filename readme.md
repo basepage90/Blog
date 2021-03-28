@@ -3,7 +3,7 @@
 gin framework 로 만드는 website
 
 ## Gin-Web (tag : v0.0.2)
-- request의 accept header 별로 처리해줄 공통 처리해줄 redner 함수 추가
+- request의 accept header 별로 처리해줄 redner 함수 추가
 - middleware 디렉토리 생성 ( gin.Default() 에서 gin.New() 로 변경 )
     - Logging 추가
     - basic auth 추가

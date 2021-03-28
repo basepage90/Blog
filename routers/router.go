@@ -7,7 +7,6 @@ import (
 
 // Initialize Router Group
 func InitRouter() {
-
 	// r := gin.Default()
 
 	r := gin.New()
