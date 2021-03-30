@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ .title }}</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script type="application/javascript">
+        function removeArticle(){
+            alert("Delete This Article")
+            var id = document.getElementById("articleId").value;
+            var url = '/article/'+id+'/delete'
+            $.ajax({
+                type:'post',
+                url: url,
+                error:function(){
+                    alert("delete failed!!!")
+                },
+                success:function(){
+                    $(location).attr('href', '/');
+                }
+            });
+        }
+    </script>
+</head>
+<body>
+    {{ template "menu.html" . }}
+    <input id="articleId" type="hidden" value="{{.payload.Id}}">
+</body>
+
+</html>
+
+    

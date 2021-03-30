@@ -2,6 +2,10 @@
 
 gin framework 로 만드는 website
 
+## Gin-Web (tag : v0.0.3)
+- CleanArchitecture 로 변경중
+- ajax 로 동작하는 article 제거버튼 추가
+
 ## Gin-Web (tag : v0.0.2)
 - request의 accept header 별로 처리해줄 redner 함수 추가
 - middleware 디렉토리 생성 ( gin.Default() 에서 gin.New() 로 변경 )

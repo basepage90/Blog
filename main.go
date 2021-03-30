@@ -10,7 +10,7 @@ import (
 )
 
 func main() {
-	setupLogOutPut()
+	// setupLogOutPut()
 	routers.InitRouter()
 }
 
