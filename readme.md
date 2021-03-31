@@ -1,6 +1,12 @@
 # Gin-Web
 
-gin framework 로 만드는 website
+Gin Framework WEB by CleanArchitecure
+
+## Gin-Web (tag : v0.0.3)
+- CleanArchitecutre 적용
+- DB 연동
+    - gorm / mysql / read config env
+    - <span style="color:pink"> gorm 의 TableName 메서드가 필요이상으로 여러번 호출되는 문제를 보임</span>
 
 ## Gin-Web (tag : v0.0.3)
 - CleanArchitecture 로 변경중

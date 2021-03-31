@@ -42,6 +42,7 @@ func (con *articleController) GetArticle(ctx *gin.Context) {
 
 }
 func (con *articleController) DeleteArticle(ctx *gin.Context) {
+
 	// Check if the article_id is valid
 	articleID := ctx.Param("article_id")
 

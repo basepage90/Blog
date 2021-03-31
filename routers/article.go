@@ -3,12 +3,14 @@ package routers
 import (
 	"github.com/gin-gonic/gin"
 	"github.com/woojebiz/gin-web/controllers"
+	"github.com/woojebiz/gin-web/repositories"
 	"github.com/woojebiz/gin-web/services"
 )
 
 var (
-	service    services.ArticleService       = services.NewArticleService()
-	controller controllers.ArticleController = controllers.NewArticleController(service)
+	repository repositories.ArticleRepository = repositories.NewArticleRepository()
+	service    services.ArticleService        = services.NewArticleService(repository)
+	controller controllers.ArticleController  = controllers.NewArticleController(service)
 )
 
 func InitArticleRouter(Router *gin.RouterGroup) {

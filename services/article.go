@@ -4,6 +4,7 @@ import (
 	"errors"
 
 	"github.com/woojebiz/gin-web/models"
+	"github.com/woojebiz/gin-web/repositories"
 )
 
 type ArticleService interface {
@@ -12,29 +13,25 @@ type ArticleService interface {
 }
 
 type articleService struct {
-	article models.Article
+	repository repositories.ArticleRepository
 }
 
-func NewArticleService() ArticleService {
-	return &articleService{}
+func NewArticleService(articleRepository repositories.ArticleRepository) ArticleService {
+	return &articleService{
+		repository: articleRepository,
+	}
 }
 
 func (service *articleService) GetArticleByID(id string) (*models.Article, error) {
-	for _, a := range models.ArticleList {
-		if a.Id == id {
-			return &a, nil
-		}
+	if article, err := service.repository.FindById(id); err == nil {
+		return &article, err
 	}
 	return nil, errors.New("Article not found")
 }
 
 func (service *articleService) DeleteArticleById(id string) error {
-	for i, a := range models.ArticleList {
-		if a.Id == id {
-			// 해당 slice의 element 를 지우고, 왼쪽으로 한칸씩 옮긴다.
-			models.ArticleList = models.ArticleList[:i+copy(models.ArticleList[i:], models.ArticleList[i+1:])]
-			return nil
-		}
+	if err := service.repository.DeleteById(id); err == nil {
+		return nil
 	}
 	return errors.New("Article not found")
 }

@@ -2,24 +2,18 @@ package controllers
 
 import (
 	"github.com/gin-gonic/gin"
-	"github.com/woojebiz/gin-web/models"
+	"github.com/woojebiz/gin-web/repositories"
 )
 
+var ar = repositories.NewArticleRepository()
+
 func GetIndex(c *gin.Context) {
-
-	articles := models.GetAllArticles()
-
-	render(c, gin.H{
-		"title":   "Index Page",
-		"payload": articles},
-		"index.html")
-
-	//  render function 으로 대체 (v0.0.2)
-	// c.HTML(http.StatusOK, "index.html", gin.H{
-	// 	"title":   "Index Page",
-	// 	"payload": articles,
-	// },
-	// )
+	if articles, err := ar.FindAll(); err == nil {
+		render(c, gin.H{
+			"title":   "Index Page",
+			"payload": articles},
+			"index.html")
+	}
 }
 
 func GetTest(c *gin.Context) {

@@ -1,18 +1,15 @@
 package models
 
+import "fmt"
+
 type Article struct {
-	Id      string `json:"id"`
-	Title   string `json:"title"`
-	Content string `json:"content"`
-	Desc    string `json:"desc"`
+	Id      string `gorm:"column:id" json:"id"`
+	Title   string `gorm:"column:title" json:"title"`
+	Content string `gorm:"column:content" json:"content"`
+	Desc    string `gorm:"column:desc" json:"desc"`
 }
 
-var ArticleList = []Article{
-	Article{Id: "id1", Title: "title1", Content: "content1", Desc: "desc1"},
-	Article{Id: "id2", Title: "title2", Content: "content2", Desc: "desc2"},
-	Article{Id: "id3", Title: "title3", Content: "content3", Desc: "desc3"},
-}
-
-func GetAllArticles() []Article {
-	return ArticleList
+func (Article) TableName() string {
+	fmt.Println("### This action makes so many calls to TableName :(")
+	return "article"
 }
