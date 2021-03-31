@@ -2,7 +2,7 @@
 
 Gin Framework WEB by CleanArchitecure
 
-## Gin-Web (tag : v0.0.3)
+## Gin-Web (tag : v0.0.4)
 - CleanArchitecutre 적용
 - DB 연동
     - gorm / mysql / read config env
