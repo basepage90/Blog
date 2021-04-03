@@ -28,7 +28,7 @@ func (con *articleController) GetArticle(ctx *gin.Context) {
 
 	// Check if the article exists
 	if article, err := con.service.GetArticleByID(articleID); err == nil {
-		render(ctx,
+		Render(ctx,
 			gin.H{
 				"title":   article.Title,
 				"payload": article,

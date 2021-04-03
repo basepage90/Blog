@@ -7,18 +7,22 @@ import (
 
 // Initialize Router Group
 func InitRouter() {
-	// r := gin.Default()
 
 	r := gin.New()
-	r.Use(gin.Logger(), middleware.Logger(), middleware.BasicAuth())
-	// r.Use(gin.Logger(), middleware.Logger(), middleware.BasicAuth(), gindump.Dump())
+	r.Use(gin.Logger(), middleware.Logger())
 
 	r.LoadHTMLGlob("templates/*")
 
-	rg := r.Group("")
+	// Init Router Group
+	rgGuest := r.Group("")
 	{
-		InitIndexRouter(rg)
-		InitArticleRouter(rg)
+		InitLoginRouter(rgGuest)
+	}
+	// Init Router Group
+	rgUser := r.Group("", middleware.AuthorizeJWT())
+	{
+		InitIndexRouter(rgUser)
+		InitArticleRouter(rgUser)
 	}
 
 	r.Run(":8080")

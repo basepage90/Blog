@@ -10,6 +10,7 @@ import (
 type ArticleService interface {
 	GetArticleByID(string) (*models.Article, error)
 	DeleteArticleById(string) error
+	FindAll() (*[]models.Article, error)
 }
 
 type articleService struct {
@@ -34,4 +35,11 @@ func (service *articleService) DeleteArticleById(id string) error {
 		return nil
 	}
 	return errors.New("Article not found")
+}
+
+func (service *articleService) FindAll() (*[]models.Article, error) {
+	if articles, err := service.repository.FindAll(); err == nil {
+		return &articles, err
+	}
+	return nil, errors.New("test")
 }

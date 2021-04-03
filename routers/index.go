@@ -7,5 +7,4 @@ import (
 
 func InitIndexRouter(Router *gin.RouterGroup) {
 	Router.GET("/", ctrl.GetIndex)
-	Router.GET("/test", ctrl.GetTest)
 }

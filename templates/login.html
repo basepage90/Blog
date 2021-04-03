@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>login page</title>
+    
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script type="application/javascript">
+
+
+    function login(){
+        var id = document.getElementById("username").value;
+        var pw = document.getElementById("password").value;
+        var url = '/getLogin'
+        var data = {"username":id,"password":pw}
+        $.ajax({
+            type:'post',
+            url: url,
+            data:data,
+            error:function(){
+                alert("login failed :(")
+            },
+            success:function(data){
+                alert("login success :)")
+                $(location).attr('href', '/');
+                
+            }
+        });
+    }
+    </script>
+
+</head>
+<body>
+    <input type="text" id="username" name="username">
+    <input type="text" id="password" name="password">
+    <button onclick="login()">Login</button>
+</body>
+</html>

@@ -2,6 +2,11 @@
 
 Gin Framework WEB by CleanArchitecure
 
+## Gin-Web (tag : v0.0.5)
+- JWT을 통한 로그인 적용
+    - http only Cookie
+    - *CSRF Defence 대책 필요*
+
 ## Gin-Web (tag : v0.0.4)
 - CleanArchitecutre 적용
 - DB 연동

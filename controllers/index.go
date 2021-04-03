@@ -9,7 +9,7 @@ var ar = repositories.NewArticleRepository()
 
 func GetIndex(c *gin.Context) {
 	if articles, err := ar.FindAll(); err == nil {
-		render(c, gin.H{
+		Render(c, gin.H{
 			"title":   "Index Page",
 			"payload": articles},
 			"index.html")
@@ -17,7 +17,7 @@ func GetIndex(c *gin.Context) {
 }
 
 func GetTest(c *gin.Context) {
-	render(c, gin.H{
+	Render(c, gin.H{
 		"title": "Index Page",
 	},
 		"test.html")

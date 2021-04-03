@@ -6,7 +6,7 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
-func render(c *gin.Context, data gin.H, templateName string) {
+func Render(c *gin.Context, data gin.H, templateName string) {
 
 	switch c.Request.Header.Get("Accept") {
 
