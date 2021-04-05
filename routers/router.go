@@ -12,6 +12,7 @@ func InitRouter() {
 	r.Use(gin.Logger(), middleware.Logger())
 
 	r.LoadHTMLGlob("templates/*")
+	r.Static("/static", "static")
 
 	// Init Router Group
 	rgGuest := r.Group("")

@@ -6,35 +6,60 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>login page</title>
     
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script type="application/javascript">
+    <link rel="stylesheet" type="text/css" href="/static/css/login.css">
 
+    <script defer src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script type="text/javascript" defer src="/static/js/login.js"></script>
 
-    function login(){
-        var id = document.getElementById("username").value;
-        var pw = document.getElementById("password").value;
-        var url = '/getLogin'
-        var data = {"username":id,"password":pw}
-        $.ajax({
-            type:'post',
-            url: url,
-            data:data,
-            error:function(){
-                alert("login failed :(")
-            },
-            success:function(data){
-                alert("login success :)")
-                $(location).attr('href', '/');
-                
-            }
-        });
-    }
-    </script>
 
 </head>
 <body>
-    <input type="text" id="username" name="username">
-    <input type="text" id="password" name="password">
-    <button onclick="login()">Login</button>
+<div class="cont">
+  <div class="demo">
+
+    <div class="login">
+      <div class="login__check"></div>
+      <div class="login__error">
+        <span class="login__error-text">아이디와 패스워드가 일치하지 않습니다.<br> 패스워드가 기억나지 않는다면 패스워드찾기를 클릭해주세요.</span>
+      </div>
+      <div class="login__form">
+        <div class="login__row">
+          <svg class="login__icon name svg-icon" viewBox="0 0 20 20">
+            <path d="M0,20 a10,8 0 0,1 20,0z M10,0 a4,4 0 0,1 0,8 a4,4 0 0,1 0,-8" />
+          </svg>
+          <input type="text" id="username" class="login__input name" name="username" placeholder="Username"/>
+        </div>
+        <div class="login__row">
+          <svg class="login__icon pass svg-icon" viewBox="0 0 20 20">
+            <path d="M0,20 20,20 20,8 0,8z M10,13 10,16z M4,8 a6,8 0 0,1 12,0" />
+          </svg>
+          <input type="text" id="password" class="login__input pass" name="password" placeholder="Password"/>
+        </div>
+        <button type="button" class="login__submit">Sign in</button>
+        <p class="login__signup">Don't have an account? &nbsp;<a class="entersignup">Sign up</a></p>
+      </div>
+    </div>
+
+    
+    <div class="signup">
+      <div class="signup__back">
+        <img src="/static/img/backicon.png">
+      </div>
+      <div class="signup__form">
+          <label class="singup__label" for="fullname">Full name</label>
+          <input  type="text" class="signup__input" name="fullname" placeholder=""/>
+          <label class="singup__label" for="Email">Email</label>
+          <input  type="text" class="signup__input" name="email" placeholder=""/>
+          <label class="singup__label" for="Password">Password</label>
+          <input  type="text" class="signup__input" name="password" placeholder=""/>
+          <label class="singup__label" for="Confirpassword">Confirm password</label>
+          <input  type="text" class="signup__input" name="confirmpassword" placeholder=""/>
+          <button type="button" class="signup__submit">Sign up</button>
+      </div>
+    </div>
+
+  </div>
+</div>
+
 </body>
 </html>

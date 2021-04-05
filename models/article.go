@@ -10,6 +10,6 @@ type Article struct {
 }
 
 func (Article) TableName() string {
-	fmt.Println("### This action makes so many calls to TableName :(")
+	fmt.Println("### This action makes so many calls to TableName say 'article'")
 	return "article"
 }

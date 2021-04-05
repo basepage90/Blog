@@ -11,6 +11,7 @@ import (
 type LoginController interface {
 	ShowLogin(ctx *gin.Context)
 	Login(ctx *gin.Context)
+	Signup(ctx *gin.Context)
 }
 
 type loginController struct {
@@ -26,8 +27,12 @@ func NewLoginController(loginService services.LoginService,
 	}
 }
 
+func (con *loginController) ShowLogin(c *gin.Context) {
+	Render(c, gin.H{}, "login.html")
+}
+
 func (con *loginController) Login(ctx *gin.Context) {
-	if token := con.getLogin(ctx); token != "" {
+	if token, _ := con.getLogin(ctx); token != "" {
 		// cookie 저장 방식
 		ctx.SetCookie("access-token", token, 60*60*24, "/", "localhost:8080", false, true)
 	} else {
@@ -35,17 +40,28 @@ func (con *loginController) Login(ctx *gin.Context) {
 	}
 }
 
-func (con *loginController) getLogin(ctx *gin.Context) string {
+func (con *loginController) getLogin(ctx *gin.Context) (string, error) {
 	var user models.User
 	if err := ctx.ShouldBind(&user); err != nil {
-		return ""
+		return "", err
 	}
-	if isAuthenticated := con.loginService.Login(user.Username, user.Password); isAuthenticated {
-		return con.jWtService.GenerateToken(user.Username, true)
+	if isAuthenticated := con.loginService.Login(user.Username, user.Password); isAuthenticated == nil {
+		return con.jWtService.GenerateToken(user.Username, true), nil
 	}
-	return ""
+	return "", nil
 }
 
-func (con *loginController) ShowLogin(c *gin.Context) {
-	Render(c, gin.H{}, "login.html")
+func (con *loginController) Signup(ctx *gin.Context) {
+	var user models.User
+	if err := ctx.ShouldBind(&user); err == nil {
+		if user.Username == "" || user.Password == "" || user.Email == "" {
+			ctx.JSON(http.StatusOK, gin.H{"err": "params nil error!!!"})
+		} else {
+			if error := con.loginService.Signup(user); error == nil {
+				ctx.JSON(http.StatusOK, gin.H{})
+			} else {
+				ctx.JSON(http.StatusOK, gin.H{"err": error.Error()})
+			}
+		}
+	}
 }

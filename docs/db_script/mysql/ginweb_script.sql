@@ -6,3 +6,9 @@ INSERT INTO ARTICLE values ("ArticleId03","Title03","Content03","Description03")
 INSERT INTO ARTICLE values ("ArticleId04","Title04","Content04","Description04");
 INSERT INTO ARTICLE values ("ArticleId05","Title05","Content05","Description05");
 INSERT INTO ARTICLE values ("ArticleId06","Title06","Content06","Description06");
+
+
+
+truncate table user;
+
+insert into user values ("admin","admin123","admin@test.com");
