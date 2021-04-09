@@ -1,8 +1,6 @@
 package repositories
 
 import (
-	"errors"
-
 	_ "github.com/go-sql-driver/mysql"
 	"github.com/jinzhu/gorm"
 	"github.com/woojebiz/gin-web/conf"
@@ -11,8 +9,10 @@ import (
 
 type LoginRepository interface {
 	Save(user models.User) error
-	FindByUsername(username string) (models.User, error)
-	Login(username string, password string) (models.User, error)
+	FindByEmail(email string) (models.User, error)
+	Login(user models.User) (models.User, error)
+	SaveUUID(user models.User) error
+	UpdateCerti(certi_key string) error
 	CloseDB()
 }
 
@@ -42,18 +42,20 @@ func (r *loginRepository) Save(user models.User) error {
 	return r.db.Create(&user).Error
 }
 
-func (r *loginRepository) FindByUsername(username string) (models.User, error) {
+func (r *loginRepository) FindByEmail(email string) (models.User, error) {
 	var user models.User
-	// if username == "" {
-	// 	return user, errors.New("params nil error!!!")
-	// }
-	return user, r.db.Where(&models.User{Username: username}).Find(&user).Error
+	return user, r.db.Where(&models.User{Email: email}).Find(&user).Error
 }
 
-func (r *loginRepository) Login(username string, password string) (models.User, error) {
-	var user models.User
-	if username == "" || password == "" {
-		return user, errors.New("params nil error!!!")
-	}
-	return user, r.db.Where(&models.User{Username: username, Password: password}).Find(&user).Error
+func (r *loginRepository) Login(user models.User) (models.User, error) {
+	var res models.User
+	return res, r.db.Where(&models.User{Email: user.Email, Password: user.Password}).Find(&res).Error
+}
+
+func (r *loginRepository) SaveUUID(user models.User) error {
+	return r.db.Model(user).Where(&models.User{Email: user.Email}).Update(&models.User{Uuid: user.Uuid}).Error
+}
+
+func (r *loginRepository) UpdateCerti(certi_key string) error {
+	return r.db.Table("user").Where(&models.User{Uuid: certi_key}).Update(&models.User{Certificate: "Y"}).Error
 }

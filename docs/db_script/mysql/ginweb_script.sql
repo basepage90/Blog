@@ -9,6 +9,9 @@ INSERT INTO ARTICLE values ("ArticleId06","Title06","Content06","Description06")
 
 
 
-truncate table user;
+-- drop table user;
+SELECT * FROM USER;
 
-insert into user values ("admin","admin123","admin@test.com");
+TRUNCATE TABLE USER;
+
+SET sql_safe_updates=0;

@@ -9,8 +9,11 @@ import (
 )
 
 type LoginService interface {
-	Login(username string, password string) error
+	Login(user models.User) error
 	Signup(user models.User) error
+	FindAndCerti(user models.User) int
+	SaveUUID(user models.User) error
+	Certificate(certi_key string) error
 }
 
 type loginService struct {
@@ -22,8 +25,8 @@ func NewLoginService(loginRepository repositories.LoginRepository) LoginService 
 		repository: loginRepository,
 	}
 }
-func (service *loginService) Login(username string, password string) error {
-	_, error := service.repository.Login(username, password)
+func (service *loginService) Login(user models.User) error {
+	_, error := service.repository.Login(user)
 	if error == nil {
 		return nil
 	}
@@ -31,11 +34,37 @@ func (service *loginService) Login(username string, password string) error {
 }
 
 func (service *loginService) Signup(user models.User) error {
-	res, err := service.repository.FindByUsername(user.Username)
-	if res.Username != "" {
-		return errors.New("Alreay Existing Username")
-	} else if err != gorm.ErrRecordNotFound {
+
+	res, err := service.repository.FindByEmail(user.Email)
+
+	if res.Email != "" {
+		return errors.New("Alreay Existing Email")
+	}
+
+	if err == gorm.ErrRecordNotFound {
+		return service.repository.Save(user)
+	} else {
 		return err
 	}
-	return service.repository.Save(user)
+}
+
+func (service *loginService) FindAndCerti(user models.User) int {
+	res, _ := service.repository.FindByEmail(user.Email)
+	if res.Email == "" {
+		// not found user email
+		return 1
+	} else if res.Certificate != "Y" {
+		// not confirm certificate
+		return 2
+	}
+	return 0
+
+}
+
+func (service *loginService) SaveUUID(user models.User) error {
+	return service.repository.SaveUUID(user)
+}
+
+func (service *loginService) Certificate(certiKey string) error {
+	return service.repository.UpdateCerti(certiKey)
 }

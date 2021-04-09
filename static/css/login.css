@@ -196,7 +196,7 @@
     color : white;
   }
   
-  .ripple {
+  /* .ripple {
     position: absolute;
     width: 15rem;
     height: 15rem;
@@ -206,7 +206,7 @@
     transform: scale(0);
     animation: animRipple 0.4s;
     border-radius: 50%;
-  }
+  } */
 
   .signup{
     display: none;
@@ -246,10 +246,6 @@
     text-align: center;
   }
   
-  .singup__row{
-    height: 5rem;
-    padding-top: 1rem;
-  }
   
   .singup__label {
     font-weight: 400;
@@ -270,6 +266,10 @@
     border-radius: 20px;
     margin-bottom: 20px;
     background: rgba(255,255,255,.2);
+  }
+
+  .signup__form.was-validated .signup__input:invalid{
+    border : 1px solid #FF3366;
   }
 
   label {
@@ -325,6 +325,7 @@
   }
 
   /* .signup__submit.success {
+    font-size: 0;
     transition: transform 0.3s 0.1s ease-out, opacity 0.1s 0.3s, background-color 0.1s 0.3s;
     transform: scale(30);
     opacity: 0.9;
@@ -336,7 +337,7 @@
     animation: none;
   } */
 
-  .ripple2 {
+  /* .ripple2 {
     position: absolute;
     width: 15rem;
     height: 15rem;
@@ -346,7 +347,7 @@
     transform: scale(0);
     animation: animRipple 0.4s;
     border-radius: 50%;
-  }
+  } */
 
   
   @keyframes animRipple {

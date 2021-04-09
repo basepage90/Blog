@@ -16,4 +16,5 @@ func InitLoginRouter(Router *gin.RouterGroup) {
 	Router.GET("/login", controller.ShowLogin)
 	Router.POST("/getLogin", controller.Login)
 	Router.POST("/signup", controller.Signup)
+	Router.GET("/login/certi/:certi_key/", controller.Certificate)
 }

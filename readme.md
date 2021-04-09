@@ -2,6 +2,10 @@
 
 Gin Framework WEB by CleanArchitecure
 
+## Gin-Web (tag : v0.0.6)
+- 로그인 관련 구현 완료
+    - signup 후 email 인증 (google uuid를 인증키값으로 사용)
+
 ## Gin-Web (tag : v0.0.5)
 - JWT을 통한 로그인 적용
     - http only Cookie

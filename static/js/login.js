@@ -31,44 +31,66 @@ $(document).ready(function() {
       elem.append($ripple);
     };
     
+    // validation - login
+    function validator_login(email,password){
+      // validate
+      if ( email.length==0 ||password.length==0 ){
+        return false;
+      }
+      return true
+    }
+
+        
     // signin button
     $(document).on("click", ".login__submit", function(e) {
+      var email = document.getElementsByClassName("login__input").namedItem("email").value;
+      var password = document.getElementsByClassName("login__input").namedItem("password").value;
+
+      if (!validator_login(email,password)){
+        return;
+      }
 
       // animate
       if (animating) return;
       animating = true;
       var that = this;
-      ripple($(that), e);
+      // ripple($(that), e);
       $(that).addClass("processing");
 
       // login
-      var id = document.getElementById("username").value;
+      var email = document.getElementById("email").value;
       var pw = document.getElementById("password").value;
       var url = '/getLogin'
-      var data = {"username":id,"password":pw}
-
+      var data = {"email":email,"password":pw}
+      data = JSON.stringify(data);
       setTimeout(function() {
         $.ajax({
             type:'post',
             url: url,
+            contentType :'application/json',
             data:data,
-            error:function(){
-
+            error:function(res){
               $(that).removeClass("processing");
               animating = false;
-
+              var msg;
+              if(res.responseJSON.err == 1 ){
+                msg = '가입되지않은 이메일 입니다';
+              }else if(res.responseJSON.err == 2 ) {
+                msg = '이메일로 전송된 로그인 링크를 확인하세요';
+              }else{
+                msg = '이메일과 패스워드가 일치하지 않습니다';
+              }
+              $('.login__error-text').text(msg)
               $(".login__error").show();
-
-              },
-              success:function(data){
-                $(that).addClass("success");
-                setTimeout(function() {
-                      $login.hide();
-                      animating = false;
-                      $(that).removeClass("success processing");
-
-                      $(location).attr('href', '/');
-                }, submitPhase2);
+            },
+            success:function(data){
+              $(that).addClass("success");
+              setTimeout(function() {
+                $login.hide();
+                animating = false;
+                $(that).removeClass("success processing");
+                $(location).attr('href', '/');
+              }, submitPhase2);
             }
         });
 
@@ -90,57 +112,100 @@ $(document).ready(function() {
       $(".signup__input").val(null)
     });
 
+
+    // validation - signup
+    function validator(nickname,email,password,confirmpassword){
+      // init validation 
+      $(".signup__form").removeClass("was-validated");
+      $(".signup__input")[0].setCustomValidity("");
+      $(".signup__input")[1].setCustomValidity("");
+      $(".signup__input")[2].setCustomValidity("");
+      $(".signup__input")[3].setCustomValidity("");
+
+      // define pattern
+      var regexpNickname = /^(?=.*).{1,25}$/;
+      var regExpEmail = /^[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*\.[a-zA-Z]{2,3}$/i;
+      var regexpPwd = /^(?=.*[a-zA-Z])(?=.*[!@#$%^*+=-])(?=.*[0-9]).{8,25}$/;
+
+      // null check
+      if (nickname.length==0 || email.length==0 ||password.length==0 ||confirmpassword.length==0){
+        $('.signup__form').addClass('was-validated');
+        return false;
+      }
+
+      // validate nickname
+      if( !regexpNickname.test(nickname) ){
+        $('.signup__input[name="nickname"]')[0].setCustomValidity('Nickname은 1~25 자리로 입력해주세요');
+        return false;
+      }
+
+      // validate email
+      if( !regExpEmail.test(email) ){
+        $('.signup__input[name="email"]')[0].setCustomValidity('Email 형식이 아닙니다');
+        return false;
+      }
+
+      // validate password
+      if (!regexpPwd.test(password)){
+        $('.signup__input[name="password"]')[0].setCustomValidity('Password 는 영문+숫자+특수문자 조합으로 8~25 자리를 사용해야 합니다');
+        return false;
+      }
+
+      // compare password with confirmpassword
+      if (password != confirmpassword ){
+        $('.signup__input[name="confirmpassword"]')[0].setCustomValidity('Password 와 일치하지 않습니다');
+        return false;
+      }
+      return true
+    }
+
     // signup button
     $(document).on("click", ".signup__submit", function(e) {
+      var nickname = document.getElementsByClassName("signup__input").namedItem("nickname").value;
+      var email = document.getElementsByClassName("signup__input").namedItem("email").value;
+      var password = document.getElementsByClassName("signup__input").namedItem("password").value;
+      var confirmpassword = document.getElementsByClassName("signup__input").namedItem("confirmpassword").value;
+
+      if (!validator(nickname,email,password,confirmpassword)){
+        return;
+      }
 
       // animate
       if (animating2) return;
       animating2 = true;
       var that = this;
-      ripple2($(that), e);
       $(that).addClass("processing");
-
-
-
-      var username = document.getElementsByClassName("signup__input").namedItem("fullname").value;
-      var password = document.getElementsByClassName("signup__input").namedItem("password").value;
-      var email = document.getElementsByClassName("signup__input").namedItem("email").value;
       
       var url = '/signup'
-      var data = {"username":username,"password":password,"email":email}
+      var data = {"nickname":nickname,"password":password,"email":email}
+      data = JSON.stringify(data);
       setTimeout(function() {
         $.ajax({
             type:'post',
             url: url,
+            contentType :'application/json',
             data:data,
-            error:function(){
+            error:function(res){
+              alert(res.responseJSON.err)
               $(that).removeClass("processing");
               animating2 = false;
-                // signup__error 에 에러내용 셋팅
-                // $(".signup__error").show();
-
             },
-            success:function(res){
+            success:function(data){
 
-              if (res.err == null){
-                console.log(data.err)
-                // $(that).addClass("success");
-                setTimeout(function() {
-                  $(that).removeClass("processing");
-                  animating2 = false;
-                  $signup.hide();
-                  $login.show();
-  
-                  // $(location).attr('href', '/confimSignup');
-                }, submitPhase2);
+              // 애니메이션 스탑
+              $(that).removeClass("processing");
+              animating2 = false;
 
-              } else{
-                alert(res.err)
-                $(that).removeClass("processing");
-                animating2 = false;
-                // signup__error 에 에러내용 셋팅
-                // $(".signup__error").show();
-              }
+              // 가입성공 메시지 : 가입이 완료되었습니다.. 로그인후이용하세요
+              // back 화살표 색상 활성화
+
+
+              // 확인시 로그인 클래스 쇼
+              //  $signup.hide();
+              //  $login.show();
+              //  $(that).removeClass("success");
+
+
             }
         });
 

@@ -20,24 +20,24 @@
     <div class="login">
       <div class="login__check"></div>
       <div class="login__error">
-        <span class="login__error-text">아이디와 패스워드가 일치하지 않습니다.<br> 패스워드가 기억나지 않는다면 패스워드찾기를 클릭해주세요.</span>
+        <span class="login__error-text"></span>
       </div>
-      <div class="login__form">
+      <form class="login__form" action="javascript:void(0);" autocomplete="off">
         <div class="login__row">
           <svg class="login__icon name svg-icon" viewBox="0 0 20 20">
             <path d="M0,20 a10,8 0 0,1 20,0z M10,0 a4,4 0 0,1 0,8 a4,4 0 0,1 0,-8" />
           </svg>
-          <input type="text" id="username" class="login__input name" name="username" placeholder="Username"/>
+          <input type="text" id="email" class="login__input name" name="email" placeholder="Email" required/>
         </div>
         <div class="login__row">
           <svg class="login__icon pass svg-icon" viewBox="0 0 20 20">
             <path d="M0,20 20,20 20,8 0,8z M10,13 10,16z M4,8 a6,8 0 0,1 12,0" />
           </svg>
-          <input type="text" id="password" class="login__input pass" name="password" placeholder="Password"/>
+          <input type="text" id="password" class="login__input pass" name="password" placeholder="Password" required/>
         </div>
-        <button type="button" class="login__submit">Sign in</button>
+        <button type="submit" class="login__submit">Sign in</button>
         <p class="login__signup">Don't have an account? &nbsp;<a class="entersignup">Sign up</a></p>
-      </div>
+      </form>
     </div>
 
     
@@ -45,17 +45,17 @@
       <div class="signup__back">
         <img src="/static/img/backicon.png">
       </div>
-      <div class="signup__form">
-          <label class="singup__label" for="fullname">Full name</label>
-          <input  type="text" class="signup__input" name="fullname" placeholder=""/>
+        <form class="signup__form" action="javascript:void(1);" autocomplete="off">
+          <label class="singup__label" for="nickname">Nick name</label>
+          <input  type="text" id="tst" class="signup__input" name="nickname"  required oninput="setCustomValidity('')"/>
           <label class="singup__label" for="Email">Email</label>
-          <input  type="text" class="signup__input" name="email" placeholder=""/>
+          <input  type="text" id="test" class="signup__input" name="email" required oninput="setCustomValidity('')"/>
           <label class="singup__label" for="Password">Password</label>
-          <input  type="text" class="signup__input" name="password" placeholder=""/>
+          <input  type="text" class="signup__input" name="password" required oninput="setCustomValidity('')"/>
           <label class="singup__label" for="Confirpassword">Confirm password</label>
-          <input  type="text" class="signup__input" name="confirmpassword" placeholder=""/>
-          <button type="button" class="signup__submit">Sign up</button>
-      </div>
+          <input  type="text" class="signup__input" name="confirmpassword" required oninput="setCustomValidity('')"/>
+          <button type="submit" class="signup__submit">Sign up</button>
+        </form>
     </div>
 
   </div>

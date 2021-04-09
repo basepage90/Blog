@@ -3,9 +3,11 @@ package models
 import "fmt"
 
 type User struct {
-	Username string `gorm:"column:username" form:"username"`
-	Password string `gorm:"column:password" form:"password"`
-	Email    string `gorm:"column:email" form:"email"`
+	Email       string `gorm:"column:email;primaryKey" json:"email" binding:"required"`
+	Password    string `gorm:"column:password" json:"password" binding:"required"`
+	Nickname    string `gorm:"column:nickname" json:"nickname" validate:"is-null"`
+	Certificate string `gorm:"column:certificate" json:"certificate"`
+	Uuid        string `gorm:"column:uuid" json:"uuid"`
 }
 
 func (User) TableName() string {
