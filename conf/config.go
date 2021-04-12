@@ -11,7 +11,7 @@ var MysqlConfig string
 
 // Read dbconfig.env for MysqlConfig
 func init() {
-	appConfig, err := godotenv.Read("./conf/dbconfig.env")
+	appConfig, err := godotenv.Read("./conf/dbConfig.env")
 	if err != nil {
 		log.Fatal("Error reading .env file")
 	}

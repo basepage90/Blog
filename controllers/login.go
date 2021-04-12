@@ -59,7 +59,7 @@ func (con *loginController) Login(ctx *gin.Context) {
 			uuidSaveErr := con.loginService.SaveUUID(user)
 			if uuidSaveErr == nil {
 				// 인증메일 발송
-				middleware.SendMail(user)
+				middleware.SendCertiMail(user)
 				ctx.JSON(http.StatusUnauthorized, gin.H{"err": 2})
 				return
 			}
@@ -103,12 +103,7 @@ func (con *loginController) Signup(ctx *gin.Context) {
 	}
 
 	if err = con.loginService.Signup(user); err == nil {
-		smtpError := middleware.SendMail(user)
-		if smtpError == nil {
-			ctx.JSON(http.StatusOK, gin.H{})
-			return
-		}
-		ctx.JSON(http.StatusUnauthorized, gin.H{"err": smtpError.Error()})
+		ctx.JSON(http.StatusOK, gin.H{})
 		return
 	} else {
 		ctx.JSON(http.StatusUnauthorized, gin.H{"err": err.Error()})

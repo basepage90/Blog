@@ -65,6 +65,6 @@ func (service *loginService) SaveUUID(user models.User) error {
 	return service.repository.SaveUUID(user)
 }
 
-func (service *loginService) Certificate(certiKey string) error {
-	return service.repository.UpdateCerti(certiKey)
+func (service *loginService) Certificate(certi_key string) error {
+	return service.repository.UpdateCerti(certi_key)
 }
