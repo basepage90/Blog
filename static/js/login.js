@@ -9,28 +9,6 @@ $(document).ready(function() {
         animating2= false,
         $signup = $(".signup");
     
-    function ripple(elem, e) {
-      $(".ripple").remove();
-      var elTop = elem.offset().top,
-          elLeft = elem.offset().left,
-          x = e.pageX - elLeft,
-          y = e.pageY - elTop;
-      var $ripple = $("<div class='ripple'></div>");
-      $ripple.css({top: y, left: x});
-      elem.append($ripple);
-    };
-
-    function ripple2(elem, e) {
-      $(".ripple2").remove();
-      var elTop = elem.offset().top,
-          elLeft = elem.offset().left,
-          x = e.pageX - elLeft,
-          y = e.pageY - elTop;
-      var $ripple = $("<div class='ripple2'></div>");
-      $ripple.css({top: y, left: x});
-      elem.append($ripple);
-    };
-    
     // validation - login
     function validator_login(email,password){
       // validate
@@ -39,7 +17,6 @@ $(document).ready(function() {
       }
       return true
     }
-
         
     // signin button
     $(document).on("click", ".login__submit", function(e) {
@@ -110,6 +87,10 @@ $(document).ready(function() {
       $signup.hide();
       $login.show();
       $(".signup__input").val(null)
+      $('.signup__back img').css('filter','brightness(0)');
+      $('.signup__back img').css('filter','invert(1)');
+      $(".signup__succ").hide();
+      $(".signup__back").css('animation-play-state','paused');
     });
 
 
@@ -161,15 +142,16 @@ $(document).ready(function() {
 
     // signup button
     $(document).on("click", ".signup__submit", function(e) {
+      
       var nickname = document.getElementsByClassName("signup__input").namedItem("nickname").value;
       var email = document.getElementsByClassName("signup__input").namedItem("email").value;
       var password = document.getElementsByClassName("signup__input").namedItem("password").value;
       var confirmpassword = document.getElementsByClassName("signup__input").namedItem("confirmpassword").value;
-
+      
       if (!validator(nickname,email,password,confirmpassword)){
         return;
       }
-
+      
       // animate
       if (animating2) return;
       animating2 = true;
@@ -181,36 +163,49 @@ $(document).ready(function() {
       data = JSON.stringify(data);
       setTimeout(function() {
         $.ajax({
-            type:'post',
-            url: url,
-            contentType :'application/json',
-            data:data,
-            error:function(res){
-              alert(res.responseJSON.err)
-              $(that).removeClass("processing");
+          type:'post',
+          url: url,
+          contentType :'application/json',
+          data:data,
+          error:function(res){
+            alert(res.responseJSON.err)
+            $(that).removeClass("processing");
+            animating2 = false;
+            
+          },
+          success:function(data){
+            
+            $(".signup__input").val(null)
+            
+            $(that).addClass("success");
+
+            setTimeout(function() {
+              $login.hide();
               animating2 = false;
-            },
-            success:function(data){
-
-              // 애니메이션 스탑
-              $(that).removeClass("processing");
-              animating2 = false;
-
-              // 가입성공 메시지 : 가입이 완료되었습니다.. 로그인후이용하세요
-              // back 화살표 색상 활성화
-
-
-              // 확인시 로그인 클래스 쇼
-              //  $signup.hide();
-              //  $login.show();
-              //  $(that).removeClass("success");
-
-
-            }
+              $(that).removeClass("success processing");
+              $('.signup__back img').css('filter','invert(0)');
+              var msg = '회원가입이 완료되었습니다. 로그인 후 이용해주세요 :)';
+              $('.signup__succ-text').text(msg)
+              $(".signup__succ").show();
+              $(".signup__back").css('animation-play-state','running');
+            }, submitPhase2);
+          }
         });
-
+        
       }, submitPhase1);
-     
+      
     });
     
   });
+    
+    
+    /******************** KAKAO API Section ********************/
+    Kakao.init('c3399cefa864023dc0dd9737a09a0e98');
+
+    function loginWithKakao() {
+      Kakao.Auth.authorize({
+        redirectUri: 'http://wjkim.ddns.net:8080/login/kakao'
+      })
+    }
+          
+    

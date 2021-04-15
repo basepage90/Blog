@@ -12,11 +12,22 @@ import (
 	"gopkg.in/go-playground/validator.v9"
 )
 
+// type account struct {
+// 	Email string `json:"email"`
+// }
+
+// type properties struct {
+// 	Nickname string `json:"nickname"`
+// }
+
 type LoginController interface {
 	ShowLogin(ctx *gin.Context)
 	Login(ctx *gin.Context)
 	Signup(ctx *gin.Context)
 	Certificate(ctx *gin.Context)
+	LoginKakao(ctx *gin.Context)
+	GetLoginKakao(ctx *gin.Context)
+	DeleteToken(ctx *gin.Context)
 }
 
 type loginController struct {
@@ -73,7 +84,7 @@ func (con *loginController) Login(ctx *gin.Context) {
 	} else { // 3) 이메일 존재 / 메일 인증
 		if token, err := con.getLogin(ctx, user); token != "" {
 			// cookie 저장 방식
-			ctx.SetCookie("access-token", token, 60*60*24, "/", "localhost:8080", false, true)
+			ctx.SetCookie("access-token", token, 60*60*24, "/", "wjkim.ddns.net:8080", false, true)
 		} else {
 			// 로그인 에러
 			ctx.JSON(http.StatusUnauthorized, gin.H{"err": err.Error()})
@@ -114,8 +125,6 @@ func (con *loginController) Signup(ctx *gin.Context) {
 func (con *loginController) Certificate(ctx *gin.Context) {
 	certi_key := ctx.Param("certi_key")
 
-	fmt.Println(certi_key)
-
 	err := con.loginService.Certificate(certi_key)
 
 	if err == nil {
@@ -125,4 +134,73 @@ func (con *loginController) Certificate(ctx *gin.Context) {
 
 	ctx.JSON(http.StatusUnauthorized, gin.H{"err": err.Error()})
 
+}
+
+func (con *loginController) LoginKakao(ctx *gin.Context) {
+	/* 01. Request token with kakao code */
+	host_url := "https://kauth.kakao.com/oauth/token"
+	grant_type := "grant_type=authorization_code"
+	client_id := "client_id=17e2b41913f7f223f6c370c7cfe2d33b"
+	redirect_uri := "redirect_uri=http://wjkim.ddns.net:8080/login/kakao"
+	code := "code=" + ctx.Query("code")
+
+	requestURL := fmt.Sprintf(
+		"%s?%s&%s&%s&%s",
+		host_url,
+		grant_type,
+		client_id,
+		redirect_uri,
+		code)
+
+	Render(ctx, gin.H{"requestURL": requestURL}, "login_sns.html")
+
+}
+
+func (con *loginController) GetLoginKakao(ctx *gin.Context) {
+	var user models.User
+	email, nickname, _ := con.loginService.GetKakaoInfo(ctx)
+	user.Email = email
+	user.Nickname = nickname
+
+	if user.Email == "" {
+		ctx.JSON(http.StatusUnauthorized, gin.H{"err": "kakao login error"})
+		return
+	}
+
+	res, err := con.loginService.GetLoginSNS(user)
+
+	if res.Email != "" { /* 01. 이미 회원인 경우*/
+
+		// 자체 토큰 발행
+		if token := con.jWtService.GenerateToken(user.Email, true); token != "" {
+			// cookie 저장 방식
+			ctx.SetCookie("access-token", token, 60*60*24, "/", "wjkim.ddns.net:8080", false, true)
+		} else {
+			// 로그인 에러
+			ctx.JSON(http.StatusUnauthorized, gin.H{"err": err.Error()})
+		}
+	} else { /* 02. 아직 회원이 아닌 경우*/
+		// 회원가입 진행
+		user.Certificate = "Y"
+		signupErr := con.loginService.SignupSNS(user)
+
+		if signupErr != nil {
+			panic(signupErr)
+		}
+		// 자체 토큰 발행
+		if token := con.jWtService.GenerateToken(user.Email, true); token != "" {
+			// cookie 저장 방식
+			ctx.SetCookie("access-token", token, 60*60*24, "/", "wjkim.ddns.net:8080", false, true)
+		} else {
+			// 로그인 에러
+			ctx.JSON(http.StatusUnauthorized, gin.H{"err": signupErr.Error()})
+		}
+
+	}
+
+}
+
+func (con *loginController) DeleteToken(ctx *gin.Context) {
+	// Delete cookie : 3rd param is -1
+	ctx.SetCookie("access-token", "", -1, "/", "wjkim.ddns.net:8080", false, true)
 }

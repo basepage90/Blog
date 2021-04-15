@@ -2,6 +2,11 @@
 
 Gin Framework WEB by CleanArchitecure
 
+## Gin-Web (tag : v0.0.7)
+- kakao api Login 구현
+    - kakao 토큰 발급확인 후, 자체 JWT 로그인 진행
+- Logout 구현
+
 ## Gin-Web (tag : v0.0.6)
 - 로그인 기능 구현 완료
     - signup 후 email 인증 (google uuid를 인증키값으로 사용)

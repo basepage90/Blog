@@ -1,5 +1,6 @@
 {{ template "header.html" .}}
 
+<a id="custom-logout-btn" href="javascript:logout()">로그아웃</a>
   {{range .payload }}
 
   <a href="/article/{{.Id}}">

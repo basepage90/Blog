@@ -8,8 +8,9 @@
     
     <link rel="stylesheet" type="text/css" href="/static/css/login.css">
 
+    <script  src="/static/js/kakaoSDK.js"></script>
     <script defer src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script type="text/javascript" defer src="/static/js/login.js"></script>
+    <script defer type="text/javascript" src="/static/js/login.js"></script>
 
 
 </head>
@@ -36,14 +37,20 @@
           <input type="text" id="password" class="login__input pass" name="password" placeholder="Password" required/>
         </div>
         <button type="submit" class="login__submit">Sign in</button>
+        <a href="javascript:loginWithKakao()">
+          <img class="sns__login" src="/static/img/button/kakao_login_medium_wide.png"/>
+        </a>
         <p class="login__signup">Don't have an account? &nbsp;<a class="entersignup">Sign up</a></p>
       </form>
     </div>
-
+    
     
     <div class="signup">
       <div class="signup__back">
-        <img src="/static/img/backicon.png">
+        <img src="/static/img/button/backicon-hotpink.png" />
+      </div>
+      <div class="signup__succ">
+        <span class="signup__succ-text"></span>
       </div>
         <form class="signup__form" action="javascript:void(1);" autocomplete="off">
           <label class="singup__label" for="nickname">Nick name</label>

@@ -3,3 +3,6 @@
 
 ## privacy
 **/*/smtpConfig.env
+
+## etc
+.vscode/

@@ -1,8 +1,13 @@
 package services
 
 import (
+	"encoding/json"
 	"errors"
+	"io/ioutil"
+	"log"
+	"net/http"
 
+	"github.com/gin-gonic/gin"
 	"github.com/jinzhu/gorm"
 	"github.com/woojebiz/gin-web/models"
 	"github.com/woojebiz/gin-web/repositories"
@@ -14,6 +19,9 @@ type LoginService interface {
 	FindAndCerti(user models.User) int
 	SaveUUID(user models.User) error
 	Certificate(certi_key string) error
+	GetKakaoInfo(ctx *gin.Context) (string, string, error)
+	GetLoginSNS(user models.User) (models.User, error)
+	SignupSNS(user models.User) error
 }
 
 type loginService struct {
@@ -47,6 +55,9 @@ func (service *loginService) Signup(user models.User) error {
 		return err
 	}
 }
+func (service *loginService) SignupSNS(user models.User) error {
+	return service.repository.Save(user)
+}
 
 func (service *loginService) FindAndCerti(user models.User) int {
 	res, _ := service.repository.FindByEmail(user.Email)
@@ -67,4 +78,49 @@ func (service *loginService) SaveUUID(user models.User) error {
 
 func (service *loginService) Certificate(certi_key string) error {
 	return service.repository.UpdateCerti(certi_key)
+}
+
+func (service *loginService) GetKakaoInfo(ctx *gin.Context) (string, string, error) {
+	/* 01. get access_token */
+	data, _ := ctx.GetRawData()
+	jsonData := map[string]string{"access_token": ""}
+	err := json.Unmarshal(data, &jsonData)
+	if err != nil {
+		panic(err)
+	}
+	access_token := jsonData["access_token"]
+
+	/* 02. get user info */
+	requestURL := "https://kapi.kakao.com/v2/user/me"
+	req, err := http.NewRequest("GET", requestURL, nil)
+	if err != nil {
+		panic(err)
+	}
+	req.Header.Add("Authorization", "Bearer "+access_token)
+
+	client := &http.Client{}
+	resp, err := client.Do(req)
+	if err != nil {
+		panic(err)
+	}
+	defer resp.Body.Close()
+
+	data, respErr := ioutil.ReadAll(resp.Body)
+	if respErr != nil {
+		panic(err)
+	}
+
+	kakao := models.Kakao{}
+	// var people map[string]interface{}
+	jsonErr := json.Unmarshal(data, &kakao)
+	if jsonErr != nil {
+		log.Fatal(jsonErr)
+	}
+
+	return kakao.Account.Email, kakao.Properties.Nickname, nil
+}
+
+func (service *loginService) GetLoginSNS(user models.User) (models.User, error) {
+	res, err := service.repository.FindByEmail(user.Email)
+	return res, err
 }
