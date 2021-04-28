@@ -2,7 +2,6 @@
 Go and React Web App
 
 ## Project Stack
----
 ### frontend
 - React
 - React Router
@@ -16,7 +15,6 @@ Go and React Web App
 - Mysql
 
 ## Version History
----
 <details>
     <summary> 상세 내용 ( Expand Detail Tag )</summary>
 
