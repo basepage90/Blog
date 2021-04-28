@@ -1,24 +1,22 @@
 # Gin-Web
 Go and React Web App
 
-- Client : https://github.com/basepage90/gin-web/clent
-- Server : https://github.com/basepage90/gin-web/server
-
-# Project Stack
-
-## frontend
+## Project Stack
+---
+### frontend
 - React
 - React Router
 - Redux
 
-## backend
+### backend
 - Go
     - Gin Framework by CleanArchitecture
     - GROM
     - JWT
 - Mysql
 
-# Version History
+## Version History
+---
 <details>
     <summary> 상세 내용 ( Expand Detail Tag )</summary>
 
