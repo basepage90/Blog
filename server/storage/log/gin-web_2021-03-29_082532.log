@@ -1,0 +1,17 @@
+[GIN-debug] [WARNING] Running in "debug" mode. Switch to "release" mode in production.
+ - using env:	export GIN_MODE=release
+ - using code:	gin.SetMode(gin.ReleaseMode)
+
+[GIN-debug] Loaded HTML Templates (7): 
+	- index.html
+	- menu.html
+	- test.html
+	- 
+	- article.html
+	- footer.html
+	- header.html
+
+[GIN-debug] GET    /                         --> github.com/woojebiz/gin-web/server/controllers.GetIndex (4 handlers)
+[GIN-debug] GET    /test                     --> github.com/woojebiz/gin-web/server/controllers.GetTest (4 handlers)
+[GIN-debug] GET    /article/:article_id      --> github.com/woojebiz/gin-web/server/controllers.GetArticle (4 handlers)
+[GIN-debug] Listening and serving HTTP on :8080
