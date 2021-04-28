@@ -11,12 +11,12 @@ Go and React Web App
 - Go
     - Gin Framework by CleanArchitecture
     - GROM
-    - JWT
+    - JWT / SMTP
 - Mysql
 
 ## Version History
 <details>
-    <summary> 상세 내용 ( Expand Detail Tag )</summary>
+    <summary> 👉 Click Me  ( Expand Detail Tag )</summary>
 
 ### Gin-Web (tag : v0.0.7.1)
 - Refactoring : Folder Structure
