@@ -20,6 +20,7 @@ Go and React Web App
 
 ### Gin-Web (tag : v0.0.7.1)
 - Refactoring : Folder Structure
+
     ![ex_screenshot](./server/docs/react_structure.PNG)
 
 ### Gin-Web (tag : v0.0.7)
