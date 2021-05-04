@@ -18,10 +18,18 @@ Go and React Web App
 <details>
     <summary> 👉 Click Me  ( Expand Detail Tag )</summary>
 
-### Gin-Web (tag : v0.0.7.1)
-- Refactoring : Folder Structure
+### Gin-Web (tag : v0.0.8)
+- 블로그로 컨셉 변경
+    - 뼈대 생성
+    - styled component 기반에 약간의 material-ui 를 곁들인...
+
+### Gin-Web (tag : v0.0.7.2)
+- Using yarn instead of npm
 
     ![ex_screenshot](./server/docs/react_structure.PNG)
+
+### Gin-Web (tag : v0.0.7.1)
+- Refactoring : Folder Structure
 
 ### Gin-Web (tag : v0.0.7)
 - kakao api Login 구현
