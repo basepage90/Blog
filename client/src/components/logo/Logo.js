@@ -2,6 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import { LogoImg } from 'statics/images';
 import {sidebarWidth} from 'styles/styleConst'
+import store from "store/store";
 
 const MyLogo = styled.a`
     position: fixed;
@@ -24,8 +25,15 @@ const LogoImage = styled.div`
 `;
 
 function Logo (){
+    // sideBar hidden event
+    const [sideBarFlag, setSideBarFlag] = React.useState(false);
+
+    store.subscribe(()=> { 
+        const sideBarState = store.getState().sideBarHidden.sideBarState;
+        setSideBarFlag(sideBarState);
+    });
     return (
-        <MyLogo href="/">
+        <MyLogo href="/" style={{display: sideBarFlag ? "none" : ""}}>
             <LogoImage/>
         </MyLogo>
     );

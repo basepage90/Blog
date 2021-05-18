@@ -9,15 +9,21 @@ import IconButton from '@material-ui/core/IconButton';
 import AccountCircle from '@material-ui/icons/AccountCircle';
 import MenuItem from '@material-ui/core/MenuItem';
 import Menu from '@material-ui/core/Menu';
-import {sidebarWidth} from 'styles/styleConst'
+import {sidebarWidth,headerHeight} from 'styles/styleConst'
+
+import { connect } from "react-redux";
+import store,{hidden,open} from "store/store";
+
 
 const Div = styled.div`
-    position: relative;
-    margin-left: ${sidebarWidth};
-    zIndex: ${({theme}) => theme.zIndex.drawer + 1};
-    transition: top ${({theme}) => theme.transition.duration.standard};
+    position: fixed;
+    left: ${sidebarWidth};
+    right: 0;
+    height: ${headerHeight};
+    z-index: ${({theme}) => theme.zIndex.drawer + 1};
+    transition: all ${({theme}) => theme.transition.duration.standard};
 `;
-
+    
 const StAppBar = styled(AppBar)`
     position: relative;
     display: flex;
@@ -75,6 +81,7 @@ const Input = styled.input`
 
 const HideAppBar = () => {
     let prevScrollpos = window.pageYOffset;
+    
     window.onscroll = function() {
         const currentScrollPos = window.pageYOffset;
         if (prevScrollpos > currentScrollPos) {
@@ -87,15 +94,34 @@ const HideAppBar = () => {
     }
 }
 
+function Header({hiddenBar,openBar}){
+    
+    // sideBar hidden event
+    const [sideBarFlag, setSideBarFlag] = React.useState(false);
+    const handleSideBarOpen = () => {
+        const sideBarState = store.getState().sideBarHidden.sideBarState;
+        if(!sideBarState){
+            hiddenBar();
+        } else{
+            openBar();
+        }
+    }
+    const [subject, setSubject] = React.useState("Home");
 
-function Header(){
+    store.subscribe(()=> { 
+        const sideBarState = store.getState().sideBarHidden.sideBarState;
+        setSideBarFlag(sideBarState);
+        
+        const layout = store.getState().subject.layout;
+        setSubject(layout);
+    });
+
+    // Login Pop Event
     const [anchorEl, setAnchorEl] = React.useState(null);
     const open = Boolean(anchorEl);
-  
     const handleMenu = (event) => {
       setAnchorEl(event.currentTarget);
     };
-  
     const handleClose = () => {
       setAnchorEl(null);
     };
@@ -105,18 +131,19 @@ function Header(){
     });
 
     return (
-        <Div id="rootHeader">
-        <StAppBar  aria-label="menu">
+        <Div id="rootHeader" style={{ left: sideBarFlag ? "0": sidebarWidth }} >
+        <StAppBar aria-label="menu">    
             <StToolbar >
                 <IconButton
                     edge="start"
                     className="menu__btn"
                     color="inherit"
                     aria-label="open drawer"
+                    onClick={handleSideBarOpen}
                 >
                     <MenuIcon />
                 </IconButton>
-                <span className="title">store.getState.title</span>
+                <span className="title">{subject}</span>
                 <SearchBox>
                     <div className="searchIcon">
                         <SearchIcon/>
@@ -157,5 +184,11 @@ function Header(){
     )
 };
 
+const mapDispatchToProps = (dispatch) => {
+   return {
+        hiddenBar: () => dispatch(hidden()),
+        openBar: () => dispatch(open()),
+    };
+}
 
-export default Header;
+export default connect(null,mapDispatchToProps)(Header);
