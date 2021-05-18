@@ -19,7 +19,7 @@ Go and React Web App
     <summary> 👉 Click Me  ( Expand Detail Tag )</summary>
 
 ### Gin-Web (tag : v0.0.9)
-- redux 및 sidebar hidden 작업
+- redux 및 sidebar hidden/expand 작업
 
 ### Gin-Web (tag : v0.0.8)
 - 블로그로 컨셉 변경
