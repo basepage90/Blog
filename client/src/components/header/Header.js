@@ -81,9 +81,9 @@ const Input = styled.input`
       }
 `;
 
-const HideAppBar = () => {
+const HideHeader = () => {
     let prevScrollpos = window.pageYOffset;
-    
+
     window.onscroll = function() {
         const currentScrollPos = window.pageYOffset;
         if (prevScrollpos > currentScrollPos) {
@@ -98,7 +98,7 @@ const HideAppBar = () => {
 
 function Header({hiddenBar,openBar}){
     
-    // sideBar hidden event
+    // sideBar hidden sate
     const [sideBarFlag, setSideBarFlag] = React.useState(false);
     const handleSideBarOpen = () => {
         const sideBarState = store.getState().sideBarHidden.sideBarState;
@@ -108,15 +108,22 @@ function Header({hiddenBar,openBar}){
             openBar();
         }
     }
-    const [subject, setSubject] = React.useState({layout:"Home",path:""});
 
+    // header subject state
+    const [subject, setSubject] = React.useState({layout:"Home",path:""});
+    
     store.subscribe(()=> { 
+        // SiderBar
         const sideBarState = store.getState().sideBarHidden.sideBarState;
         setSideBarFlag(sideBarState);
         
+        // Subject
         const layout = store.getState().subject.layout;
         const path = store.getState().subject.path;
         setSubject({layout:layout,path:path});
+        
+        // Header show
+        document.getElementById("rootHeader").style.top = "0";
     });
 
     // Login Pop Event
@@ -129,9 +136,11 @@ function Header({hiddenBar,openBar}){
       setAnchorEl(null);
     };
   
+    // This expression is working similar to ComponentDidMount.
     useEffect( () => {
-        HideAppBar();
-    });
+        HideHeader();
+    }, []);
+    
 
     return (
         <Div id="rootHeader" style={{ left: sideBarFlag ? "0": sidebarWidth }} >

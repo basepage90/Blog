@@ -6,6 +6,7 @@ Go and React Web App
 - React
 - React Router
 - Redux
+- styled components & material-ui
 
 ### backend
 - Go
@@ -17,6 +18,28 @@ Go and React Web App
 ## Version History
 <details>
     <summary> 👉 Click Me  ( Expand Detail Tag )</summary>
+
+### Gin-Web (tag : v0.1.1)
+- useEffect expression
+```
+    - componentDidMount
+        useEffect(() => ){
+            do();
+         }, []);
+
+    - componentDidUpdate
+         useEffect(() => ){
+            do();
+         }, [state]);
+
+    - componentWillUnmount 
+        useEffect(() => ){
+            do();
+            return () =>{
+                finish();
+            }
+         });
+```
 
 ### Gin-Web (tag : v0.1.0)
 - router 및 SideBar 추가 작업

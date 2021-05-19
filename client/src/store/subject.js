@@ -9,8 +9,10 @@ const subject = createSlice({
   name: 'subject',
   initialState,
   reducers: {
-    updateLayout: (state,action) => {state.layout = action.payload},
-    updatePath : (state,action) => {state.path = action.payload},
+    updateSubject: (state,action) => { 
+                                       state.layout = action.payload.layout;
+                                       state.path = action.payload.path;
+                                     }
   },
 });
 

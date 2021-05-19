@@ -18,6 +18,6 @@ const store = configureStore({
 
 
 export const {hidden,open} = sideBarHidden.actions;
-export const {updateLayout,updatePath} = subject.actions;
+export const {updateSubject} = subject.actions;
 
 export default store;
