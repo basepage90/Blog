@@ -18,6 +18,9 @@ Go and React Web App
 <details>
     <summary> 👉 Click Me  ( Expand Detail Tag )</summary>
 
+### Gin-Web (tag : v0.1.0)
+- router 및 SideBar 추가 작업
+
 ### Gin-Web (tag : v0.0.9)
 - redux 및 sidebar hidden/expand 작업
 

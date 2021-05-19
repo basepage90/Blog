@@ -7,6 +7,8 @@ import MenuIcon from '@material-ui/icons/Menu';
 import SearchIcon from '@material-ui/icons/Search';
 import IconButton from '@material-ui/core/IconButton';
 import AccountCircle from '@material-ui/icons/AccountCircle';
+import ArrowRight from '@material-ui/icons/ArrowRight';
+import ChevronLeft from '@material-ui/icons/ChevronLeft';
 import MenuItem from '@material-ui/core/MenuItem';
 import Menu from '@material-ui/core/Menu';
 import {sidebarWidth,headerHeight} from 'styles/styleConst'
@@ -106,14 +108,15 @@ function Header({hiddenBar,openBar}){
             openBar();
         }
     }
-    const [subject, setSubject] = React.useState("Home");
+    const [subject, setSubject] = React.useState({layout:"Home",path:""});
 
     store.subscribe(()=> { 
         const sideBarState = store.getState().sideBarHidden.sideBarState;
         setSideBarFlag(sideBarState);
         
         const layout = store.getState().subject.layout;
-        setSubject(layout);
+        const path = store.getState().subject.path;
+        setSubject({layout:layout,path:path});
     });
 
     // Login Pop Event
@@ -141,9 +144,13 @@ function Header({hiddenBar,openBar}){
                     aria-label="open drawer"
                     onClick={handleSideBarOpen}
                 >
-                    <MenuIcon />
+                {sideBarFlag ? <MenuIcon /> : <ChevronLeft />}
                 </IconButton>
-                <span className="title">{subject}</span>
+                    <span className="title">
+                        {subject.layout}
+                        {subject.path === "" ? "" : <ArrowRight/>}
+                        {subject.path === "" ? "" : subject.path }
+                    </span>
                 <SearchBox>
                     <div className="searchIcon">
                         <SearchIcon/>
@@ -177,7 +184,6 @@ function Header({hiddenBar,openBar}){
                     <MenuItem onClick={handleClose}>Admin</MenuItem>
                     <MenuItem onClick={handleClose}>Kakao Login</MenuItem>
                 </Menu>
-
             </StToolbar>
         </StAppBar>
         </Div>

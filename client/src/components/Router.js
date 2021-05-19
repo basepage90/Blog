@@ -1,12 +1,10 @@
 import React from "react";
 import {BrowserRouter, Route,Switch} from 'react-router-dom';
 import NotFoundPage from 'pages/NotFoundPage';
-import Logo from "components/logo/Logo";
-import Header from "components/header/Header";
 import SideBar from "components/sideBar/SideBar";
+import Header from "components/header/Header";
 import Home from 'pages/home/Home';
 import RootContainer from 'components/common/layoutContainer/rootContainer'
-import store from "store/store";
 
 const routesCollection = [
   {
@@ -35,8 +33,26 @@ const routesCollection = [
   },
   {
     layout: "/dev",
-    path: "/javascript",
-    name: "javascript",
+    path: "/golang",
+    name: "golang",
+    component: null,
+  },
+  {
+    layout: "/dev",
+    path: "/front-end",
+    name: "front-end",
+    component: null,
+  },
+  {
+    layout: "/dev",
+    path: "/dbms",
+    name: "dbms",
+    component: null,
+  },
+  {
+    layout: "/dev",
+    path: "/os",
+    name: "os",
     component: null,
   },
   {
@@ -46,9 +62,45 @@ const routesCollection = [
     component: null,
   },
   {
+    layout: "/dev",
+    path: "/common",
+    name: "common",
+    component: null,
+  },
+  {
     layout: "/music",
     path: "",
     name: "music",
+    component: null,
+  },
+  {
+    layout: "/music",
+    path: "/힙합",
+    name: "힙합",
+    component: null,
+  },
+  {
+    layout: "/music",
+    path: "/힙합",
+    name: "힙합",
+    component: null,
+  },
+  {
+    layout: "/music",
+    path: "/hiphop",
+    name: "hiphop",
+    component: null,
+  },
+  {
+    layout: "/music",
+    path: "/r&b",
+    name: "r&b",
+    component: null,
+  },
+  {
+    layout: "/music",
+    path: "/pop",
+    name: "pop",
     component: null,
   },
   {
@@ -70,25 +122,12 @@ const switchRoutes = (
 );
 
 function Router(){
-  // Root Grid Expand event
-  const [sideBarFlag, setSideBarFlag] = React.useState(false);
-  store.subscribe(()=> { 
-      const sideBarState = store.getState().sideBarHidden.sideBarState;
-      setSideBarFlag(sideBarState);
-  });
-  const expansion = {
-    width: sideBarFlag ? "100%" : "calc(100% - 256px)"
-  };
-
   return(
     <BrowserRouter>
-    <>
-          <Logo />
-          <SideBar/>
-          <Header />
-          <RootContainer className="root__container" style={expansion}>
-            {switchRoutes}
-          </RootContainer>
+      <>    
+        <SideBar/>
+        <Header />
+        <RootContainer switchRoutes={switchRoutes} />
       </>
     </BrowserRouter>
   );
