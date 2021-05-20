@@ -16,24 +16,24 @@ Go and React Web App
 - Mysql
 
 ## Version History
-<details>
+<details> .
     <summary> 👉 Click Me  ( Expand Detail Tag )</summary>
 
 ### Gin-Web (tag : v0.1.1)
 - useEffect expression
 ```
     - componentDidMount
-        useEffect(() => ){
+        useEffect(() => {
             do();
          }, []);
 
     - componentDidUpdate
-         useEffect(() => ){
+         useEffect(() => {
             do();
          }, [state]);
 
     - componentWillUnmount 
-        useEffect(() => ){
+        useEffect(() => {
             do();
             return () =>{
                 finish();
