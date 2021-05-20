@@ -4,7 +4,6 @@ import search from './search';
 import sideBarHidden from './sideBarHidden';
 import subject from './subject';
 
-
 const rootReducer = combineReducers({
     error: error.reducer,
     search: search.reducer,
@@ -15,7 +14,6 @@ const rootReducer = combineReducers({
 const store = configureStore({
     reducer: rootReducer
 });
-
 
 export const {hidden,open} = sideBarHidden.actions;
 export const {updateSubject} = subject.actions;

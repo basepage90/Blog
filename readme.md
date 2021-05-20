@@ -19,6 +19,10 @@ Go and React Web App
 <details> .
     <summary> 👉 Click Me  ( Expand Detail Tag )</summary>
 
+### Gin-Web (tag : v0.1.2)
+- connect -> useSelector, useDispatch
+    - Hook 으로 대체   
+
 ### Gin-Web (tag : v0.1.1)
 - useEffect expression
 ```
@@ -35,7 +39,7 @@ Go and React Web App
     - componentWillUnmount 
         useEffect(() => {
             do();
-            return () =>{
+            return () => {
                 finish();
             }
          });

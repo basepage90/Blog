@@ -9,7 +9,7 @@ const GlobalStyles = createGlobalStyle`
         fontFamily: 'Roboto', 'Helvetica', 'Arial', sans-serif;
         lineHeight: 1.5em;
     }
-
+    
     input, button, textarea {
         font-family: inherit;
     }
@@ -17,7 +17,6 @@ const GlobalStyles = createGlobalStyle`
     html, body, #root {
         height: 100%;
     }
-
 `;
 
 export default GlobalStyles;

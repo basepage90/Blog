@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 
 import AppBar from '@material-ui/core/AppBar';
@@ -13,8 +13,8 @@ import MenuItem from '@material-ui/core/MenuItem';
 import Menu from '@material-ui/core/Menu';
 import {sidebarWidth,headerHeight} from 'styles/styleConst'
 
-import { connect } from "react-redux";
-import store,{hidden,open} from "store/store";
+import { useDispatch, useSelector } from "react-redux";
+import store,{hidden as hiddenBar,open as openBar} from "store/store";
 
 
 const Div = styled.div`
@@ -22,8 +22,8 @@ const Div = styled.div`
     left: ${sidebarWidth};
     right: 0;
     height: ${headerHeight};
-    z-index: ${({theme}) => theme.zIndex.drawer + 1};
     transition: all ${({theme}) => theme.transition.duration.standard};
+    z-index: ${({theme}) => theme.zIndex.appBar};
 `;
     
 const StAppBar = styled(AppBar)`
@@ -83,7 +83,7 @@ const Input = styled.input`
 
 const HideHeader = () => {
     let prevScrollpos = window.pageYOffset;
-
+    
     window.onscroll = function() {
         const currentScrollPos = window.pageYOffset;
         if (prevScrollpos > currentScrollPos) {
@@ -96,38 +96,31 @@ const HideHeader = () => {
     }
 }
 
-function Header({hiddenBar,openBar}){
-    
+function Header(){
     // sideBar hidden sate
-    const [sideBarFlag, setSideBarFlag] = React.useState(false);
+    const initSideBar = useSelector( state => state.sideBarHidden.initSideBar);
+    const sideBarState = useSelector( state => state.sideBarHidden.sideBarState);
+    const layout = useSelector( state => state.subject.layout);
+    const path = useSelector( state => state.subject.path);
+    
+    const [sideBarFlag, setSideBarFlag] = useState(initSideBar);
+
+    const dispatch = useDispatch();
+
     const handleSideBarOpen = () => {
         const sideBarState = store.getState().sideBarHidden.sideBarState;
         if(!sideBarState){
-            hiddenBar();
+            dispatch(hiddenBar());
         } else{
-            openBar();
+            dispatch(openBar());
         }
     }
 
     // header subject state
-    const [subject, setSubject] = React.useState({layout:"Home",path:""});
+    const [subject, setSubject] = useState({layout:"Home",path:""});
     
-    store.subscribe(()=> { 
-        // SiderBar
-        const sideBarState = store.getState().sideBarHidden.sideBarState;
-        setSideBarFlag(sideBarState);
-        
-        // Subject
-        const layout = store.getState().subject.layout;
-        const path = store.getState().subject.path;
-        setSubject({layout:layout,path:path});
-        
-        // Header show
-        document.getElementById("rootHeader").style.top = "0";
-    });
-
     // Login Pop Event
-    const [anchorEl, setAnchorEl] = React.useState(null);
+    const [anchorEl, setAnchorEl] = useState(null);
     const open = Boolean(anchorEl);
     const handleMenu = (event) => {
       setAnchorEl(event.currentTarget);
@@ -139,11 +132,20 @@ function Header({hiddenBar,openBar}){
     // This expression is working similar to ComponentDidMount.
     useEffect( () => {
         HideHeader();
-    }, []);
+        document.getElementById("rootHeader").style.top = "0";
+    },[]);
+    
+    useEffect( () => {
+        // SiderBar
+        setSideBarFlag(sideBarState);
+        
+        // // Subject
+        setSubject({layout:layout,path:path});
+    }, [sideBarState,layout,path]);
     
 
     return (
-        <Div id="rootHeader" style={{ left: sideBarFlag ? "0": sidebarWidth }} >
+        <Div id="rootHeader" style={{ left: initSideBar ?  "0" :  (sideBarFlag  ? "0": sidebarWidth) }} >
         <StAppBar aria-label="menu">    
             <StToolbar >
                 <IconButton
@@ -199,11 +201,4 @@ function Header({hiddenBar,openBar}){
     )
 };
 
-const mapDispatchToProps = (dispatch) => {
-   return {
-        hiddenBar: () => dispatch(hidden()),
-        openBar: () => dispatch(open()),
-    };
-}
-
-export default connect(null,mapDispatchToProps)(Header);
+export default Header;

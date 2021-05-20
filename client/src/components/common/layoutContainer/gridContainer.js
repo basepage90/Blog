@@ -10,7 +10,8 @@ const GridContainer = styled.div`
     grid-row-gap: 1.5%;
     
     ${({theme}) => theme.media.xsmall}{
-        grid-template-columns: minmax(400px, 500px);
+        grid-template-columns: 95;
+        grid-row-gap: 0.5%;
     }
 `;
 

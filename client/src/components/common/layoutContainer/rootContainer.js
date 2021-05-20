@@ -1,7 +1,7 @@
-import React from "react";
+import React,{ useState, useEffect } from "react";
 import styled from 'styled-components';
 import {sidebarWidth,headerHeight} from 'styles/styleConst'
-import store from "store/store";
+import { useSelector } from "react-redux";
 
 const Div = styled.div`
   position: relative;
@@ -15,13 +15,18 @@ const Div = styled.div`
 
 function RootContainer({switchRoutes}){
     // Root Grid Expand event
-    const [sideBarFlag, setSideBarFlag] = React.useState(false);
-    store.subscribe(()=> { 
-        const sideBarState = store.getState().sideBarHidden.sideBarState;
-        setSideBarFlag(sideBarState);
-    });
+    const initSideBar = useSelector(state => state.sideBarHidden.initSideBar);
+    const sideBarState = useSelector(state => state.sideBarHidden.sideBarState);
+
+    const [sideBarFlag, setSideBarFlag] = useState(initSideBar);
+    
+
+    useEffect (()=>{
+      setSideBarFlag(sideBarState);
+    },[sideBarState]);
+
     const expansion = {
-      width: sideBarFlag ? "100%" : "calc(100% - 256px)"
+      width: initSideBar ? "100%" : sideBarFlag ? "100%" : "calc(100% - 256px)"
     };
     return (
       <Div className="root__container" style={expansion}>
