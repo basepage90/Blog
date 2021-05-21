@@ -2,13 +2,13 @@ import { combineReducers, configureStore } from '@reduxjs/toolkit';
 import error from './error';
 import search from './search';
 import sideBarHidden from './sideBarHidden';
-import subject from './subject';
+import menuClick from './menuClick';
 
 const rootReducer = combineReducers({
     error: error.reducer,
     search: search.reducer,
     sideBarHidden: sideBarHidden.reducer,
-    subject: subject.reducer,
+    menuClick: menuClick.reducer,
 });
 
 const store = configureStore({
@@ -16,6 +16,6 @@ const store = configureStore({
 });
 
 export const {hidden,open} = sideBarHidden.actions;
-export const {updateSubject} = subject.actions;
+export const {click} = menuClick.actions;
 
 export default store;

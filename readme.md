@@ -20,8 +20,15 @@ Go and React Web App
     <summary> 👉 Click Me  ( Expand Detail Tag )</summary>
 
 ### Gin-Web (tag : v0.1.2)
-- connect -> useSelector, useDispatch
-    - Hook 으로 대체   
+- Hook 으로 대체
+    - connect -> useSelector, useDispatch
+    - store.subscribe -> useEffect
+- Hook 최적화
+    - useSelector
+        - a) 독립 선언
+        - b) shallowEqual
+    - useEffect
+        - 의존성배열없이 componentDidMount 처럼 동작 하기위한 변수(꽁수?) 추가
 
 ### Gin-Web (tag : v0.1.1)
 - useEffect expression

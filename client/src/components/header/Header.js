@@ -7,14 +7,13 @@ import MenuIcon from '@material-ui/icons/Menu';
 import SearchIcon from '@material-ui/icons/Search';
 import IconButton from '@material-ui/core/IconButton';
 import AccountCircle from '@material-ui/icons/AccountCircle';
-import ArrowRight from '@material-ui/icons/ArrowRight';
 import ChevronLeft from '@material-ui/icons/ChevronLeft';
 import MenuItem from '@material-ui/core/MenuItem';
 import Menu from '@material-ui/core/Menu';
 import {sidebarWidth,headerHeight} from 'styles/styleConst'
 
-import { useDispatch, useSelector } from "react-redux";
-import store,{hidden as hiddenBar,open as openBar} from "store/store";
+import { useDispatch, useSelector, shallowEqual } from "react-redux";
+import { hidden as hiddenBar, open as openBar} from "store/store";
 
 
 const Div = styled.div`
@@ -96,56 +95,54 @@ const HideHeader = () => {
     }
 }
 
-function Header(){
-    // sideBar hidden sate
-    const initSideBar = useSelector( state => state.sideBarHidden.initSideBar);
-    const sideBarState = useSelector( state => state.sideBarHidden.sideBarState);
-    const layout = useSelector( state => state.subject.layout);
-    const path = useSelector( state => state.subject.path);
+function Header(props){
+    const {initSideBar,sideBarState} = useSelector(
+        state => ({
+            initSideBar: state.sideBarHidden.initSideBar,
+            sideBarState: state.sideBarHidden.sideBarState,
+            menuClickState: state.menuClick.click, // menuClickState -> makeSubject를 위해 subcribe 기능은 하되, 직접적으로 사용하지는 않는다.
+        }), shallowEqual);
+
+    const makeSubject = () => {
+        let subject;
+        props.routesCollection.map(prop => {
+            if (window.location.href.indexOf(prop.layout + prop.path) !== -1) {
+                subject = prop.name;
+            }
+            return null;
+        });
+        return subject;
+    }
     
-    const [sideBarFlag, setSideBarFlag] = useState(initSideBar);
-
     const dispatch = useDispatch();
-
+    
     const handleSideBarOpen = () => {
-        const sideBarState = store.getState().sideBarHidden.sideBarState;
         if(!sideBarState){
             dispatch(hiddenBar());
         } else{
             dispatch(openBar());
         }
     }
-
-    // header subject state
-    const [subject, setSubject] = useState({layout:"Home",path:""});
     
     // Login Pop Event
     const [anchorEl, setAnchorEl] = useState(null);
     const open = Boolean(anchorEl);
     const handleMenu = (event) => {
-      setAnchorEl(event.currentTarget);
+        setAnchorEl(event.currentTarget);
     };
+
     const handleClose = () => {
-      setAnchorEl(null);
+        setAnchorEl(null);
     };
-  
+    
     // This expression is working similar to ComponentDidMount.
     useEffect( () => {
         HideHeader();
         document.getElementById("rootHeader").style.top = "0";
     },[]);
     
-    useEffect( () => {
-        // SiderBar
-        setSideBarFlag(sideBarState);
-        
-        // // Subject
-        setSubject({layout:layout,path:path});
-    }, [sideBarState,layout,path]);
-    
-
     return (
-        <Div id="rootHeader" style={{ left: initSideBar ?  "0" :  (sideBarFlag  ? "0": sidebarWidth) }} >
+        <Div id="rootHeader" style={{ left: initSideBar ?  "0" :  (sideBarState  ? "0": sidebarWidth) }} >
         <StAppBar aria-label="menu">    
             <StToolbar >
                 <IconButton
@@ -155,12 +152,10 @@ function Header(){
                     aria-label="open drawer"
                     onClick={handleSideBarOpen}
                 >
-                {sideBarFlag ? <MenuIcon /> : <ChevronLeft />}
+                {sideBarState ? <MenuIcon /> : <ChevronLeft />}
                 </IconButton>
                     <span className="title">
-                        {subject.layout}
-                        {subject.path === "" ? "" : <ArrowRight/>}
-                        {subject.path === "" ? "" : subject.path }
+                        {makeSubject()}
                     </span>
                 <SearchBox>
                     <div className="searchIcon">

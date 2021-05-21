@@ -1,8 +1,8 @@
-import React from "react";
+import React,{ useState } from "react";
 import styled from 'styled-components';
 import {Link} from "react-router-dom";
-import { connect } from "react-redux";
-import {updateSubject} from "store/store";
+import { click } from "store/store";
+import { useDispatch } from 'react-redux'
 
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
@@ -37,22 +37,24 @@ const Div = styled.div`
   }
 `;
 
-function Menu({updateSubject}){
+function Menu(){
 
-    const updateSj = (layout,path) => {
-      updateSubject(layout,path);
-    };
+    const dispatch = useDispatch();
+
+    const menuClick = () => {
+      dispatch(click());
+    }
 
     // list select
-    const [selectedIndex, setSelectedIndex] = React.useState(0);
+    const [selectedIndex, setSelectedIndex] = useState();
 
     const handleListItemClick = (event,index) => {
       setSelectedIndex(index);
     };
 
     // List expand
-    const [openDev, setOpenDev] = React.useState(false);
-    const [openMusic, setOpenMusic] = React.useState(false);
+    const [openDev, setOpenDev] = useState(false);
+    const [openMusic, setOpenMusic] = useState(false);
 
     const handleClick = (text) => {
       switch (text){
@@ -65,17 +67,17 @@ function Menu({updateSubject}){
       }
     };
     return (
-    <Div >
+    <Div onClick={menuClick} >
       <List>
 
-        <ListItem button component={Link} to="/about" selected={selectedIndex === 0} onClick={(event) => {handleListItemClick(event, 0); updateSj('About',"")} }>
+        <ListItem button component={Link} to="/about" selected={selectedIndex === 0} onClick={(event) => {handleListItemClick(event, 0) } }>
           <ListItemIcon>
             <FaceIcon />
           </ListItemIcon>
           <ListItemText primary="About" />
         </ListItem>
 
-        <ListItem button component={Link} to="/dev" selected={selectedIndex === 1}  onClick={(event) => {handleListItemClick(event , 1); handleClick("dev"); updateSj('Development',"")}} >
+        <ListItem button component={Link} to="/dev" selected={selectedIndex === 1}  onClick={(event) => {handleListItemClick(event , 1); handleClick("dev")}} >
           <ListItemIcon>
             <ComputerIcon />
           </ListItemIcon>
@@ -84,37 +86,37 @@ function Menu({updateSubject}){
         </ListItem>
           <Collapse in={openDev} timeout="auto" unmountOnExit>
             <List component="div" disablePadding>
-              <ListItem button className="nested" component={Link} to="/dev/java" onClick={ (e) => {updateSj('Development','Java')}}>
+              <ListItem button className="nested" component={Link} to="/dev/java" >
                 <ListItemIcon>
                 </ListItemIcon>
                 <ListItemText primary="Java" />
               </ListItem>
-              <ListItem button className="nested" component={Link} to="/dev/golang" onClick={ (e) => {updateSj('Development','Go Lang')}}>
+              <ListItem button className="nested" component={Link} to="/dev/golang" >
                 <ListItemIcon>
                 </ListItemIcon>
                 <ListItemText primary="Go Lang" />
               </ListItem>
-              <ListItem button className="nested" component={Link} to="/dev/front-end" onClick={ (e) => {updateSj('Development','Front-End')}}>
+              <ListItem button className="nested" component={Link} to="/dev/front-end" >
                 <ListItemIcon>
                 </ListItemIcon>
                 <ListItemText primary="Front-End" />
               </ListItem>
-              <ListItem button className="nested" component={Link} to="/dev/dbms" onClick={ (e) => {updateSj('Development','DBMS')}}>
+              <ListItem button className="nested" component={Link} to="/dev/dbms" >
                 <ListItemIcon>
                 </ListItemIcon>
                 <ListItemText primary="DBMS" />
               </ListItem>
-              <ListItem button className="nested" component={Link} to="/dev/os" onClick={ (e) => {updateSj('Development','OS')}}>
+              <ListItem button className="nested" component={Link} to="/dev/os" >
                 <ListItemIcon>
                 </ListItemIcon>
                 <ListItemText primary="OS" />
               </ListItem>
-              <ListItem button className="nested" component={Link} to="/dev/architecture" onClick={ (e) => {updateSj('Development','Architecture')}}>
+              <ListItem button className="nested" component={Link} to="/dev/architecture" >
                 <ListItemIcon>
                 </ListItemIcon>
                 <ListItemText primary="Architecture" />
               </ListItem>
-              <ListItem button className="nested" component={Link} to="/dev/common" onClick={ (e) => {updateSj('Development','Common')}}>
+              <ListItem button className="nested" component={Link} to="/dev/common" >
                 <ListItemIcon>
                 </ListItemIcon>
                 <ListItemText primary="Common" />
@@ -123,7 +125,7 @@ function Menu({updateSubject}){
           </Collapse>
 
         
-          <ListItem button component={Link} to="/music" selected={selectedIndex === 2} onClick={(event) => {handleListItemClick(event , 2); handleClick('music');updateSj('Music',"")}}>
+          <ListItem button component={Link} to="/music" selected={selectedIndex === 2} onClick={(event) => {handleListItemClick(event , 2); handleClick('music')}}>
             <ListItemIcon>
               <HeadsetIcon />
             </ListItemIcon>
@@ -132,22 +134,22 @@ function Menu({updateSubject}){
           </ListItem>
           <Collapse in={openMusic} timeout="auto" unmountOnExit>
             <List component="div" disablePadding>
-              <ListItem button className="nested" component={Link} to="/music/힙합" onClick={ (e) => {updateSj('Music','힙합')}}>
+              <ListItem button className="nested" component={Link} to="/music/힙합" >
                 <ListItemIcon>
                 </ListItemIcon>
                 <ListItemText primary="힙합" />
               </ListItem>
-              <ListItem button className="nested" component={Link} to="/music/hiphop" onClick={(e) => {updateSj('Music','Hiphop')}}>
+              <ListItem button className="nested" component={Link} to="/music/hiphop" >
                 <ListItemIcon>
                 </ListItemIcon>
                 <ListItemText primary="Hiphop" />
               </ListItem>
-              <ListItem button className="nested" component={Link} to="/music/r&b" onClick={(e) => {updateSj('Music','R&B')}}>
+              <ListItem button className="nested" component={Link} to="/music/r&b" >
                 <ListItemIcon>
                 </ListItemIcon>
                 <ListItemText primary="R&B" />
               </ListItem>
-              <ListItem button className="nested" component={Link} to="/music/pop" onClick={(e) => {updateSj('Music','Pop')}}>
+              <ListItem button className="nested" component={Link} to="/music/pop" >
                 <ListItemIcon>
                 </ListItemIcon>
                 <ListItemText primary="Pop" />
@@ -157,7 +159,7 @@ function Menu({updateSubject}){
           </Collapse>
         
 
-          <ListItem button component={Link} to="/recipe" selected={selectedIndex === 3} onClick={(event) => {handleListItemClick(event, 3); updateSj('Recipe',"")} }>
+          <ListItem button component={Link} to="/recipe" selected={selectedIndex === 3} onClick={(event) => {handleListItemClick(event, 3)}}>
             <ListItemIcon>
               <RestaurantIcon />
             </ListItemIcon>
@@ -169,10 +171,5 @@ function Menu({updateSubject}){
     )
 };
 
-const mapDispatchToProps = (dispatch) => {
-  return {
-    updateSubject: (layout,path) => dispatch(updateSubject({layout:layout,path:path})),
-   };
-}
 
-export default connect("",mapDispatchToProps)(Menu);
+export default Menu;

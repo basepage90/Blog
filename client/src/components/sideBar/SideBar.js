@@ -1,11 +1,11 @@
-import React,{ useState, useEffect } from "react";
+import React,{ useEffect } from "react";
 import styled from "styled-components";
 import Logo from "components/sideBar/Logo";
 import Menu from "components/sideBar/Menu";
 import LinkFoot from "components/sideBar/LinkFoot";
 import { sidebarWidth } from 'styles/styleConst'
 
-import {hidden} from "store/store";
+import { hidden } from "store/store";
 import { useDispatch, useSelector } from 'react-redux'
 
 const Outside = styled.div`
@@ -31,35 +31,31 @@ const Div = styled.div`
   overflow-x: hidden;
 `;
 
+// 의존성배열없이 componentDidMount 처럼 동작 하기 위한 변수.
+let justOne = 1;
+
 function SideBar(){
     // SideBar Hidden/Expand event
     const initSideBar = useSelector(state => state.sideBarHidden.initSideBar);
     const sideBarState = useSelector(state => state.sideBarHidden.sideBarState);
-    const [sideBarFlag, setSideBarFlag] = useState(initSideBar);
-    
     const dispatch  = useDispatch();
 
     const outsideClick = () => {
-        console.log("hidden bar start")
         dispatch(hidden());
-        console.log("hidden bar end")
     }
     
     useEffect(() => {
-        setSideBarFlag(sideBarState);
-    },[sideBarState]);
-
-    useEffect(() => {
-        if(document.getElementById('outside')){
-                const outside = document.getElementById('outside');
-                outside.addEventListener('click', outsideClick);
-            }
-    },[]);
-
+        if( justOne === 1 && document.getElementById('outside')){
+            const outside = document.getElementById('outside');
+            outside.addEventListener('click', outsideClick);
+        }
+        justOne++;
+    });
+    
     return(
         <>
-        {initSideBar ? <Outside id="outside"  style={{zIndex: sideBarFlag ? "-1" : "1199", opacity: sideBarFlag ? "0":"1"  }} /> : null }
-        <Div style={{transform: sideBarFlag ? "translateX(-100%)" : "translateX(0)"}}>
+        {initSideBar ? <Outside id="outside"  style={{zIndex: sideBarState ? "-1" : "1199", opacity: sideBarState ? "0":"1"  }} /> : null }
+        <Div style={{transform: sideBarState ? "translateX(-100%)" : "translateX(0)"}}>
             <Logo />
             <Menu />
             <LinkFoot />
