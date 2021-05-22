@@ -15,11 +15,11 @@ const Div = styled.div`
 
 function RootContainer({switchRoutes}){
     // Root Grid Expand event
-    const initSideBar = useSelector(state => state.sideBarHidden.initSideBar);
+    const mobileFlag = useSelector(state => state.sideBarHidden.mobileFlag);
     const sideBarState = useSelector(state => state.sideBarHidden.sideBarState);
 
     const expansion = {
-      width: initSideBar ? "100%" : sideBarState ? "100%" : "calc(100% - 256px)"
+      width: mobileFlag ? "100%" : sideBarState ? "100%" : "calc(100% - 256px)"
     };
     
     return (

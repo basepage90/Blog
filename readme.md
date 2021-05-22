@@ -19,6 +19,11 @@ Go and React Web App
 <details> .
     <summary> 👉 Click Me  ( Expand Detail Tag )</summary>
 
+### Gin-Web (tag : v0.1.3)
+- header subject 동작 개선
+- useEffect(componentWillUnmount) 에서의 removeEventListener
+- catching bug O_O
+
 ### Gin-Web (tag : v0.1.2)
 - Hook 으로 대체
     - connect -> useSelector, useDispatch

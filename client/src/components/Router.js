@@ -9,7 +9,7 @@ import routesCollection from 'components/routesCollection'
 const switchRoutes = (
   <Switch>
     {routesCollection.map((prop, key) => {
-        return ( <Route path={prop.layout + prop.path} exact component={prop.component} key={prop.name} /> );
+        return ( <Route path={prop.layout + prop.path} exact component={prop.component} key={key} /> );
       })
     }
     <Route component={NotFoundPage} />
@@ -20,7 +20,7 @@ function Router(){
   return(
     <BrowserRouter>
       <>    
-        <SideBar/>
+        <SideBar />
         <Header routesCollection={routesCollection} />
         <RootContainer switchRoutes={switchRoutes} />
       </>

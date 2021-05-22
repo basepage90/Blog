@@ -15,7 +15,7 @@ const store = configureStore({
     reducer: rootReducer
 });
 
-export const {hidden,open} = sideBarHidden.actions;
+export const {transSideBar,transMobileFlag} = sideBarHidden.actions;
 export const {click} = menuClick.actions;
 
 export default store;

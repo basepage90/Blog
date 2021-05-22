@@ -77,7 +77,7 @@ function Menu(){
           <ListItemText primary="About" />
         </ListItem>
 
-        <ListItem button component={Link} to="/dev" selected={selectedIndex === 1}  onClick={(event) => {handleListItemClick(event , 1); handleClick("dev")}} >
+        <ListItem button selected={selectedIndex === 1}  onClick={(event) => {handleListItemClick(event , 1); handleClick("dev")}} >
           <ListItemIcon>
             <ComputerIcon />
           </ListItemIcon>
@@ -125,7 +125,7 @@ function Menu(){
           </Collapse>
 
         
-          <ListItem button component={Link} to="/music" selected={selectedIndex === 2} onClick={(event) => {handleListItemClick(event , 2); handleClick('music')}}>
+          <ListItem button selected={selectedIndex === 2} onClick={(event) => {handleListItemClick(event , 2); handleClick('music')}}>
             <ListItemIcon>
               <HeadsetIcon />
             </ListItemIcon>
@@ -134,7 +134,7 @@ function Menu(){
           </ListItem>
           <Collapse in={openMusic} timeout="auto" unmountOnExit>
             <List component="div" disablePadding>
-              <ListItem button className="nested" component={Link} to="/music/힙합" >
+              <ListItem button className="nested" component={Link} to="/music/krHiphop" >
                 <ListItemIcon>
                 </ListItemIcon>
                 <ListItemText primary="힙합" />

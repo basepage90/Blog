@@ -5,16 +5,16 @@ const browserWidth = window.innerWidth || document.body.clientWidth ;
 const initSideBar = browserWidth < 768 ? true:false;
 
 const initialState = {
-  sideBarState: initSideBar,
-  initSideBar : initSideBar,
+  sideBarState: false,
+  mobileFlag : initSideBar,
 };
 
 const sideBarHidden = createSlice({
   name: 'sideBarHidden',
   initialState,
   reducers: {
-    hidden: (state,action) => {state.sideBarState = true},
-    open : (state,action) => {state.sideBarState = false},
+    transSideBar : (state,action) => {state.sideBarState = !state.sideBarState},
+    transMobileFlag : (state,action) => {state.mobileFlag = action.payload},
   },
 });
 
