@@ -19,6 +19,9 @@ Go and React Web App
 <details> .
     <summary> 👉 Click Me  ( Expand Detail Tag )</summary>
 
+### Gin-Web (tag : v0.1.4)
+- SpeedDialog 추가
+
 ### Gin-Web (tag : v0.1.3)
 - header subject 동작 개선
 - useEffect(componentWillUnmount) 에서의 removeEventListener
