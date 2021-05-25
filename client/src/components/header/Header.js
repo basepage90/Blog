@@ -4,7 +4,6 @@ import {sidebarWidth,headerHeight} from 'styles/styleConst'
 import { transSideBar, adminOpen } from "store/store";
 import { useDispatch, useSelector, shallowEqual } from "react-redux";
 import SearchBox from "components/header/SearchBox";
-// import AdminMenu from "components/header/AdminMenu";
 import AdminDialog from "components/header/AdminDialog"
 import SpeedDialButton from "components/header/SpeedDialButton"
 
@@ -17,6 +16,7 @@ import ArrowRightIcon from '@material-ui/icons/ArrowRight';
 import AccountCircle from '@material-ui/icons/AccountCircle';
 import IconButton from '@material-ui/core/IconButton';
 
+import { useLocation } from 'react-router-dom';
 
 
 const Div = styled.div`
@@ -65,6 +65,7 @@ const HideHeader = () => {
 
 
 function Header(props){
+
     const dispatch = useDispatch();
 
     // SideBar 
@@ -80,13 +81,16 @@ function Header(props){
     // Admin Dialog
     const handleClickOpen = () => { dispatch(adminOpen()) };
 
+
+    const location =  useLocation();
+
     // Suject
     const makeSubject = () => {
         let subject;
         const nbsp = String.fromCharCode(160);
         const arrowIcon = <ArrowRightIcon key="arrowIcon"/>;
         props.routesCollection.map(prop => {
-            if (window.location.href.indexOf(prop.layout + prop.path) !== -1) {
+            if (location.pathname.indexOf(prop.categoryLg + prop.categoryMd) !== -1) {
                 if(mobileFlag){
                     prop.subName ? subject = [prop.icon, nbsp, arrowIcon, nbsp, prop.subName] : subject = [prop.icon, nbsp+nbsp, prop.name];
                 } else {

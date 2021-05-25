@@ -1,9 +1,9 @@
 import React from 'react';
-import Router from './Router';
 import { ThemeProvider } from 'styled-components';
 import { StylesProvider} from '@material-ui/styles';
 import theme from "styles/theme/theme";
 import GlobalStyles from "styles/globalStyles";
+import HomePage from "pages/home/HomePage"
 
 
 function App() {
@@ -12,7 +12,7 @@ function App() {
     <>
     <StylesProvider injectFirst>
       <ThemeProvider theme={theme} >
-        <Router/>
+        <HomePage />
         <GlobalStyles/>
       </ThemeProvider>
     </StylesProvider>

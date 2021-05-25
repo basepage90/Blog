@@ -6,12 +6,16 @@ import Header from "components/header/Header";
 import RootContainer from 'components/common/layoutContainer/rootContainer'
 import routesCollection from 'components/routesCollection'
 
+import CardListPage from 'pages/home/article/CardListPage'
+import ArticlePage from 'pages/ArticlePage'
+
+
 const switchRoutes = (
   <Switch>
-    {routesCollection.map((prop, key) => {
-        return ( <Route path={prop.layout + prop.path} exact component={prop.component} key={key} /> );
-      })
-    }
+    <Route path="/" exact component={CardListPage} />
+    {/* <Route path="/:id" exact component={ArticlePage} /> */}
+    <Route path="/:categoryLg/:categoryMd" exact component={CardListPage} />
+    <Route path="/:categoryLg/:categoryMd/:id" exact component={ArticlePage} />
     <Route component={NotFoundPage} />
   </Switch>
 );

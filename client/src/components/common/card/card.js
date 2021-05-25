@@ -1,7 +1,10 @@
 import React from 'react';
 import styled from 'styled-components';
+import { Link } from 'react-router-dom';
 
-const Item = styled.a`
+import { useLocation } from 'react-router-dom';
+
+const Item = styled.div`
 width:100%;
 height:100%;
 display: flex;
@@ -54,28 +57,21 @@ padding: 12px 24px 12px 24px;
 }
 `;
 
-export function Card2(){
-  return (
-    <Item href="#">
-        <Thumb2/>
-        <Article>
-            <h4>이유비는 훌륭하다</h4>
-            <p> 개는 무슨 ㅋㅋ 이유비 볼려고 이거봄 ㅇㅈ?</p>
-            <span>2020년 05월 04일</span>
-        </Article>
-    </Item>
-  );
-};
+export default function Card({data}){
+    const {pathname} = useLocation();
+    const {id,title,subtitle,info,desc} = data;
 
-export default function Card(){
-  return (
-    <Item href="#">
-        <Thumb/>
-        <Article>
-            <h4>Kendrick Lamar</h4>
-            <p> Living Lengend kendrick</p>
-            <span>2020년 05월 03일</span>
-        </Article>
-    </Item>
-  );
+    return (
+        <Link to={pathname === '/' ? { pathname: `/${id}` } : { pathname: `${pathname}/${id}` }} >
+        <Item >
+            {id === "eubi1" || id === "eubi2" ? <Thumb2/>: <Thumb/> }
+            <Article>
+                <h4>{title}</h4>
+                <p>{subtitle}</p>
+                <p>{desc}</p>
+                <span>{info}</span>
+            </Article>
+        </Item>
+        </Link>
+    );
 };

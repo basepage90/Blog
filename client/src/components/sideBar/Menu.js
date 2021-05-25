@@ -70,14 +70,14 @@ function Menu(){
     <Div onClick={menuClick} >
       <List>
 
-        <ListItem button component={Link} to="/about" selected={selectedIndex === 0} onClick={(event) => {handleListItemClick(event, 0) } }>
+        <ListItem button component={Link} to="/about/about" selected={selectedIndex === 0} onClick={(event) => {handleListItemClick(event, 0); }}>
           <ListItemIcon>
             <FaceIcon />
           </ListItemIcon>
           <ListItemText primary="About" />
         </ListItem>
 
-        <ListItem button selected={selectedIndex === 1}  onClick={(event) => {handleListItemClick(event , 1); handleClick("dev")}} >
+        <ListItem button selected={selectedIndex === 1}  onClick={(event) => {handleListItemClick(event , 1); handleClick("dev") }} >
           <ListItemIcon>
             <ComputerIcon />
           </ListItemIcon>
@@ -159,7 +159,7 @@ function Menu(){
           </Collapse>
         
 
-          <ListItem button component={Link} to="/recipe" selected={selectedIndex === 3} onClick={(event) => {handleListItemClick(event, 3)}}>
+          <ListItem button component={Link} to="/recipe/recipe" selected={selectedIndex === 3} onClick={(event) => {handleListItemClick(event, 3)}}>
             <ListItemIcon>
               <RestaurantIcon />
             </ListItemIcon>

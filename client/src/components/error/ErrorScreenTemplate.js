@@ -56,13 +56,14 @@ const Screen = styled.div`
 `;
 
 
-function ErrorScreenTemplate({image,message,reason,buttonText,onButtonClick}) {
+function ErrorScreenTemplate({image,message,reason,buttonText,onButtonClick,reasonDesc}) {
   return (
     <Screen>
       <img src={image} alt="error" />
       <div className="message">
         <h1 className="msg">{message}</h1>
         <p className="reason">{reason}</p>
+        <p className="reason">{reasonDesc}</p>
       </div>
       {buttonText && (
         <div className="button-wrapper">

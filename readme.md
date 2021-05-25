@@ -19,6 +19,10 @@ Go and React Web App
 <details> .
     <summary> 👉 Click Me  ( Expand Detail Tag )</summary>
 
+### Gin-Web (tag : v0.1.5)
+- VanillaJS 코드를 React-Router-dom Hook 으로 대체
+    - page - container - component 연결
+
 ### Gin-Web (tag : v0.1.4)
 - SpeedDialog 추가
 

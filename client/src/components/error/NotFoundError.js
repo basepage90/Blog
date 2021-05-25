@@ -15,7 +15,8 @@ function NotFoundError() {
       <ErrorScreenTemplate
         image={PageNotFound}
         message="DON'T CRY..."
-        reason="It's just 404 Error (PageNotFound)"
+        reason="It's just 404 Error"
+        reasonDesc="(PageNotFound)"
         buttonText="홈으로"
         onButtonClick={() => {
           history.push('/');
