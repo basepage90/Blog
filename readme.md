@@ -19,7 +19,7 @@ Go and React Web App
 <details> .
     <summary> 👉 Click Me  ( Expand Detail Tag )</summary>
 
-### Gin-Web (tag : v0.1.5)
+### Gin-Web (tag : v0.1.6)
 - server : db connection 방식 변경
     - The connection is only done once
 
