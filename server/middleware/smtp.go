@@ -11,7 +11,7 @@ import (
 var smtpConfig, _ = godotenv.Read("./conf/smtpConfig.env")
 
 func SendCertiMail(user models.User) error {
-	certiTag := "<a href=\"http://wjkim.ddns.net:8080/login/certi/" + user.Uuid + "\"> Click Me !</a>"
+	certiTag := "<a href=\"http://wjk.ddns.net:8080/login/certi/" + user.Uuid + "\"> Click Me !</a>"
 
 	e := email.NewEmail()
 	e.From = "<basepage79@gmail.com>"

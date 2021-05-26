@@ -6,12 +6,18 @@ import (
 	"time"
 
 	"github.com/gin-gonic/gin"
+	"github.com/woojebiz/gin-web/server/db"
 	"github.com/woojebiz/gin-web/server/routers"
 )
 
 func main() {
 	// setupLogOutPut()
+
+	db.Connection()
+	defer db.CloseDB()
+
 	routers.InitRouter()
+
 }
 
 func setupLogOutPut() {

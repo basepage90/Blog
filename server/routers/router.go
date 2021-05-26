@@ -16,15 +16,11 @@ func InitRouter() {
 
 	// Init Router Group
 	rgGuest := r.Group("")
-	{
-		InitLoginRouter(rgGuest)
-	}
-	// Init Router Group
+	InitLoginRouter(rgGuest)
+
 	rgUser := r.Group("", middleware.AuthorizeJWT())
-	{
-		InitIndexRouter(rgUser)
-		InitArticleRouter(rgUser)
-	}
+	InitIndexRouter(rgUser)
+	InitArticleRouter(rgUser)
 
 	r.Run(":8080")
 }

@@ -20,6 +20,10 @@ Go and React Web App
     <summary> 👉 Click Me  ( Expand Detail Tag )</summary>
 
 ### Gin-Web (tag : v0.1.5)
+- server : db connection 방식 변경
+    - The connection is only done once
+
+### Gin-Web (tag : v0.1.5)
 - VanillaJS 코드를 React-Router-dom Hook 으로 대체
     - page - container - component 연결
 

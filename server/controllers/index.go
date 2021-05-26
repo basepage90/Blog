@@ -5,9 +5,8 @@ import (
 	"github.com/woojebiz/gin-web/server/repositories"
 )
 
-var ar = repositories.NewArticleRepository()
-
 func GetIndex(c *gin.Context) {
+	var ar = repositories.NewArticleRepository()
 	if articles, err := ar.FindAll(); err == nil {
 		Render(c, gin.H{
 			"title":   "Index Page",

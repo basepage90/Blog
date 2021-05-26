@@ -18,7 +18,7 @@ function logout(){
   });
    
   // case2) 계정로그아웃	: 계정 로그아웃 + 토큰만료
-  // $(location).attr('href', 'https://kauth.kakao.com/oauth/logout?client_id=17e2b41913f7f223f6c370c7cfe2d33b&logout_redirect_uri=http://wjkim.ddns.net:8080/login'); 
+  // $(location).attr('href', 'https://kauth.kakao.com/oauth/logout?client_id=17e2b41913f7f223f6c370c7cfe2d33b&logout_redirect_uri=http://wjk.ddns.net:8080/login'); 
 }
 
 // Delete token by server

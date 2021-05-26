@@ -84,7 +84,7 @@ func (con *loginController) Login(ctx *gin.Context) {
 	} else { // 3) 이메일 존재 / 메일 인증
 		if token, err := con.getLogin(ctx, user); token != "" {
 			// cookie 저장 방식
-			ctx.SetCookie("access-token", token, 60*60*24, "/", "wjkim.ddns.net:8080", false, true)
+			ctx.SetCookie("access-token", token, 60*60*24, "/", "wjk.ddns.net:8080", false, true)
 		} else {
 			// 로그인 에러
 			ctx.JSON(http.StatusUnauthorized, gin.H{"err": err.Error()})
@@ -141,7 +141,7 @@ func (con *loginController) LoginKakao(ctx *gin.Context) {
 	host_url := "https://kauth.kakao.com/oauth/token"
 	grant_type := "grant_type=authorization_code"
 	client_id := "client_id=17e2b41913f7f223f6c370c7cfe2d33b"
-	redirect_uri := "redirect_uri=http://wjkim.ddns.net:8080/login/kakao"
+	redirect_uri := "redirect_uri=http://wjk.ddns.net:8080/login/kakao"
 	code := "code=" + ctx.Query("code")
 
 	requestURL := fmt.Sprintf(
@@ -174,7 +174,7 @@ func (con *loginController) GetLoginKakao(ctx *gin.Context) {
 		// 자체 토큰 발행
 		if token := con.jWtService.GenerateToken(user.Email, true); token != "" {
 			// cookie 저장 방식
-			ctx.SetCookie("access-token", token, 60*60*24, "/", "wjkim.ddns.net:8080", false, true)
+			ctx.SetCookie("access-token", token, 60*60*24, "/", "wjk.ddns.net:8080", false, true)
 		} else {
 			// 로그인 에러
 			ctx.JSON(http.StatusUnauthorized, gin.H{"err": err.Error()})
@@ -190,7 +190,7 @@ func (con *loginController) GetLoginKakao(ctx *gin.Context) {
 		// 자체 토큰 발행
 		if token := con.jWtService.GenerateToken(user.Email, true); token != "" {
 			// cookie 저장 방식
-			ctx.SetCookie("access-token", token, 60*60*24, "/", "wjkim.ddns.net:8080", false, true)
+			ctx.SetCookie("access-token", token, 60*60*24, "/", "wjk.ddns.net:8080", false, true)
 		} else {
 			// 로그인 에러
 			ctx.JSON(http.StatusUnauthorized, gin.H{"err": signupErr.Error()})
@@ -202,5 +202,5 @@ func (con *loginController) GetLoginKakao(ctx *gin.Context) {
 
 func (con *loginController) DeleteToken(ctx *gin.Context) {
 	// Delete cookie : 3rd param is -1
-	ctx.SetCookie("access-token", "", -1, "/", "wjkim.ddns.net:8080", false, true)
+	ctx.SetCookie("access-token", "", -1, "/", "wjk.ddns.net:8080", false, true)
 }

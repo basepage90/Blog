@@ -3,7 +3,7 @@ package repositories
 import (
 	_ "github.com/go-sql-driver/mysql"
 	"github.com/jinzhu/gorm"
-	"github.com/woojebiz/gin-web/server/conf"
+	"github.com/woojebiz/gin-web/server/db"
 	"github.com/woojebiz/gin-web/server/models"
 )
 
@@ -21,10 +21,7 @@ type loginRepository struct {
 }
 
 func NewLoginRepository() LoginRepository {
-	db, err := gorm.Open("mysql", conf.MysqlConfig)
-	if err != nil {
-		panic("Failed to connect database")
-	}
+	db := db.GetConn()
 	db.AutoMigrate(&models.User{})
 	return &loginRepository{
 		db: db,
