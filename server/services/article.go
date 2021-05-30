@@ -8,9 +8,9 @@ import (
 )
 
 type ArticleService interface {
-	GetArticleByID(string) (*models.Article, error)
+	GetArticleByID(string) (models.Article, error)
 	DeleteArticleById(string) error
-	FindAll() (*[]models.Article, error)
+	FindAll() ([]models.Article, error)
 }
 
 type articleService struct {
@@ -23,11 +23,9 @@ func NewArticleService(articleRepository repositories.ArticleRepository) Article
 	}
 }
 
-func (service *articleService) GetArticleByID(id string) (*models.Article, error) {
-	if article, err := service.repository.FindById(id); err == nil {
-		return &article, err
-	}
-	return nil, errors.New("Article not found")
+func (service *articleService) GetArticleByID(id string) (models.Article, error) {
+	article, err := service.repository.FindById(id)
+	return article, err
 }
 
 func (service *articleService) DeleteArticleById(id string) error {
@@ -37,9 +35,7 @@ func (service *articleService) DeleteArticleById(id string) error {
 	return errors.New("Article not found")
 }
 
-func (service *articleService) FindAll() (*[]models.Article, error) {
-	if articles, err := service.repository.FindAll(); err == nil {
-		return &articles, err
-	}
-	return nil, errors.New("test")
+func (service *articleService) FindAll() ([]models.Article, error) {
+	articles, err := service.repository.FindAll()
+	return articles, err
 }

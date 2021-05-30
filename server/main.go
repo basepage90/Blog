@@ -11,13 +11,16 @@ import (
 )
 
 func main() {
+
 	// setupLogOutPut()
 
-	db.Connection()
-	defer db.CloseDB()
+	db.ConnectMysql()
+	defer db.CloseMysql()
+
+	db.ConnectionMongoDB()
+	defer db.CloseMongoDB()
 
 	routers.InitRouter()
-
 }
 
 func setupLogOutPut() {

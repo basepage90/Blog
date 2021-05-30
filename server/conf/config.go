@@ -9,6 +9,8 @@ import (
 
 var MysqlConfig string
 
+var MongoDBConfig string
+
 // Read dbconfig.env for MysqlConfig
 func init() {
 	appConfig, err := godotenv.Read("./conf/dbConfig.env")
@@ -24,5 +26,11 @@ func init() {
 		appConfig["MYSQL_HOST"],
 		appConfig["MYSQL_PORT"],
 		appConfig["MYSQL_DBNAME"],
+	)
+
+	MongoDBConfig = fmt.Sprintf(
+		"mongodb://%s:%s",
+		appConfig["MONGODB_HOST"],
+		appConfig["MONGODB_PORT"],
 	)
 }

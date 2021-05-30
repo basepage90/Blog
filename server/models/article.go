@@ -1,7 +1,5 @@
 package models
 
-import "fmt"
-
 type Article struct {
 	Id      string `gorm:"column:id" json:"id"`
 	Title   string `gorm:"column:title" json:"title"`
@@ -10,6 +8,5 @@ type Article struct {
 }
 
 func (Article) TableName() string {
-	fmt.Println("### This action makes so many calls to TableName say 'article'")
 	return "article"
 }

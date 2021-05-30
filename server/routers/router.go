@@ -7,7 +7,6 @@ import (
 
 // Initialize Router Group
 func InitRouter() {
-
 	r := gin.New()
 	r.Use(gin.Logger(), middleware.Logger())
 
@@ -21,6 +20,9 @@ func InitRouter() {
 	rgUser := r.Group("", middleware.AuthorizeJWT())
 	InitIndexRouter(rgUser)
 	InitArticleRouter(rgUser)
+
+	rgGql := r.Group("")
+	InitGql(rgGql)
 
 	r.Run(":8080")
 }

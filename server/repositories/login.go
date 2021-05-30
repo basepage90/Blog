@@ -21,7 +21,7 @@ type loginRepository struct {
 }
 
 func NewLoginRepository() LoginRepository {
-	db := db.GetConn()
+	db := db.GetDB()
 	db.AutoMigrate(&models.User{})
 	return &loginRepository{
 		db: db,

@@ -1,7 +1,5 @@
 package models
 
-import "fmt"
-
 type User struct {
 	Email       string `gorm:"column:email;primaryKey" json:"email" binding:"required"`
 	Password    string `gorm:"column:password" json:"password" binding:"required"`
@@ -11,6 +9,5 @@ type User struct {
 }
 
 func (User) TableName() string {
-	fmt.Println("### This action makes so many calls to TableName : say 'user'")
 	return "user"
 }

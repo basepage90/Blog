@@ -22,7 +22,7 @@ type articleRepository struct {
 }
 
 func NewArticleRepository() ArticleRepository {
-	db := db.GetConn()
+	db := db.GetDB()
 	db.AutoMigrate(&models.Article{})
 	return &articleRepository{
 		db: db,

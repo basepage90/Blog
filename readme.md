@@ -19,6 +19,32 @@ Go and React Web App
 <details> .
     <summary> 👉 Click Me  ( Expand Detail Tag )</summary>
 
+### Gin-Web (tag : v0.1.7)
+- server
+    - AS-IS : Mysql / RESTful
+    - TO-BE : MongoDB / GraphQL
+- GraphQL
+    - graphql : ggithub.com/graphql-go/graphql
+    - graphql hadnler : gogithub.com/graphql-go/handler
+    - ~~gqlgen : github.com/99designs/gqlgen~~
+        - gqlgen 은 schema 만으로 generated 작업을 수행해주어 매우 편리하다.
+        - 다만, 나의 목적에 부합하지 않았다. 정해진 규격이 있어서 오히려 커스텀하는데 비용이 소비된다.
+    - cleanArchitecutre
+        - repository - service - resolver  - schema - gql handler 구조
+    - bson
+        - bson.D / bson.M / bson.E / bson.A
+    ```
+    [or search]
+    data, err := r.db.Find(context.TODO(), bson.M{"$or": []bson.M{{"title": title}, {"id": id}}})
+    
+    [like search]
+    data, err := r.db.Find(context.TODO(), bson.M{"title": bson.M{"$regex": title}})
+
+    [like search + 대소문자 구분 X]
+    data, err := r.db.Find(context.TODO(), bson.M{"title": bson.M{"$regex": title, "$options": "i"}})
+
+    ```
+
 ### Gin-Web (tag : v0.1.6)
 - server : db connection 방식 변경
     - The connection is only done once
