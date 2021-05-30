@@ -69,10 +69,3 @@ func (r *articlesRepository) InsertArticles(id, title string) error {
 	_, err := r.db.InsertOne(context.TODO(), bson.M{"id": id, "title": title})
 	return err
 }
-
-// args 받아서
-// ragne 돌리고
-// key 값  element 값 으로
-//  or like search로 bson 문 짜면
-// title subtitle contents 모두 검색해서, filter 해서 보여주면 깔꼼
-// 아니 그전에 filter로 구분하자
