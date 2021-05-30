@@ -11,7 +11,8 @@ Go and React Web App
 ### backend
 - Go
     - Gin Framework by CleanArchitecture
-    - GROM
+    - MongoDB ~~Mysql / GROM~~
+    - GraphQL
     - JWT / SMTP
 - Mysql
 
