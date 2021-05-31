@@ -3,7 +3,7 @@ import { ThemeProvider } from 'styled-components';
 import { StylesProvider} from '@material-ui/styles';
 import theme from "styles/theme/theme";
 import GlobalStyles from "styles/globalStyles";
-import HomePage from "pages/home/HomePage"
+import BlogRouter from "components/BlogRouter"
 
 
 function App() {
@@ -12,7 +12,7 @@ function App() {
     <>
     <StylesProvider injectFirst>
       <ThemeProvider theme={theme} >
-        <HomePage />
+        <BlogRouter />
         <GlobalStyles/>
       </ThemeProvider>
     </StylesProvider>

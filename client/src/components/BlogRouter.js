@@ -6,14 +6,13 @@ import Header from "components/header/Header";
 import RootContainer from 'components/common/layoutContainer/rootContainer'
 import routesCollection from 'components/routesCollection'
 
-import CardListPage from 'pages/home/article/CardListPage'
+import CardListPage from 'pages/CardListPage'
 import ArticlePage from 'pages/ArticlePage'
 
 
 const switchRoutes = (
   <Switch>
     <Route path="/" exact component={CardListPage} />
-    {/* <Route path="/:id" exact component={ArticlePage} /> */}
     <Route path="/:categoryLg/:categoryMd" exact component={CardListPage} />
     <Route path="/:categoryLg/:categoryMd/:id" exact component={ArticlePage} />
     <Route component={NotFoundPage} />

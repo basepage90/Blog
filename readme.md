@@ -20,6 +20,11 @@ Go and React Web App
 <details> .
     <summary> 👉 Click Me  ( Expand Detail Tag )</summary>
 
+### Gin-Web (tag : v0.1.8)
+- server : CORS Middleware 생성
+- client : yarn add apollo-boost graphgql @react-apollo
+    - Menu - server data load
+
 ### Gin-Web (tag : v0.1.7)
 - server
     - AS-IS : Mysql / RESTful

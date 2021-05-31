@@ -23,7 +23,12 @@ func graphqlHandler() gin.HandlerFunc {
 	articlesRepository := repositories.NewArticlesRepository()
 	articlesService := services.NewArticlesService(articlesRepository)
 	articlesResolver := resolver.NewArticlesResolver(articlesService)
-	schema := schema.NewSchema(articlesResolver)
+
+	categoryRepository := repositories.NewCategoryRepository()
+	categoryService := services.NewCategoryService(categoryRepository)
+	categoryResolver := resolver.NewCategoryResolver(categoryService)
+
+	schema := schema.NewSchema(articlesResolver, categoryResolver)
 
 	graphqlSchema, _ := graphql.NewSchema(graphql.SchemaConfig{
 		Query:    schema.Query(),

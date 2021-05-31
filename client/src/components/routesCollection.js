@@ -1,4 +1,4 @@
-import CardListPage from 'pages/home/article/CardListPage';
+import CardListPage from 'pages/CardListPage';
 
 import HomeIcon from '@material-ui/icons/Home';
 import FaceIcon from '@material-ui/icons/Face';

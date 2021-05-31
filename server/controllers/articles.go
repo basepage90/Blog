@@ -21,7 +21,4 @@ func NewArticlesController(service services.ArticlesService) ArticlesController 
 
 func (con *articlesController) GetArticles(ctx *gin.Context) {
 	// res, _ := con.service.FindAll()
-
-	// fmt.Println(res)
-
 }

@@ -15,11 +15,13 @@ type Schema interface {
 
 type schema struct {
 	articlesRsv resolver.ArticlesResolver
+	categoryRsv resolver.CategoryResolver
 }
 
-func NewSchema(articlesRsv resolver.ArticlesResolver) Schema {
+func NewSchema(articlesRsv resolver.ArticlesResolver, categoryRsv resolver.CategoryResolver) Schema {
 	return &schema{
 		articlesRsv: articlesRsv,
+		categoryRsv: categoryRsv,
 	}
 }
 
@@ -123,6 +125,11 @@ func (s *schema) Query() *graphql.Object {
 					},
 				},
 				Resolve: s.articlesRsv.GetArticlesAll,
+			},
+			"categoryList": &graphql.Field{
+				Type:        graphql.NewList(categoryType),
+				Description: "List of category",
+				Resolve:     s.categoryRsv.GetCategoryAll,
 			},
 		},
 	}

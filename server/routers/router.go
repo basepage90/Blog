@@ -13,6 +13,8 @@ func InitRouter() {
 	r.LoadHTMLGlob("templates/*")
 	r.Static("/static", "static")
 
+	r.Use(middleware.CORSMiddleware())
+
 	// Init Router Group
 	rgGuest := r.Group("")
 	InitLoginRouter(rgGuest)

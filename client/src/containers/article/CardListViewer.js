@@ -1,6 +1,6 @@
 import Card from 'components/common/card/card'
 import GridContainer from 'components/common/layoutContainer/gridContainer'
-import { useParams } from 'react-router-dom';
+import { useParams } from 'react-router-dom'
 
 
 // testdata 해당 카테고리의 data 모두 load 할필요없다
@@ -19,17 +19,17 @@ const CardListViewer = () => {
     const {categoryMd} = useParams();
     // const {categoryMd} = useParams();
     // useQuery 로 대체 예정
-    let data = null;
+    let cardData = null;
 
     const selectSuject = () => {
         switch (categoryMd){
-            // case undefined : data = testData.homeData;
+            // case undefined : cateData = testData.homeData;
             // break;
-            case 'about' : data = testData.aboutData;
+            case 'about' : cardData = testData.aboutData;
             break;
-            case 'hiphop' : data = testData.homeData;
+            case 'hiphop' : cardData = testData.homeData;
             break;
-            default : data = null;
+            default : cardData = null;
             break;
         }
     }
@@ -37,9 +37,9 @@ const CardListViewer = () => {
     
     return(
         <GridContainer className="sub__container">
-        {data === null ? null :
-            data.map((prop,key) => 
-                <Card data={prop} params={categoryMd} key={key}/>
+        {cardData === null ? null :
+            cardData.map((prop,key) => 
+                <Card cardData={prop} params={categoryMd} key={key}/>
                 )
         }
         </GridContainer>

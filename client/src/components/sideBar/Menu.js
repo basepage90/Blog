@@ -3,6 +3,8 @@ import styled from 'styled-components';
 import {Link} from "react-router-dom";
 import { click } from "store/store";
 import { useDispatch } from 'react-redux'
+import {useQuery} from '@apollo/react-hooks'
+import {GetCategory} from 'gql/query'
 
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
@@ -16,6 +18,8 @@ import ExpandLess from '@material-ui/icons/ExpandLess';
 import ExpandMore from '@material-ui/icons/ExpandMore';
 import Collapse from '@material-ui/core/Collapse';
 
+const JustDiv = styled.div`
+`;
 const Div = styled.div`
   display: flex;
   width: inherit;
@@ -38,6 +42,7 @@ const Div = styled.div`
 `;
 
 function Menu(){
+    const {loading, data} = useQuery(GetCategory);
 
     const dispatch = useDispatch();
 
@@ -45,20 +50,19 @@ function Menu(){
       dispatch(click());
     }
 
-    // list select
+    // menu select
     const [selectedIndex, setSelectedIndex] = useState();
-
     const handleListItemClick = (event,index) => {
       setSelectedIndex(index);
     };
 
-    // List expand
+    // category_md expand
     const [openDev, setOpenDev] = useState(false);
     const [openMusic, setOpenMusic] = useState(false);
 
     const handleClick = (text) => {
       switch (text){
-        case 'dev': setOpenDev(!openDev);
+        case 'development': setOpenDev(!openDev);
           break;
         case 'music': setOpenMusic(!openMusic);
           break;
@@ -66,110 +70,83 @@ function Menu(){
           break;
       }
     };
+
+    const selectOpener = (text) => {
+      switch (text){
+        case 'development': 
+          return openDev
+        case 'music': 
+          return openMusic
+        default :
+          return 
+      }
+    }
+
+    // icon selector
+    const selectIcon = (text) => {
+      switch (text) {
+        case 'about' : 
+          return <FaceIcon />
+        case 'development' :
+          return  <ComputerIcon />
+        case 'music' :
+          return <HeadsetIcon />
+        case 'recipe' :
+          return  <RestaurantIcon />
+        default :
+          return 
+      }
+    }
+
+    if (loading){
+      return <Div onClick={menuClick} />
+    } else {
+      const loadMenu = data.categoryList.map((lg) => {
+          if(lg.category_md.length === 0){
+            return (
+            <ListItem key={lg.category_lg} button component={Link} to={"/"+lg.category_lg+"/"+lg.category_lg} selected={selectedIndex === lg.sno} onClick={(event) => {handleListItemClick(event, lg.sno); }}>
+              <ListItemIcon >
+                {selectIcon(lg.category_lg)}
+              </ListItemIcon>
+              <ListItemText primary={lg.screen_name} />
+            </ListItem>
+            )
+          }else{
+            return (
+              <JustDiv key={lg.category_lg+"jd"}>
+              <ListItem  button  selected={selectedIndex === lg.sno}  onClick={(event) => {handleListItemClick(event , lg.sno); handleClick(lg.category_lg) }} >
+                <ListItemIcon  >
+                  {selectIcon(lg.category_lg)}
+                </ListItemIcon>
+                <ListItemText primary={lg.screen_name} />
+                {selectOpener(lg.category_lg) ? <ExpandLess /> : <ExpandMore />}
+              </ListItem>
+                  <Collapse in={selectOpener(lg.category_lg)}  timeout="auto" unmountOnExit>
+                    <List component="div" disablePadding>
+                    {lg.category_md.map( (md) => {
+                      return (
+                        <ListItem key={md.name} button className="nested" component={Link}  to={"/"+lg.category_lg+"/"+md.name} >
+                          <ListItemIcon />
+                          <ListItemText primary={md.screen_name} />
+                        </ListItem>
+                      )
+                    })}
+                    </List>
+                </Collapse>
+               </JustDiv>
+            )
+          }
+        })
+
     return (
-    <Div onClick={menuClick} >
-      <List>
-
-        <ListItem button component={Link} to="/about/about" selected={selectedIndex === 0} onClick={(event) => {handleListItemClick(event, 0); }}>
-          <ListItemIcon>
-            <FaceIcon />
-          </ListItemIcon>
-          <ListItemText primary="About" />
-        </ListItem>
-
-        <ListItem button selected={selectedIndex === 1}  onClick={(event) => {handleListItemClick(event , 1); handleClick("dev") }} >
-          <ListItemIcon>
-            <ComputerIcon />
-          </ListItemIcon>
-          <ListItemText primary="Development" />
-          {openDev ? <ExpandLess /> : <ExpandMore />}
-        </ListItem>
-          <Collapse in={openDev} timeout="auto" unmountOnExit>
-            <List component="div" disablePadding>
-              <ListItem button className="nested" component={Link} to="/dev/java" >
-                <ListItemIcon>
-                </ListItemIcon>
-                <ListItemText primary="Java" />
-              </ListItem>
-              <ListItem button className="nested" component={Link} to="/dev/golang" >
-                <ListItemIcon>
-                </ListItemIcon>
-                <ListItemText primary="Go Lang" />
-              </ListItem>
-              <ListItem button className="nested" component={Link} to="/dev/front-end" >
-                <ListItemIcon>
-                </ListItemIcon>
-                <ListItemText primary="Front-End" />
-              </ListItem>
-              <ListItem button className="nested" component={Link} to="/dev/dbms" >
-                <ListItemIcon>
-                </ListItemIcon>
-                <ListItemText primary="DBMS" />
-              </ListItem>
-              <ListItem button className="nested" component={Link} to="/dev/os" >
-                <ListItemIcon>
-                </ListItemIcon>
-                <ListItemText primary="OS" />
-              </ListItem>
-              <ListItem button className="nested" component={Link} to="/dev/architecture" >
-                <ListItemIcon>
-                </ListItemIcon>
-                <ListItemText primary="Architecture" />
-              </ListItem>
-              <ListItem button className="nested" component={Link} to="/dev/common" >
-                <ListItemIcon>
-                </ListItemIcon>
-                <ListItemText primary="Common" />
-              </ListItem>
-            </List>
-          </Collapse>
-
-        
-          <ListItem button selected={selectedIndex === 2} onClick={(event) => {handleListItemClick(event , 2); handleClick('music')}}>
-            <ListItemIcon>
-              <HeadsetIcon />
-            </ListItemIcon>
-            <ListItemText primary="Music" />
-            {openMusic ? <ExpandLess /> : <ExpandMore />}
-          </ListItem>
-          <Collapse in={openMusic} timeout="auto" unmountOnExit>
-            <List component="div" disablePadding>
-              <ListItem button className="nested" component={Link} to="/music/krHiphop" >
-                <ListItemIcon>
-                </ListItemIcon>
-                <ListItemText primary="힙합" />
-              </ListItem>
-              <ListItem button className="nested" component={Link} to="/music/hiphop" >
-                <ListItemIcon>
-                </ListItemIcon>
-                <ListItemText primary="Hiphop" />
-              </ListItem>
-              <ListItem button className="nested" component={Link} to="/music/r&b" >
-                <ListItemIcon>
-                </ListItemIcon>
-                <ListItemText primary="R&B" />
-              </ListItem>
-              <ListItem button className="nested" component={Link} to="/music/pop" >
-                <ListItemIcon>
-                </ListItemIcon>
-                <ListItemText primary="Pop" />
-              </ListItem>
-
-             </List>
-          </Collapse>
-        
-
-          <ListItem button component={Link} to="/recipe/recipe" selected={selectedIndex === 3} onClick={(event) => {handleListItemClick(event, 3)}}>
-            <ListItemIcon>
-              <RestaurantIcon />
-            </ListItemIcon>
-            <ListItemText primary="Recipe" />
-          </ListItem>
-
-      </List>
-    </Div>
+      <Div onClick={menuClick} >
+        <List>
+        {loadMenu}
+        </List>
+      </Div>
     )
+  }
+    
 };
-
 
 export default Menu;

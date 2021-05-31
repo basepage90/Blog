@@ -57,9 +57,9 @@ padding: 12px 24px 12px 24px;
 }
 `;
 
-export default function Card({data}){
+export default function Card({cardData}){
     const {pathname} = useLocation();
-    const {id,title,subtitle,info,desc} = data;
+    const {id,title,subtitle,info,desc} = cardData;
 
     return (
         <Link to={pathname === '/' ? { pathname: `/${id}` } : { pathname: `${pathname}/${id}` }} >
