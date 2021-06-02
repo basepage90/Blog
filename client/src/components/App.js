@@ -5,9 +5,7 @@ import theme from "styles/theme/theme";
 import GlobalStyles from "styles/globalStyles";
 import BlogRouter from "components/BlogRouter"
 
-
 function App() {
-
   return (
     <>
     <StylesProvider injectFirst>
@@ -21,5 +19,3 @@ function App() {
 }
 
 export default App;
-
-

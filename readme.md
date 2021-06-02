@@ -6,19 +6,22 @@ Go and React Web App
 - React
 - React Router
 - Redux
+- GraphQL (Apollo)
 - styled components & material-ui
 
 ### backend
 - Go
     - Gin Framework by CleanArchitecture
-    - MongoDB ~~Mysql / GROM~~
-    - GraphQL
     - JWT / SMTP
-- Mysql
+- MongoDB ~~Mysql / GROM~~
+- GraphQL
 
 ## Version History
 <details> .
     <summary> 👉 Click Me  ( Expand Detail Tag )</summary>
+
+### Gin-Web (tag : v0.1.9)
+- testData 대신 모두 MongoDB 데이터로 변경
 
 ### Gin-Web (tag : v0.1.8)
 - server : CORS Middleware 생성

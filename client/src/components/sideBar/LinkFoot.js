@@ -10,7 +10,6 @@ const Div = styled.div`
   padding: 15px;
   align-items: center;
   justify-content: center;
-
   & *{
     cursor: pointer;
   }

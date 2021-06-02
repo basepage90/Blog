@@ -18,17 +18,17 @@ const Outside = styled.div`
 `;
 
 const Div = styled.div`
-  display: flex;
-  flex-direction: column;
-  position: fixed;
-  width: ${sidebarWidth};
-  height: 100%;
-  background-color: #FAFAFA;
-  border-right: 1px solid rgba(0, 0, 0, 0.12);
-  transition: all ${({theme}) => theme.transition.duration.standard};
-  z-index: ${({theme}) => theme.zIndex.drawer};
-  overflow-y: auto;
-  overflow-x: hidden;
+    display: flex;
+    flex-direction: column;
+    position: fixed;
+    width: ${sidebarWidth};
+    height: 100%;
+    background-color: #FAFAFA;
+    border-right: 1px solid rgba(0, 0, 0, 0.12);
+    transition: all ${({theme}) => theme.transition.duration.standard};
+    z-index: ${({theme}) => theme.zIndex.drawer};
+    overflow-y: auto;
+    overflow-x: hidden;
 `;
 
 
@@ -131,7 +131,6 @@ function SideBar(){
                 <LinkFoot />
             </Div>
             </>
-
         );
     }
 }

@@ -3,8 +3,8 @@ import styled from 'styled-components';
 import {Link} from "react-router-dom";
 import { click } from "store/store";
 import { useDispatch } from 'react-redux'
-import {useQuery} from '@apollo/react-hooks'
-import {GetCategory} from 'gql/query'
+import { useQuery } from '@apollo/react-hooks'
+import { GetMenuList } from 'gql/query'
 
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
@@ -42,7 +42,7 @@ const Div = styled.div`
 `;
 
 function Menu(){
-    const {loading, data} = useQuery(GetCategory);
+    const {loading, data} = useQuery(GetMenuList);
 
     const dispatch = useDispatch();
 

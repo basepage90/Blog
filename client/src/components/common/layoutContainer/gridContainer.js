@@ -11,7 +11,7 @@ const GridContainer = styled.div`
     
     ${({theme}) => theme.media.xsmall}{
         grid-template-columns: 95%;
-        grid-row-gap: 0.5%;
+        grid-row-gap: 1.5%;
     }
 `;
 

@@ -10,7 +10,6 @@ ErrorScreenTemplate.propTypes = {
   onButtonClick: PropTypes.func.isRequired
 };
 
-
 const StyledButton = styled(Button)`
   color: white;
   background: ${({theme}) => theme.palette.sky1};
@@ -55,7 +54,6 @@ const Screen = styled.div`
   }
 `;
 
-
 function ErrorScreenTemplate({image,message,reason,buttonText,onButtonClick,reasonDesc}) {
   return (
     <Screen>
@@ -75,6 +73,5 @@ function ErrorScreenTemplate({image,message,reason,buttonText,onButtonClick,reas
     </Screen>
   );
 }
-
   
 export default ErrorScreenTemplate;  

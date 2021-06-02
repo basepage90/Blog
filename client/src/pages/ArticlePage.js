@@ -1,7 +1,5 @@
 import ArticleViewer from "containers/article/articleViewer"
 
-
-
 const ArticlePage = () => {
     return(
         <ArticleViewer />

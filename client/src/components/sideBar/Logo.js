@@ -3,7 +3,6 @@ import styled from 'styled-components';
 import { LogoImg } from 'statics/images';
 import {sidebarWidth} from 'styles/styleConst'
 
-
 const MyLogo = styled.a`
     flex: 0 0 auto;
     width: ${sidebarWidth};
@@ -23,7 +22,6 @@ const LogoImage = styled.div`
 `;
 
 function Logo (){
-    
     return (
         <MyLogo href="/">
             <LogoImage/>

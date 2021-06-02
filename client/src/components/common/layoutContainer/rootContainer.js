@@ -27,6 +27,6 @@ function RootContainer({switchRoutes}){
         {switchRoutes}
       </Div>
     );
-    
 }
+
 export default RootContainer;

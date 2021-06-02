@@ -43,7 +43,6 @@ function UrlCopy ()  {
             </Alert>
         </Snackbar>
     )
-
 }
 
 export default UrlCopy;

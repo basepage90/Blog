@@ -2,7 +2,6 @@ import React from 'react';
 import styled from "styled-components";
 import { adminClose } from "store/store";
 import { useDispatch, useSelector } from "react-redux";
- 
 
 import Avatar from '@material-ui/core/Avatar';
 import List from '@material-ui/core/List';

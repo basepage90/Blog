@@ -19,12 +19,10 @@ const Div = styled.div`
     position: relative;
     height: ${ headerHeight };
     height: 38px;
-    
     .MuiFab-root{
         width: 36px;
         height: 36px;
     }
-    
     & .MuiFab-primary{
         background-color: ${({theme}) => theme.palette.sky0};
     }
@@ -60,7 +58,7 @@ export default function SpeedDialButton(){
         { icon: <SearchIcon />, name: 'Search', onClick: handleClickOpen, compo: null },
         { icon: <LinkIcon />, name: 'Link', onClick: snackOpen, compo: UrlCopy },
         { icon: <AccountCircle />, name: 'Admin', onClick: handleClickOpen, compo: AdminDialog },
-        ];
+    ];
 
     return (
         <>
@@ -88,7 +86,6 @@ export default function SpeedDialButton(){
                 action.compo !== null ? <action.compo key={action.name} /> : null
             ))
             }
-            
         </Div>
         </>
     )

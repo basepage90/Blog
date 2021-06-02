@@ -18,6 +18,11 @@ import IconButton from '@material-ui/core/IconButton';
 
 import { useLocation } from 'react-router-dom';
 
+import HomeIcon from '@material-ui/icons/Home';
+import FaceIcon from '@material-ui/icons/Face';
+import HeadsetIcon from '@material-ui/icons/Headset';
+import ComputerIcon from '@material-ui/icons/Computer';
+import RestaurantIcon from '@material-ui/icons/Restaurant';
 
 const Div = styled.div`
     position: fixed;
@@ -63,9 +68,23 @@ const HideHeader = () => {
     }
 }
 
+// icon selector
+const selectIcon = (text) => {
+    switch (text) {
+        case 'about' : 
+            return <FaceIcon key="face" />
+        case 'development' :
+            return  <ComputerIcon key="computer" />
+        case 'music' :
+            return <HeadsetIcon key="headset" />
+        case 'recipe' :
+            return  <RestaurantIcon key="restaurant" />
+        default : 
+            return <HomeIcon key="home" /> 
+    }
+}
 
-function Header(props){
-
+function Header({ loading, data }){
     const dispatch = useDispatch();
 
     // SideBar 
@@ -81,27 +100,48 @@ function Header(props){
     // Admin Dialog
     const handleClickOpen = () => { dispatch(adminOpen()) };
 
-
+    // location - path
     const location =  useLocation();
 
     // Suject
     const makeSubject = () => {
         let subject;
         const nbsp = String.fromCharCode(160);
-        const arrowIcon = <ArrowRightIcon key="arrowIcon"/>;
-        props.routesCollection.map(prop => {
-            if (location.pathname.indexOf(prop.categoryLg + prop.categoryMd) !== -1) {
-                if(mobileFlag){
-                    prop.subName ? subject = [prop.icon, nbsp, arrowIcon, nbsp, prop.subName] : subject = [prop.icon, nbsp+nbsp, prop.name];
-                } else {
-                    prop.subName ? subject = [prop.icon, nbsp+nbsp, prop.name, arrowIcon, nbsp, prop.subName] : subject = [prop.icon, nbsp+nbsp, prop.name];
+        const arrowIcon = <ArrowRightIcon key="arrow" />;
+        if(!loading){
+            data.categoryList.map(lg => {
+                if(location.pathname.indexOf(lg.category_lg) !== -1) {
+                    if(mobileFlag){
+                        if(lg.category_md.length === 0){
+                            subject = [selectIcon(lg.category_lg), nbsp+nbsp, lg.screen_name]
+                        } else{
+                            lg.category_md.map( md => {
+                            subject = [selectIcon(lg.category_lg), nbsp+nbsp, arrowIcon, nbsp, md.screen_name]
+                            return null;
+                            })
+                        }
+                    } else {
+                        if(lg.category_md.length === 0){
+                            subject = [selectIcon(lg.category_lg), nbsp+nbsp, lg.screen_name]
+                        } else {
+                            lg.category_md.map( md => {
+                                if(location.pathname.indexOf(md.name) !== -1){
+                                    subject = [selectIcon(lg.category_lg), nbsp+nbsp, lg.screen_name, nbsp, arrowIcon, nbsp, md.screen_name]
+                                }
+                                return null;
+                            })
+                        } 
+                    }
+                } else if (location.pathname === "/"){
+                    subject = [selectIcon(), nbsp+nbsp, "Home"]
+                    return subject
                 }
-            }
-            return null;
-        });
-        return subject ;
+                return null;
+            });
+        }
+        return subject
     }
-    
+
     // This expression is working similar to ComponentDidMount.
     useEffect( () => {
         HideHeader();
@@ -110,37 +150,37 @@ function Header(props){
     
     return (
         <Div id="rootHeader" style={{ left: mobileFlag ?  "0" :  (sideBarState  ? "0": sidebarWidth) }} >
-        <StAppBar aria-label="menu">    
-            <StToolbar >
-                <IconButton
-                    edge="start"
-                    className="menu__btn"
-                    color="inherit"
-                    aria-label="open drawer"
-                    onClick={handleSideBarOpen}
-                >
-                { mobileFlag ? <MenuIcon /> : sideBarState ? <MenuIcon /> : <ChevronLeft />}
-                </IconButton>
-                    <span className="subject">
-                        {makeSubject()}
-                    </span>
-                { mobileFlag ? <SpeedDialButton /> :
-                    <>
-                    <SearchBox />
+            <StAppBar aria-label="menu">    
+                <StToolbar >
                     <IconButton
-                    aria-label="account of current user"
-                    aria-controls="menu-appbar"
-                    aria-haspopup="true"
-                    onClick={handleClickOpen}
-                    color="inherit"
+                        edge="start"
+                        className="menu__btn"
+                        color="inherit"
+                        aria-label="open drawer"
+                        onClick={handleSideBarOpen}
                     >
-                        <AccountCircle />
+                    { mobileFlag ? <MenuIcon /> : sideBarState ? <MenuIcon /> : <ChevronLeft />}
                     </IconButton>
-                    <AdminDialog />
-                    </>
-                }
-            </StToolbar>
-        </StAppBar>
+                        <span className="subject">
+                            {makeSubject()}
+                        </span>
+                    { mobileFlag ? <SpeedDialButton /> :
+                        <>
+                        <SearchBox />
+                        <IconButton
+                        aria-label="account of current user"
+                        aria-controls="menu-appbar"
+                        aria-haspopup="true"
+                        onClick={handleClickOpen}
+                        color="inherit"
+                        >
+                            <AccountCircle />
+                        </IconButton>
+                        <AdminDialog />
+                        </>
+                    }
+                </StToolbar>
+            </StAppBar>
         </Div>
     )
 };

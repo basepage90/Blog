@@ -26,5 +26,5 @@ func InitRouter() {
 	rgGql := r.Group("")
 	InitGql(rgGql)
 
-	r.Run(":8080")
+	r.Run(":5000")
 }

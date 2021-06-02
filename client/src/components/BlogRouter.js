@@ -1,14 +1,14 @@
 import React from "react";
 import {BrowserRouter, Route,Switch} from 'react-router-dom';
-import NotFoundPage from 'pages/NotFoundPage';
+import { useQuery } from '@apollo/react-hooks'
+import { GetMenuList } from 'gql/query'
+
 import SideBar from "components/sideBar/SideBar";
 import Header from "components/header/Header";
-import RootContainer from 'components/common/layoutContainer/rootContainer'
-import routesCollection from 'components/routesCollection'
-
 import CardListPage from 'pages/CardListPage'
+import RootContainer from 'components/common/layoutContainer/rootContainer'
 import ArticlePage from 'pages/ArticlePage'
-
+import NotFoundPage from 'pages/NotFoundPage';
 
 const switchRoutes = (
   <Switch>
@@ -20,11 +20,12 @@ const switchRoutes = (
 );
 
 function Router(){
+  const { loading, data } = useQuery(GetMenuList);
   return(
     <BrowserRouter>
       <>    
         <SideBar />
-        <Header routesCollection={routesCollection} />
+        <Header loading={loading} data={data} />
         <RootContainer switchRoutes={switchRoutes} />
       </>
     </BrowserRouter>

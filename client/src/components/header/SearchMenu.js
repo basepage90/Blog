@@ -2,8 +2,6 @@ import React from "react";
 import SearchIcon from '@material-ui/icons/Search';
 import IconButton from '@material-ui/core/IconButton';
 
-
-
 function SearchMenu(){
     const ShowSearchBox = () => {
         

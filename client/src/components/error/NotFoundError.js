@@ -3,7 +3,6 @@ import ErrorScreenTemplate from './ErrorScreenTemplate';
 import { PageNotFound } from 'statics/images';
 import { useHistory } from 'react-router-dom';
 
-
 function NotFoundError() {
   const history = useHistory();
 
