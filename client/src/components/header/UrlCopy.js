@@ -35,7 +35,7 @@ function UrlCopy ()  {
         <Snackbar
         open={snackBarState}
         onClose={handleClickClose}
-        autoHideDuration={1500} 
+        autoHideDuration={3000} 
         anchorOrigin={{ vertical: "bottom", horizontal: "center" }}
         >
             <Alert onClose={handleClickClose} severity="success">

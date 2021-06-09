@@ -6,6 +6,8 @@ import menuClick from 'store/menuClick';
 import admin from 'store/admin';
 import snackBar from 'store/snackBar';
 import article from 'store/article';
+import publish from 'store/publish';
+import post from 'store/post';
 
 const rootReducer = combineReducers({
     error: error.reducer,
@@ -15,16 +17,20 @@ const rootReducer = combineReducers({
     admin: admin.reducer,
     snackBar: snackBar.reducer,
     article: article.reducer,
+    publish: publish.reducer,
+    post: post.reducer,
 });
 
 const store = configureStore({
     reducer: rootReducer
 });
 
-export const {transSideBar,transMobileFlag} = sideBarHidden.actions;
-export const {click} = menuClick.actions;
-export const {adminOpen, adminClose} = admin.actions;
-export const {snackBarOpen, snackBarClose} = snackBar.actions;
-export const {cardClick} = article.actions;
+export const { transSideBar, transMobileFlag } = sideBarHidden.actions;
+export const { click } = menuClick.actions;
+export const { adminOpen, adminClose } = admin.actions;
+export const { snackBarOpen, snackBarClose } = snackBar.actions;
+export const { cardClick } = article.actions;
+export const { openPublisher, closePublisher } = publish.actions;
+export const { setContents } = post.actions;
 
 export default store;

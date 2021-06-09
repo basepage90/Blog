@@ -29,9 +29,14 @@ func NewCategoryRepository() CategoryRepository {
 
 func (r *categoryRepository) FindAll() ([]models.Category, error) {
 	var res []models.Category
-	opts := options.Find()
-	opts.SetSort(bson.M{"sno": 1})
+	opts := options.Find().
+		SetSort(bson.M{"sno": 1}).
+		SetCollation(&options.Collation{
+			Locale:          "en_US",
+			NumericOrdering: true,
+		})
 	data, err := r.db.Find(context.TODO(), bson.M{}, opts)
 	err = data.All(context.TODO(), &res)
+
 	return res, err
 }

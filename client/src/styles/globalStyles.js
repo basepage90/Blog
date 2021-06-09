@@ -13,10 +13,11 @@ const GlobalStyles = createGlobalStyle`
     input, button, textarea {
         font-family: inherit;
     }
-    
+ 
     html, body, #root {
         height: 100%;
     }
+
 `;
 
 export default GlobalStyles;

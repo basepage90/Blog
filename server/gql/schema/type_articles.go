@@ -6,7 +6,7 @@ var articlesType = graphql.NewObject(graphql.ObjectConfig{
 	Name: "Articles",
 	Fields: graphql.Fields{
 		"id": &graphql.Field{
-			Type: graphql.String,
+			Type: graphql.Int,
 		},
 		"title": &graphql.Field{
 			Type: graphql.String,
@@ -14,7 +14,7 @@ var articlesType = graphql.NewObject(graphql.ObjectConfig{
 		"subtitle": &graphql.Field{
 			Type: graphql.String,
 		},
-		"info": &graphql.Field{
+		"reg_date": &graphql.Field{
 			Type: graphql.String,
 		},
 		"desc": &graphql.Field{

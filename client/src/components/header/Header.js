@@ -6,7 +6,7 @@ import { useDispatch, useSelector, shallowEqual } from "react-redux";
 import SearchBox from "components/header/SearchBox";
 import AdminDialog from "components/header/AdminDialog"
 import SpeedDialButton from "components/header/SpeedDialButton"
-
+import {Link} from "react-router-dom";
 
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
@@ -23,6 +23,7 @@ import FaceIcon from '@material-ui/icons/Face';
 import HeadsetIcon from '@material-ui/icons/Headset';
 import ComputerIcon from '@material-ui/icons/Computer';
 import RestaurantIcon from '@material-ui/icons/Restaurant';
+import CreateIcon from '@material-ui/icons/Create';
 
 const Div = styled.div`
     position: fixed;
@@ -54,18 +55,17 @@ const StToolbar = styled(Toolbar)`
 `;
 
 
+let prevScrollpos = window.pageYOffset;
+
 const HideHeader = () => {
-    let prevScrollpos = window.pageYOffset;
-    window.onscroll = function() {
-        const currentScrollPos = window.pageYOffset;
-        if (prevScrollpos > currentScrollPos) {
-            document.getElementById("rootHeader").style.top = "0";
-        } else {
-            let height = document.getElementById("rootHeader").offsetHeight;
-            document.getElementById("rootHeader").style.top = -height+"px";
-        }
-        prevScrollpos = currentScrollPos;
+    const currentScrollPos = window.pageYOffset;
+    if (prevScrollpos > currentScrollPos || prevScrollpos === 0) {
+        document.getElementById("rootHeader").style.top = "0";
+    } else {
+        let height = document.getElementById("rootHeader").offsetHeight;
+        document.getElementById("rootHeader").style.top = -height+"px";
     }
+    prevScrollpos = currentScrollPos;
 }
 
 // icon selector
@@ -102,15 +102,18 @@ function Header({ loading, data }){
 
     // location - path
     const location =  useLocation();
-
+    
     // Suject
     const makeSubject = () => {
+        const locationArr = (location.pathname).split( '/', '3' )
+        const location_lg = locationArr[1]
+        const location_md = locationArr[2]
         let subject;
         const nbsp = String.fromCharCode(160);
         const arrowIcon = <ArrowRightIcon key="arrow" />;
         if(!loading){
             data.categoryList.map(lg => {
-                if(location.pathname.indexOf(lg.category_lg) !== -1) {
+                if( location_lg === lg.category_lg ) {
                     if(mobileFlag){
                         if(lg.category_md.length === 0){
                             subject = [selectIcon(lg.category_lg), nbsp+nbsp, lg.screen_name]
@@ -122,12 +125,16 @@ function Header({ loading, data }){
                         }
                     } else {
                         if(lg.category_md.length === 0){
-                            subject = [selectIcon(lg.category_lg), nbsp+nbsp, lg.screen_name]
+                            if(location_md === location_lg){
+                                subject = [selectIcon(lg.category_lg), nbsp+nbsp, lg.screen_name]
+                            } else {
+                                return null;
+                            }
                         } else {
                             lg.category_md.map( md => {
-                                if(location.pathname.indexOf(md.name) !== -1){
+                                if(location_md === md.name){
                                     subject = [selectIcon(lg.category_lg), nbsp+nbsp, lg.screen_name, nbsp, arrowIcon, nbsp, md.screen_name]
-                                }
+                                }   
                                 return null;
                             })
                         } 
@@ -142,11 +149,13 @@ function Header({ loading, data }){
         return subject
     }
 
-    // This expression is working similar to ComponentDidMount.
-    useEffect( () => {
-        HideHeader();
-        document.getElementById("rootHeader").style.top = "0";
-    },[]);
+    // This expression is working similar to ComponentDidMount + componentWillUnmount
+    useEffect(() => {
+        window.addEventListener('scroll',  HideHeader);
+        return () => {
+            window.removeEventListener('scroll', HideHeader);
+        }
+    }, []);
     
     return (
         <Div id="rootHeader" style={{ left: mobileFlag ?  "0" :  (sideBarState  ? "0": sidebarWidth) }} >
@@ -167,10 +176,10 @@ function Header({ loading, data }){
                     { mobileFlag ? <SpeedDialButton /> :
                         <>
                         <SearchBox />
+                        <IconButton color="inherit" component={Link} to="/write" >
+                            <CreateIcon />
+                        </IconButton>
                         <IconButton
-                        aria-label="account of current user"
-                        aria-controls="menu-appbar"
-                        aria-haspopup="true"
                         onClick={handleClickOpen}
                         color="inherit"
                         >

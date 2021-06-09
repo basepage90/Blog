@@ -9,7 +9,7 @@ type ArticlesService interface {
 	FindById(args map[string]interface{}) (models.Articles, error)
 	FindAllByCategory(args map[string]interface{}) ([]models.Articles, error)
 	FindAll(args map[string]interface{}) ([]models.Articles, error)
-	CreateArticles(args map[string]interface{}) (models.Articles, error)
+	CreateArticles(args map[string]interface{}) (interface{}, error)
 }
 
 type articlesService struct {
@@ -23,7 +23,7 @@ func NewArticlesService(articlesRepository repositories.ArticlesRepository) Arti
 }
 
 func (service *articlesService) FindById(args map[string]interface{}) (models.Articles, error) {
-	id, _ := args["id"].(string)
+	id, _ := args["id"].(int)
 	res, err := service.repository.FindById(id)
 	return res, err
 }
@@ -74,17 +74,21 @@ func (service *articlesService) FindAll(args map[string]interface{}) ([]models.A
 	return res, err
 }
 
-func (service *articlesService) CreateArticles(args map[string]interface{}) (models.Articles, error) {
-	var res models.Articles
-	var err error
-
-	id, _ := args["id"].(string)
-	title, _ := args["title"].(string)
-
-	err = service.repository.InsertArticles(id, title)
-	if err == nil {
-		res, err = service.repository.FindById(id)
+func (service *articlesService) CreateArticles(args map[string]interface{}) (interface{}, error) {
+	// var res models.Articles
+	inputData := models.Articles{
+		Title:       args["title"].(string),
+		Subtitle:    args["subtitle"].(string),
+		Desc:        args["desc"].(string),
+		Contents:    args["contents"].(string),
+		Category_lg: args["category_lg"].(string),
+		Category_md: args["category_md"].(string),
 	}
+
+	res, err := service.repository.InsertArticles(inputData)
+	// if err == nil {
+	// 	res, err = service.repository.FindById(id)
+	// }
 
 	return res, err
 }

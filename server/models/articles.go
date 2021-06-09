@@ -1,10 +1,10 @@
 package models
 
 type Articles struct {
-	Id          string `json:"id"`
+	Id          int    `bson:"_id" json:"id"`
 	Title       string `json:"title"`
 	Subtitle    string `json:"subtitle"`
-	Info        string `json:"info"`
+	Reg_date    string `json:"reg_date"`
 	Desc        string `json:"desc"`
 	Contents    string `json:"contents"`
 	Category_lg string `json:"category_lg"`

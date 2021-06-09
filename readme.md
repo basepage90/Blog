@@ -10,15 +10,31 @@ Go and React Web App
 - styled components & material-ui
 
 ### backend
-- Go
-    - Gin Framework by CleanArchitecture
-    - JWT / SMTP
-- MongoDB ~~Mysql / GROM~~
+- Go : Gin Framework by CleanArchitecture
+- MongoDB ~~Mysql / GORM~~
 - GraphQL
+- JWT / SMTP
 
 ## Version History
-<details> .
+<details> 
     <summary> 👉 Click Me  ( Expand Detail Tag )</summary>
+
+### Gin-Web (tag : v0.2.0)
+- client :
+    - router page 구조 변경/ header subject 동작 개선 / 버그 수정
+    - MarkDown
+        - editor : react-simplemde-editor
+        - renderer : react-markdown
+            - remark-gfm / rehype-raw /SyntaxHighlighter / style 정의
+    - snackbar 구현 : notistack
+    
+- server :
+    - MongoDB id 대신 _id 사용
+    - sequence 구현
+        1. create sequence collection
+        2. auto increament 
+        3. type : int64 / NumberLong()
+        4. findOneAndUpdate, findOneAndReplace ← ~~findAndModify~~
 
 ### Gin-Web (tag : v0.1.9)
 - testData 대신 모두 MongoDB 데이터로 변경
@@ -42,7 +58,8 @@ Go and React Web App
         - repository - service - resolver  - schema - gql handler 구조
     - bson
         - bson.D / bson.M / bson.E / bson.A
-    ```
+
+    ```plain
     [or search]
     data, err := r.db.Find(context.TODO(), bson.M{"$or": []bson.M{{"title": title}, {"id": id}}})
     
@@ -83,7 +100,7 @@ Go and React Web App
 
 ### Gin-Web (tag : v0.1.1)
 - useEffect expression
-```
+```plain
     - componentDidMount
         useEffect(() => {
             do();

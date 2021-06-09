@@ -45,10 +45,22 @@ func (s *schema) Mutation() *graphql.Object {
 				Type:        articlesType,
 				Description: "Create new articles",
 				Args: graphql.FieldConfigArgument{
-					"id": &graphql.ArgumentConfig{
+					"title": &graphql.ArgumentConfig{
 						Type: graphql.NewNonNull(graphql.String),
 					},
-					"title": &graphql.ArgumentConfig{
+					"subtitle": &graphql.ArgumentConfig{
+						Type: graphql.NewNonNull(graphql.String),
+					},
+					"desc": &graphql.ArgumentConfig{
+						Type: graphql.NewNonNull(graphql.String),
+					},
+					"contents": &graphql.ArgumentConfig{
+						Type: graphql.NewNonNull(graphql.String),
+					},
+					"category_lg": &graphql.ArgumentConfig{
+						Type: graphql.NewNonNull(graphql.String),
+					},
+					"category_md": &graphql.ArgumentConfig{
 						Type: graphql.NewNonNull(graphql.String),
 					},
 				},
@@ -67,17 +79,17 @@ func (s *schema) Mutation() *graphql.Object {
 					},
 				},
 				Resolve: func(params graphql.ResolveParams) (interface{}, error) {
-					title, _ := params.Args["title"].(string)
-					id, _ := params.Args["id"].(string)
+					// title, _ := params.Args["title"].(string)
+					// id, _ := params.Args["id"].(string)
 					affectedArticles := models.Articles{}
 
-					for i := 0; i < len(ArticlesList); i++ {
-						if ArticlesList[i].Id == id {
-							ArticlesList[i].Title = title
-							affectedArticles = ArticlesList[i]
-							break
-						}
-					}
+					// for i := 0; i < len(ArticlesList); i++ {
+					// 	if ArticlesList[i].Id == id {
+					// 		ArticlesList[i].Title = title
+					// 		affectedArticles = ArticlesList[i]
+					// 		break
+					// 	}
+					// }
 					return affectedArticles, nil
 				},
 			},
@@ -95,7 +107,7 @@ func (s *schema) Query() *graphql.Object {
 				Description: "Get single articles",
 				Args: graphql.FieldConfigArgument{
 					"id": &graphql.ArgumentConfig{
-						Type: graphql.String,
+						Type: graphql.Int,
 					},
 				},
 				Resolve: s.articlesRsv.GetArticlesById,
@@ -118,7 +130,7 @@ func (s *schema) Query() *graphql.Object {
 				Description: "List of articles",
 				Args: graphql.FieldConfigArgument{
 					"id": &graphql.ArgumentConfig{
-						Type: graphql.String,
+						Type: graphql.Int,
 					},
 					"title": &graphql.ArgumentConfig{
 						Type: graphql.String,

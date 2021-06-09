@@ -6,9 +6,9 @@ export const GetMenuList = gql`
       category_lg,
       screen_name,
       category_md{
-        name
-        screen_name
-        sno
+        name,
+        screen_name,
+        sno,
       },
       sno
       }
@@ -16,14 +16,14 @@ export const GetMenuList = gql`
 `;
 
 export const GetArticles = gql`
-  query GetArticles($id: String!) {
+  query GetArticles($id: Int!) {
     articles(id: $id) {
-      id
-      title
-      subtitle
-      info
-      desc
-      contents
+      id,
+      title,
+      subtitle,
+      reg_date,
+      desc,
+      contents,
     }
   }
 `;
@@ -37,7 +37,27 @@ export const GetCardList = gql`
       title,
       subtitle,
       desc,
-      info
+      reg_date
+    }
+  }
+`;
+
+export const CreateArticle = gql`
+  mutation CreateArticle( $title: String!,
+                          $subtitle: String!,
+                          $contents: String!,
+                          $desc: String!,
+                          $category_lg: String!,
+                          $category_md: String!
+                        ) {
+    createArticles(  title:$title,
+                    subtitle: $subtitle,
+                    contents:$contents,
+                    desc: $desc,
+                    category_lg: $category_lg,
+                    category_md: $category_md
+                  ){
+      id
     }
   }
 `;

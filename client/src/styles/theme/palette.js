@@ -8,8 +8,9 @@ const palette = {
   sea1: '#1A9BC6',
   sea2: '#66D9EF',
 
-  hotpink0: '#FF5859',
-  hotpink1: '#FF696A',
+  hotpink0: '#ff3333',
+  hotpink1: '#ff4d4d',
+  hotpink2: '#FF696A',
 
   placeHolder: '#9BC3EB',
 

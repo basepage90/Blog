@@ -9,11 +9,12 @@ const CardListViewer = () => {
     const { loading, data } = useQuery(GetCardList, {
         variables: { category_lg : String(categoryLg), category_md: String(categoryMd) }
     });
+
     if(loading || categoryLg === undefined){
         return(
             <GridContainer className="sub__container"/>
         )
-    }else{
+    } else {
         return(
             <GridContainer className="sub__container">
             {data.articlesListByCategory.map((articlesData,key) =>
