@@ -31,13 +31,13 @@ const MDWriter = () => {
         lineWrapping : false,
         renderingConfig: {
             singleLineBreaks: false,
-            // codeSyntaxHighlighting: ture,
         },
         autosave: {
-        enabled: true,
-        uniqueId: "autoSaving",
-        delay,
+            enabled: true,
+            uniqueId: "autoSaving",
+            delay,
         },
+        hideIcons: ['image'],
         showIcons: [
             "quote", 
             "strikethrough",
@@ -47,10 +47,14 @@ const MDWriter = () => {
             "undo",
             "clean-block",
             "horizontal-rule",
+            "upload-image",
         ],
         onToggleFullScreen: function(fullScreen) {
             return setOverflow(fullScreen);
         },
+        uploadImage: true,
+        imageUploadEndpoint: "http://wjk.ddns.net:5000/upload",
+        imagePathAbsolute: true,
     };
     }, [delay]);
 

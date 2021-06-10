@@ -19,6 +19,9 @@ Go and React Web App
 <details> 
     <summary> 👉 Click Me  ( Expand Detail Tag )</summary>
 
+### Gin-Web (tag : v0.2.1)
+- Markdown : server image upload 구현
+
 ### Gin-Web (tag : v0.2.0)
 - client :
     - router page 구조 변경/ header subject 동작 개선 / 버그 수정

@@ -8,6 +8,10 @@ import (
 // Initialize Router Group
 func InitRouter() {
 	r := gin.New()
+
+	// Set a lower memory limit for multipart forms (default is 32 MiB)
+	r.MaxMultipartMemory = 8 << 20 // 8 MiB
+
 	r.Use(gin.Logger(), middleware.Logger())
 
 	r.LoadHTMLGlob("templates/*")
@@ -18,6 +22,7 @@ func InitRouter() {
 	// Init Router Group
 	rgGuest := r.Group("")
 	InitLoginRouter(rgGuest)
+	InitUploadRouter(rgGuest)
 
 	rgUser := r.Group("", middleware.AuthorizeJWT())
 	InitIndexRouter(rgUser)
