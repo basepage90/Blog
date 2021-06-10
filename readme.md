@@ -2,6 +2,7 @@
 Go and React Web App
 
 ## Project Stack
+
 ### frontend
 - React
 - React Router
