@@ -6,3 +6,6 @@
 
 ## etc
 .vscode/
+
+## img
+static/img/upload/*

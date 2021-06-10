@@ -11,7 +11,8 @@ import (
 )
 
 func InitUploadRouter(Router *gin.RouterGroup) {
-	Router.POST("/upload", uploadSingle)
+	Router.POST("/upload/postImg", uploadSingle)
+	Router.POST("/upload/thumbnail", uploadSingle)
 }
 
 func uploadSingle(ctx *gin.Context) {
@@ -28,7 +29,7 @@ func uploadSingle(ctx *gin.Context) {
 	filename := filepath.Base(file.Filename)
 	uuidKey := uuid.New().String()
 	filename = uuidKey + "_" + filename
-	uploadPath := "static/img/upload/" + filename
+	uploadPath := "static/img/postImg/" + filename
 
 	log.Println(filename)
 	if err := ctx.SaveUploadedFile(file, uploadPath); err != nil {

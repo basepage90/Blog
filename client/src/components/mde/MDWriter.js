@@ -53,7 +53,7 @@ const MDWriter = () => {
             return setOverflow(fullScreen);
         },
         uploadImage: true,
-        imageUploadEndpoint: "http://wjk.ddns.net:5000/upload",
+        imageUploadEndpoint: "http://wjk.ddns.net:5000/upload/postImg",
         imagePathAbsolute: true,
     };
     }, [delay]);
