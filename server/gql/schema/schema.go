@@ -63,6 +63,12 @@ func (s *schema) Mutation() *graphql.Object {
 					"category_md": &graphql.ArgumentConfig{
 						Type: graphql.NewNonNull(graphql.String),
 					},
+					"thumbnail": &graphql.ArgumentConfig{
+						Type: graphql.NewNonNull(graphql.String),
+					},
+					"privacy": &graphql.ArgumentConfig{
+						Type: graphql.NewNonNull(graphql.String),
+					},
 				},
 				Resolve: s.articlesRsv.CreateArticles,
 			},

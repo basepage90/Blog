@@ -17,6 +17,7 @@
     "bootstrap": "^4.6.0",
     "easymde": "^2.15.0",
     "graphql": "^15.5.0",
+    "material-ui-dropzone": "^3.5.0",
     "notistack": "^1.0.9",
     "prop-types": "^15.7.2",
     "react": "^17.0.2",

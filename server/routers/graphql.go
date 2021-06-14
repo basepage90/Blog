@@ -11,12 +11,9 @@ import (
 	"github.com/woojebiz/gin-web/server/services"
 )
 
-func playgroundHandler() gin.HandlerFunc {
-	h := playground.Handler("GraphQL", "/gql")
-
-	return func(c *gin.Context) {
-		h.ServeHTTP(c.Writer, c.Request)
-	}
+func InitGql(Router *gin.RouterGroup) {
+	Router.POST("/gql", graphqlHandler())
+	Router.GET("/play", playgroundHandler())
 }
 
 func graphqlHandler() gin.HandlerFunc {
@@ -46,7 +43,10 @@ func graphqlHandler() gin.HandlerFunc {
 	}
 }
 
-func InitGql(Router *gin.RouterGroup) {
-	Router.POST("/gql", graphqlHandler())
-	Router.GET("/play", playgroundHandler())
+func playgroundHandler() gin.HandlerFunc {
+	h := playground.Handler("GraphQL", "/gql")
+
+	return func(c *gin.Context) {
+		h.ServeHTTP(c.Writer, c.Request)
+	}
 }

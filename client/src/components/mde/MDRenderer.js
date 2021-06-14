@@ -21,11 +21,15 @@ const Tr = styled.tr`
   border: 1px solid #DFE2E5;
 `;
 
+const CustomStyle ={
+  overflowX: 'auto'
+};
+
 const components = {
   code({node, inline, className, children, ...props}) {
     const match = /language-(\w+)/.exec(className || '')
     return !inline && match ? (
-      <SyntaxHighlighter style={dark} language={match[1]} PreTag="div" children={String(children).replace(/\n$/, '')} {...props} />
+      <SyntaxHighlighter style={dark} customStyle={CustomStyle} language={match[1]} PreTag="div" children={String(children).replace(/\n$/, '')} {...props} />
     ) : (
       <code className={className} children={children}  {...props} />
     )
@@ -36,7 +40,7 @@ const components = {
  
 }
 
-const MDRednerer = ({contents}) => {
+const MDRenderer = ({contents}) => {
     return (
         <ReactMarkdown  remarkPlugins={[gfm]}
                         rehypePlugins={[rehypeRaw]}
@@ -46,4 +50,4 @@ const MDRednerer = ({contents}) => {
     )
 }
 
-export default MDRednerer;
+export default MDRenderer;

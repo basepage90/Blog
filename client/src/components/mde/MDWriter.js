@@ -2,9 +2,26 @@ import { useMemo, useEffect } from 'react'
 import SimpleMDE from 'react-simplemde-editor'
 import "easymde/dist/easymde.min.css";
 import { useSelector, useDispatch } from "react-redux";
-import { setContents } from "store/store"
+import { setContents } from 'store/store'
 
 let flag = true;
+
+const pattern1 = /^!\[\]\(/;
+const pattern2 = /\)$/;
+
+const resizeImage = { 
+    name : "custom" , 
+    action : (editor) => {
+        var cm = editor.codemirror;
+        var output = '';
+        var selectedText = cm.getSelection();
+        var text = selectedText.replace(pattern1, "").replace(pattern2,"");
+        output = '<img src="'+text+'" width="100%"/>';
+        cm.replaceSelection(output);
+    },
+    className :"fa fa-file-image-o" , 
+    title : "Resize Image Helper" , 
+};
 
 const MDWriter = () => {
     const contents = useSelector(state => state.post.contents);
@@ -37,6 +54,12 @@ const MDWriter = () => {
             uniqueId: "autoSaving",
             delay,
         },
+        onToggleFullScreen: function(fullScreen) {
+            return setOverflow(fullScreen);
+        },
+        uploadImage: false,
+        imageUploadEndpoint: "http://wjk.ddns.net:5000/upload/postImg",
+        imagePathAbsolute: true,
         hideIcons: ['image'],
         showIcons: [
             "quote", 
@@ -49,12 +72,13 @@ const MDWriter = () => {
             "horizontal-rule",
             "upload-image",
         ],
-        onToggleFullScreen: function(fullScreen) {
-            return setOverflow(fullScreen);
-        },
-        uploadImage: true,
-        imageUploadEndpoint: "http://wjk.ddns.net:5000/upload/postImg",
-        imagePathAbsolute: true,
+        toolbar: [ "bold", "italic", "strikethrough", "heading", "|",
+                   "code", "quote", "unordered-list", "ordered-list", "clean-block", "|",
+                   "link","upload-image", resizeImage, "table", "horizontal-rule", "|",
+                   "preview", "side-by-side", "fullscreen", "|",
+                   "guide", "|",
+                   "undo", "redo",
+        ]
     };
     }, [delay]);
 

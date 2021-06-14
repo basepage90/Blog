@@ -1,24 +1,34 @@
 # Gin-Web
-Go and React Web App
+Crispy's Blog
+
+React and Go with Clean-Architecture
 
 ## Project Stack
 
-### frontend
+### frontend (client)
 - React
 - React Router
 - Redux
 - GraphQL (Apollo)
 - styled components & material-ui
 
-### backend
-- Go : Gin Framework by CleanArchitecture
+### backend (server)
+- Go : Gin Framework with CleanArchitecture
 - MongoDB ~~Mysql / GORM~~
 - GraphQL
 - JWT / SMTP
 
 ## Version History
 <details> 
-    <summary> 👉 Click Me  ( Expand Detail Tag )</summary>
+    <summary> 👉 Click Me  ( Expand Detail Tag ) </summary>
+
+### Gin-Web (tag : v0.2.2)
+- Post(article) and MDE
+    - article max-width 동적 CSS 적용
+    - post validation
+    - publish dialog : thumbnail upload / 소개 / 공개, 비공개
+    - mde resize image helper 추가
+    - card css 수정
 
 ### Gin-Web (tag : v0.2.1)
 - Markdown : server image upload 구현

@@ -4,12 +4,11 @@ import { bottomMargin } from 'styles/styleConst'
 const GridContainer = styled.div`
     margin-bottom: ${bottomMargin};
     color: ${({theme}) => theme.palette.sky0};
-    overflow: hidden;
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(280px, 300px));
     grid-auto-rows: minmax(300px, 420px);
     justify-content: center;
-    grid-column-gap: 10px;
+    grid-column-gap: 15px;
     grid-row-gap: 20px;
     
     ${({theme}) => theme.media.xsmall}{

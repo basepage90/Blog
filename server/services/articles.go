@@ -83,6 +83,8 @@ func (service *articlesService) CreateArticles(args map[string]interface{}) (int
 		Contents:    args["contents"].(string),
 		Category_lg: args["category_lg"].(string),
 		Category_md: args["category_md"].(string),
+		Thumbnail:   args["thumbnail"].(string),
+		Privacy:     args["privacy"].(string),
 	}
 
 	res, err := service.repository.InsertArticles(inputData)

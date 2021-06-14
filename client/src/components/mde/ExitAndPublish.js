@@ -28,7 +28,7 @@ const InDiv = styled.div`
     justify-content: space-around;
 `;
 
-const Button1 = styled(Button)`
+const ButtonExit = styled(Button)`
     flex: 0 0 30%;
     background-color: ${({theme}) => theme.palette.hotpink1};
     &:hover {
@@ -36,13 +36,14 @@ const Button1 = styled(Button)`
     }
 `;
 
-const Button2 = styled(Button)`
+const ButtonPublish = styled(Button)`
     flex: 0 0 30%;
     background-color: ${({theme}) => theme.palette.sky1};
     &:hover {
         background-color: ${({theme}) => theme.palette.sky0};
     }
 `;
+
 
 const ExitAndPublish = ({history}) => {
     const dispatch = useDispatch({});
@@ -58,7 +59,7 @@ const ExitAndPublish = ({history}) => {
     return (
         <Div>
             <InDiv>
-                <Button1
+                <ButtonExit
                     variant="contained"
                     color="secondary"
                     size="small"
@@ -66,8 +67,8 @@ const ExitAndPublish = ({history}) => {
                     onClick={exit}
                 >
                     Exit
-                </Button1>
-                <Button2
+                </ButtonExit>
+                <ButtonPublish
                     variant="contained"
                     color="primary"
                     size="small"
@@ -75,7 +76,7 @@ const ExitAndPublish = ({history}) => {
                     onClick={open}
                 >
                     Publish
-                </Button2>
+                </ButtonPublish>
             </InDiv>
         </Div>
     )

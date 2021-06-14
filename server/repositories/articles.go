@@ -100,6 +100,8 @@ func (r *articlesRepository) InsertArticles(inputData models.Articles) (interfac
 		"contents":    inputData.Contents,
 		"category_lg": inputData.Category_lg,
 		"category_md": inputData.Category_md,
+		"thumbnail":   inputData.Thumbnail,
+		"privacy":     inputData.Privacy,
 	})
 
 	id := int(result.InsertedID.(int32))

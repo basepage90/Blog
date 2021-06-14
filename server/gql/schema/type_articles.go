@@ -29,5 +29,11 @@ var articlesType = graphql.NewObject(graphql.ObjectConfig{
 		"category_md": &graphql.Field{
 			Type: graphql.String,
 		},
+		"thumbnail": &graphql.Field{
+			Type: graphql.String,
+		},
+		"privacy": &graphql.Field{
+			Type: graphql.String,
+		},
 	},
 })

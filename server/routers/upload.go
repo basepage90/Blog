@@ -11,11 +11,11 @@ import (
 )
 
 func InitUploadRouter(Router *gin.RouterGroup) {
-	Router.POST("/upload/postImg", uploadSingle)
-	Router.POST("/upload/thumbnail", uploadSingle)
+	Router.POST("/upload/postImg", uploadSingle_postImg)
+	Router.POST("/upload/thumbnail", uploadSingle_thumbnail)
 }
 
-func uploadSingle(ctx *gin.Context) {
+func uploadSingle_postImg(ctx *gin.Context) {
 	// FormFile just get single file
 	// react-simplemde-editor(my client) uses "image" as the file name.
 	file, err := ctx.FormFile("image")
@@ -42,8 +42,32 @@ func uploadSingle(ctx *gin.Context) {
 	}
 
 	ctx.JSON(200, gin.H{
-		"status":    "posted",
-		"file name": file.Filename,
-		"data":      data,
+		"data": data,
+	})
+}
+
+func uploadSingle_thumbnail(ctx *gin.Context) {
+	// FormFile just get single file
+	file, err := ctx.FormFile("thumbnail")
+
+	if err != nil {
+		ctx.String(http.StatusBadRequest, fmt.Sprintf("get form err: %s", err.Error()))
+		return
+	}
+
+	//  uuid + filename
+	filename := filepath.Base(file.Filename)
+	uuidKey := uuid.New().String()
+	filename = uuidKey + "_" + filename
+	uploadPath := "static/img/thumbnail/" + filename
+
+	log.Println(filename)
+	if err := ctx.SaveUploadedFile(file, uploadPath); err != nil {
+		ctx.String(http.StatusBadRequest, fmt.Sprintf("upload file err: %s", err.Error()))
+		return
+	}
+
+	ctx.JSON(200, gin.H{
+		"filePath": "http://wjk.ddns.net:5000/" + uploadPath,
 	})
 }

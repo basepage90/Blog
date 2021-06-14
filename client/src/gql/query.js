@@ -37,7 +37,8 @@ export const GetCardList = gql`
       title,
       subtitle,
       desc,
-      reg_date
+      thumbnail,
+      reg_date,
     }
   }
 `;
@@ -48,14 +49,18 @@ export const CreateArticle = gql`
                           $contents: String!,
                           $desc: String!,
                           $category_lg: String!,
-                          $category_md: String!
+                          $category_md: String!,
+                          $thumbnail: String!,
+                          $privacy: String!,
                         ) {
     createArticles(  title:$title,
                     subtitle: $subtitle,
                     contents:$contents,
                     desc: $desc,
                     category_lg: $category_lg,
-                    category_md: $category_md
+                    category_md: $category_md,
+                    thumbnail: $thumbnail,
+                    privacy: $privacy,
                   ){
       id
     }

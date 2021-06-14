@@ -17,7 +17,12 @@ const GlobalStyles = createGlobalStyle`
     html, body, #root {
         height: 100%;
     }
-
+    
+    img {
+        max-width: 100%;
+        display: block;
+        margin: 0 auto;
+    }
 `;
 
 export default GlobalStyles;
