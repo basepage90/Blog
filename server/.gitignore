@@ -8,4 +8,5 @@
 .vscode/
 
 ## img
-static/img/upload/*
+static/img/postImg/*
+static/img/thumbnail/*
