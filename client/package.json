@@ -17,6 +17,7 @@
     "bootstrap": "^4.6.0",
     "easymde": "^2.15.0",
     "graphql": "^15.5.0",
+    "js-cookie": "^2.2.1",
     "material-ui-dropzone": "^3.5.0",
     "notistack": "^1.0.9",
     "prop-types": "^15.7.2",
@@ -37,7 +38,7 @@
     "web-vitals": "^1.0.1"
   },
   "scripts": {
-    "start": "set port=8080 && react-scripts start",
+    "start": "set port=80 && react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"

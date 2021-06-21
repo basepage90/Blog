@@ -10,10 +10,16 @@ import (
 
 // AuthorizeJWT validates the token from the http request, returning a 401 if it's not valid
 func AuthorizeJWT() gin.HandlerFunc {
-	return func(c *gin.Context) {
+	return func(ctx *gin.Context) {
 		// cookie 에서 가져오는 방식 -> tobe sol  : CSRF defence
-		tokenString, _ := c.Cookie("access-token")
+		tokenString, _ := ctx.Cookie("crispy-token")
 		token, err := services.NewJWTService().ValidateToken(tokenString)
+
+		if err != nil {
+			log.Println(err)
+			ctx.AbortWithStatus(http.StatusUnauthorized)
+			return
+		}
 
 		if token.Valid {
 			// claims := token.Claims.(jwt.MapClaims)
@@ -24,7 +30,8 @@ func AuthorizeJWT() gin.HandlerFunc {
 			// log.Println("Claims[ExpiresAt]: ", claims["exp"])
 		} else {
 			log.Println(err)
-			c.AbortWithStatus(http.StatusUnauthorized)
+			ctx.AbortWithStatus(http.StatusUnauthorized)
 		}
+
 	}
 }

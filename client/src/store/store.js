@@ -8,6 +8,7 @@ import snackBar from 'store/snackBar';
 import article from 'store/article';
 import publish from 'store/publish';
 import post from 'store/post';
+import user from 'store/user';
 
 const rootReducer = combineReducers({
     error: error.reducer,
@@ -19,6 +20,7 @@ const rootReducer = combineReducers({
     article: article.reducer,
     publish: publish.reducer,
     post: post.reducer,
+    user: user.reducer,
 });
 
 const store = configureStore({
@@ -32,5 +34,6 @@ export const { snackBarOpen, snackBarClose } = snackBar.actions;
 export const { cardClick } = article.actions;
 export const { openPublisher, closePublisher } = publish.actions;
 export const { setContents } = post.actions;
+export const { setUser } = user.actions;
 
 export default store;

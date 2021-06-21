@@ -1,12 +1,17 @@
 import { useState } from "react";
-import { useDispatch } from "react-redux";
-import { adminOpen, snackBarOpen } from "store/store";
 import styled from "styled-components";
 import { headerHeight } from 'styles/styleConst'
+import { Link } from "react-router-dom";
+import { useLocation, useHistory } from 'react-router-dom';
+import { useSelector, useDispatch } from "react-redux";
+import { adminOpen, snackBarOpen } from "store/store";
+import axios from "axios";
 
 import SpeedDial from '@material-ui/lab/SpeedDial';
 import SpeedDialAction from '@material-ui/lab/SpeedDialAction';
 import SpeedDialIcon from '@material-ui/lab/SpeedDialIcon';
+import ExitToAppIcon from '@material-ui/icons/ExitToApp';
+import CreateIcon from '@material-ui/icons/Create';
 
 import AccountCircle from '@material-ui/icons/AccountCircle';
 import SearchIcon from '@material-ui/icons/Search';
@@ -54,11 +59,49 @@ export default function SpeedDialButton(){
         dispatch(snackBarOpen());
     };
 
-    const DialChild = [
-        { icon: <SearchIcon />, name: 'Search', onClick: handleClickOpen, compo: null },
-        { icon: <LinkIcon />, name: 'Link', onClick: snackOpen, compo: UrlCopy },
-        { icon: <AccountCircle />, name: 'Admin', onClick: handleClickOpen, compo: AdminDialog },
-    ];
+
+    const { admin_flag } = useSelector(
+        state => ({admin_flag: state.user.admin_flag})
+    );
+
+    const signout = async () => {
+        const apiClient = axios.create({
+            baseURL: "http://wjk.ddns.net:5000",
+            withCredentials: true,
+          });
+        const url = "/signout"
+        await apiClient.post(url)
+        .then( (response) => {
+            // try 
+            window.location.replace('/');
+        }).catch( (error) => {
+            // catch
+        }).then( () => {
+            // finally
+        });
+    }
+    
+    const history = useHistory();
+
+    function goWrite () {
+      history.push('/write')
+    }
+
+    const DialChild = 
+        admin_flag ?
+            [
+                { icon: <SearchIcon />, name: 'Search', onClick: handleClickOpen, compo: null },
+                { icon: <LinkIcon />, name: 'Link', onClick: snackOpen, compo: UrlCopy },
+                { icon: <CreateIcon />, name: 'Write', onClick: goWrite, compo: null} , 
+                { icon: <ExitToAppIcon />, name: 'Sign out', onClick: signout, compo: null }
+            ]
+        : 
+            [
+                { icon: <SearchIcon />, name: 'Search', onClick: handleClickOpen, compo: null },
+                { icon: <LinkIcon />, name: 'Link', onClick: snackOpen, compo: UrlCopy },
+                { icon: <AccountCircle />, name: 'Admin', onClick: handleClickOpen, compo: AdminDialog }
+            ]
+    ;
 
     return (
         <>
@@ -81,7 +124,6 @@ export default function SpeedDialButton(){
                 ))
             }
             </SpeedDial>
-            <AdminDialog />
             {DialChild.map((action) => (
                 action.compo !== null ? <action.compo key={action.name} /> : null
             ))

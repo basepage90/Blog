@@ -1,7 +1,9 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Route, Switch } from 'react-router-dom';
+import { useDispatch } from "react-redux";
+import { setUser } from "store/store"
 import { useQuery } from '@apollo/react-hooks'
-import { GetMenuList } from 'gql/query'
+import { GetMenuList, GetCurrentUser } from 'gql/query'
 
 import SideBar from "components/sideBar/SideBar";
 import Header from "components/header/Header";
@@ -21,6 +23,24 @@ const switchRoutes = (
 
 function BlogPage(){
   const { loading, data } = useQuery(GetMenuList);
+
+  const GetCurrentUserQuery = useQuery(GetCurrentUser,{fetchPolicy: "network-only"});
+
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    if(!GetCurrentUserQuery.loading){
+      if(GetCurrentUserQuery.data.getCurrentUser !== null){
+        const userInfo = {
+          email: GetCurrentUserQuery.data.getCurrentUser.email,
+          nickname: GetCurrentUserQuery.data.getCurrentUser.nickname,
+          admin_flag: GetCurrentUserQuery.data.getCurrentUser.admin_flag,
+        }
+        dispatch(setUser(userInfo));
+      }
+    }
+  },[GetCurrentUserQuery,dispatch])
+
   return(
     <>
       <SideBar />

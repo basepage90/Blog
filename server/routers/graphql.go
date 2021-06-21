@@ -25,7 +25,12 @@ func graphqlHandler() gin.HandlerFunc {
 	categoryService := services.NewCategoryService(categoryRepository)
 	categoryResolver := resolver.NewCategoryResolver(categoryService)
 
-	schema := schema.NewSchema(articlesResolver, categoryResolver)
+	signinRepository := repositories.NewSigninRepository()
+	signinService := services.NewSigninService(signinRepository)
+	jwtService := services.NewJWTService()
+	signinResolver := resolver.NewSigninResolver(signinService, jwtService)
+
+	schema := schema.NewSchema(articlesResolver, categoryResolver, signinResolver)
 
 	graphqlSchema, _ := graphql.NewSchema(graphql.SchemaConfig{
 		Query:    schema.Query(),
@@ -38,15 +43,15 @@ func graphqlHandler() gin.HandlerFunc {
 		GraphiQL: true,
 	})
 
-	return func(c *gin.Context) {
-		h.ServeHTTP(c.Writer, c.Request)
+	return func(ctx *gin.Context) {
+		h.ServeHTTP(ctx.Writer, ctx.Request)
 	}
 }
 
 func playgroundHandler() gin.HandlerFunc {
 	h := playground.Handler("GraphQL", "/gql")
 
-	return func(c *gin.Context) {
-		h.ServeHTTP(c.Writer, c.Request)
+	return func(ctx *gin.Context) {
+		h.ServeHTTP(ctx.Writer, ctx.Request)
 	}
 }

@@ -64,7 +64,7 @@ func (service *loginService) FindAndCerti(user models.User) int {
 	if res.Email == "" {
 		// not found user email
 		return 1
-	} else if res.Certificate != "Y" {
+	} else if res.Certificate != true {
 		// not confirm certificate
 		return 2
 	}

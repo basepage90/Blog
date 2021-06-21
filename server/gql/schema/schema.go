@@ -16,12 +16,18 @@ type Schema interface {
 type schema struct {
 	articlesRsv resolver.ArticlesResolver
 	categoryRsv resolver.CategoryResolver
+	signinRsv   resolver.SigninResolver
 }
 
-func NewSchema(articlesRsv resolver.ArticlesResolver, categoryRsv resolver.CategoryResolver) Schema {
+func NewSchema(
+	articlesRsv resolver.ArticlesResolver,
+	categoryRsv resolver.CategoryResolver,
+	signinRsv resolver.SigninResolver,
+) Schema {
 	return &schema{
 		articlesRsv: articlesRsv,
 		categoryRsv: categoryRsv,
+		signinRsv:   signinRsv,
 	}
 }
 
@@ -71,6 +77,19 @@ func (s *schema) Mutation() *graphql.Object {
 					},
 				},
 				Resolve: s.articlesRsv.CreateArticles,
+			},
+			"updatePrivacy": &graphql.Field{
+				Type:        graphql.Int,
+				Description: "update articles's privacy",
+				Args: graphql.FieldConfigArgument{
+					"id": &graphql.ArgumentConfig{
+						Type: graphql.NewNonNull(graphql.Int),
+					},
+					"privacy": &graphql.ArgumentConfig{
+						Type: graphql.NewNonNull(graphql.String),
+					},
+				},
+				Resolve: s.articlesRsv.UpdatePrivacy,
 			},
 
 			"updateArticles": &graphql.Field{
@@ -148,6 +167,24 @@ func (s *schema) Query() *graphql.Object {
 				Type:        graphql.NewList(categoryType),
 				Description: "List of category",
 				Resolve:     s.categoryRsv.GetCategoryAll,
+			},
+			"sendAuthEmail": &graphql.Field{
+				Type:        userType,
+				Description: "signin",
+				Args: graphql.FieldConfigArgument{
+					"email": &graphql.ArgumentConfig{
+						Type: graphql.String,
+					},
+					"password": &graphql.ArgumentConfig{
+						Type: graphql.String,
+					},
+				},
+				Resolve: s.signinRsv.SendAuthEmail,
+			},
+			"getCurrentUser": &graphql.Field{
+				Type:        userType,
+				Description: "get current user",
+				Resolve:     s.signinRsv.GetCurrentUser,
 			},
 		},
 	}

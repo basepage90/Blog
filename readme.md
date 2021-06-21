@@ -22,6 +22,35 @@ React and Go with Clean-Architecture
 <details> 
     <summary> 👉 Click Me  ( Expand Detail Tag ) </summary>
 
+### Gin-Web (tag : v0.2.3)
+- privacy setting switch
+    - public / private
+    - apollo useQuery option : fetchPolicy
+        - ★ cache-first (default)
+        - cache-only
+        - ★ cache-and-network
+        - network-only
+        - no-cache
+        - standby
+- Email Sign In 구현
+    - useLazyQuery
+    - SMTP / JWT
+    - ★ Graphql 에서의 접근 제한 ★
+    ```palin
+    1) Apollo Client : credentials: 'include' 옵션으로 CORS 에서도 HttpOnly Cookie를 전송가능하게 설정한다.
+    2) CORSMiddleware : 상기 설정으로 더 이상  Header 의 Access-Control-Allow-Origin 옵션을 와일드카드(*)로 사용해서는 안된다.
+    3) schema의  Resolve 에 매핑된 Resolver 는 오직 ResolveParams 만을 파라미터로 받을 수 있기에,  직접적으로 gin.context 를 넘기지 못한다.
+    즉, cookie resolver 하위 로직에서 cookie 사용이 불가하다.
+    이를 위해, graphql.ResolveParams 의 context 로 Srtuct를 넘겨주는 AuthMiddleware 를 구현하였다.
+    ```
+- Admin state
+    - Current User 를 cookie 토큰으로 확인하여, admin 여부를 판별한다.
+    - admin 인 경우에만, 글쓰기 및 관련 메뉴가 활성화 된다.
+
+- definition tip
+    - Authentication(authenticate) = login + password (who you are)
+    - Authorization(authorize) = permissions (what you are allowed to do)
+
 ### Gin-Web (tag : v0.2.2)
 - Post(article) and MDE
     - article max-width 동적 CSS 적용

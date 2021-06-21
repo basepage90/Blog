@@ -1,12 +1,14 @@
 import React, { useEffect } from "react";
 import styled from "styled-components";
 import {sidebarWidth,headerHeight} from 'styles/styleConst'
+import axios from "axios";
+import { useLocation } from 'react-router-dom';
 import { transSideBar, adminOpen } from "store/store";
 import { useDispatch, useSelector, shallowEqual } from "react-redux";
 import SearchBox from "components/header/SearchBox";
-import AdminDialog from "components/header/AdminDialog"
 import SpeedDialButton from "components/header/SpeedDialButton"
 import {Link} from "react-router-dom";
+import AdminDialog from 'components/header/AdminDialog'
 
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
@@ -16,7 +18,6 @@ import ArrowRightIcon from '@material-ui/icons/ArrowRight';
 import AccountCircle from '@material-ui/icons/AccountCircle';
 import IconButton from '@material-ui/core/IconButton';
 
-import { useLocation } from 'react-router-dom';
 
 import HomeIcon from '@material-ui/icons/Home';
 import FaceIcon from '@material-ui/icons/Face';
@@ -24,6 +25,9 @@ import HeadsetIcon from '@material-ui/icons/Headset';
 import ComputerIcon from '@material-ui/icons/Computer';
 import RestaurantIcon from '@material-ui/icons/Restaurant';
 import CreateIcon from '@material-ui/icons/Create';
+import ExitToAppIcon from '@material-ui/icons/ExitToApp';
+
+
 
 const Div = styled.div`
     position: fixed;
@@ -88,11 +92,14 @@ function Header({ loading, data }){
     const dispatch = useDispatch();
 
     // SideBar 
-    const {mobileFlag,sideBarState} = useSelector(
+    const { mobileFlag, sideBarState, admin_flag } = useSelector(
         state => ({
             mobileFlag: state.sideBarHidden.mobileFlag,
             sideBarState: state.sideBarHidden.sideBarState,
             menuOpen: state.menuClick.open, // menuClickState -> makeSubject를 위해 subcribe 기능은 하되, 직접적으로 사용하지는 않는다.
+            // nicname: state.user.nickname,
+            // email: state.user.email,
+            admin_flag: state.user.admin_flag,
     }), shallowEqual);
         
     const handleSideBarOpen = () => { dispatch(transSideBar()) };
@@ -149,6 +156,24 @@ function Header({ loading, data }){
         return subject
     }
 
+
+    const signout = async () => {
+        const apiClient = axios.create({
+            baseURL: "http://wjk.ddns.net:5000",
+            withCredentials: true,
+          });
+        const url = "/signout"
+        await apiClient.post(url)
+        .then( (response) => {
+            // try 
+            window.location.replace('/');
+        }).catch( (error) => {
+            // catch
+        }).then( () => {
+            // finally
+        });
+    }
+
     // This expression is working similar to ComponentDidMount + componentWillUnmount
     useEffect(() => {
         window.addEventListener('scroll',  HideHeader);
@@ -174,19 +199,32 @@ function Header({ loading, data }){
                             {makeSubject()}
                         </span>
                     { mobileFlag ? <SpeedDialButton /> :
-                        <>
+                    <>
                         <SearchBox />
-                        <IconButton color="inherit" component={Link} to="/write" >
-                            <CreateIcon />
-                        </IconButton>
-                        <IconButton
-                        onClick={handleClickOpen}
-                        color="inherit"
-                        >
-                            <AccountCircle />
-                        </IconButton>
-                        <AdminDialog />
+                        {admin_flag ? 
+                        <>
+                            <IconButton color="inherit" component={Link} to="/write" >
+                                <CreateIcon />
+                            </IconButton>
+                            <IconButton
+                             onClick={signout}
+                             color="inherit"
+                             >
+                                <ExitToAppIcon />
+                            </IconButton>
                         </>
+                        :
+                        <>
+                            <IconButton
+                            onClick={handleClickOpen}
+                            color="inherit"
+                            >
+                                <AccountCircle />
+                            </IconButton>
+                            <AdminDialog />
+                        </>
+                        }
+                    </>
                     }
                 </StToolbar>
             </StAppBar>

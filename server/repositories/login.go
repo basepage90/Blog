@@ -54,5 +54,5 @@ func (r *loginRepository) SaveUUID(user models.User) error {
 }
 
 func (r *loginRepository) UpdateCerti(certi_key string) error {
-	return r.db.Table("user").Where(&models.User{Uuid: certi_key}).Update(&models.User{Certificate: "Y"}).Error
+	return r.db.Table("user").Where(&models.User{Uuid: certi_key}).Update(&models.User{Certificate: true}).Error
 }

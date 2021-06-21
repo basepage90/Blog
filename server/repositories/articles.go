@@ -17,6 +17,7 @@ type ArticlesRepository interface {
 	FindAllByCategorymd(category_lg, caategory_md string) ([]models.Articles, error)
 	FindAllByTitle(title string) ([]models.Articles, error)
 	FindAll() ([]models.Articles, error)
+	UpdatePrivacy(inputData models.Articles) (interface{}, error)
 	InsertArticles(inputData models.Articles) (interface{}, error)
 	getNextSequence(seqid string) int
 }
@@ -86,6 +87,11 @@ func (r *articlesRepository) FindAll() ([]models.Articles, error) {
 	data, err := r.db.Find(context.TODO(), bson.D{{}}, opts)
 	err = data.All(context.TODO(), &res)
 	return res, err
+}
+
+func (r *articlesRepository) UpdatePrivacy(inputData models.Articles) (interface{}, error) {
+	result, err := r.db.UpdateOne(context.TODO(), bson.M{"_id": inputData.Id}, bson.M{"$set": bson.M{"privacy": inputData.Privacy}})
+	return result.ModifiedCount, err
 }
 
 func (r *articlesRepository) InsertArticles(inputData models.Articles) (interface{}, error) {

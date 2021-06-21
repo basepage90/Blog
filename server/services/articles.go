@@ -9,6 +9,7 @@ type ArticlesService interface {
 	FindById(args map[string]interface{}) (models.Articles, error)
 	FindAllByCategory(args map[string]interface{}) ([]models.Articles, error)
 	FindAll(args map[string]interface{}) ([]models.Articles, error)
+	UpdatePrivacy(args map[string]interface{}) (interface{}, error)
 	CreateArticles(args map[string]interface{}) (interface{}, error)
 }
 
@@ -70,6 +71,18 @@ func (service *articlesService) FindAll(args map[string]interface{}) ([]models.A
 			}
 		}
 	}
+
+	return res, err
+}
+
+func (service *articlesService) UpdatePrivacy(args map[string]interface{}) (interface{}, error) {
+	// var res models.Articles
+	inputData := models.Articles{
+		Id:      args["id"].(int),
+		Privacy: args["privacy"].(string),
+	}
+
+	res, err := service.repository.UpdatePrivacy(inputData)
 
 	return res, err
 }

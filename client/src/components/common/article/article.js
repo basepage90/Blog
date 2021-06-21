@@ -8,11 +8,13 @@ import { bottomMargin, sidebarWidth } from 'styles/styleConst'
 const Div = styled.div`
     margin-bottom: ${bottomMargin};
     display: flex;
+    flex-direction: row;
     justify-content: center;
-    
+
     .paper {
         flex-grow: 1;
         padding: 20px;
+    
         max-width : ${ props => props.sideBarState ? '95vw;' : '1110px;'}
 
         ${({theme}) => theme.media.xlarge}{
@@ -40,15 +42,15 @@ function Article({data}){
     const {title,info,contents} = data;
 
     return(
-    <Div sideBarState={sideBarState} >
-        <Paper className="paper" elevation={3} >
-            <div className="head__wrapper">
-                <Typography className="title" variant="h3">{title}</Typography>
-                <Typography className="information" variant="subtitle2">{info}</Typography>
-            </div>
-            <MDRenderer contents={contents} />
-        </Paper>
-    </Div>
+        <Div sideBarState={sideBarState} >
+            <Paper className="paper" elevation={3} >
+                <div className="head__wrapper">
+                    <Typography className="title" variant="h3">{title}</Typography>
+                    <Typography className="information" variant="subtitle2">{info}</Typography>
+                </div>
+                <MDRenderer contents={contents} />
+            </Paper>
+        </Div>
     );
 }
 

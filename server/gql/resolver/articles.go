@@ -2,6 +2,7 @@ package resolver
 
 import (
 	"github.com/graphql-go/graphql"
+	"github.com/woojebiz/gin-web/server/middleware"
 	"github.com/woojebiz/gin-web/server/services"
 )
 
@@ -9,6 +10,7 @@ type ArticlesResolver interface {
 	GetArticlesById(params graphql.ResolveParams) (interface{}, error)
 	GetArticlesByCategory(params graphql.ResolveParams) (interface{}, error)
 	GetArticlesAll(params graphql.ResolveParams) (interface{}, error)
+	UpdatePrivacy(params graphql.ResolveParams) (interface{}, error)
 	CreateArticles(params graphql.ResolveParams) (interface{}, error)
 }
 
@@ -37,7 +39,24 @@ func (rsv *articlesResolver) GetArticlesAll(params graphql.ResolveParams) (inter
 	return res, err
 }
 
+func (rsv *articlesResolver) UpdatePrivacy(params graphql.ResolveParams) (interface{}, error) {
+	CA := middleware.GetCookieAccess(params.Context)
+	if CA.IsSignedIn == true {
+		res, err := rsv.service.UpdatePrivacy(params.Args)
+		return res, err
+	} else {
+		return nil, nil
+	}
+
+}
+
 func (rsv *articlesResolver) CreateArticles(params graphql.ResolveParams) (interface{}, error) {
-	res, err := rsv.service.CreateArticles(params.Args)
-	return res, err
+	CA := middleware.GetCookieAccess(params.Context)
+	if CA.IsSignedIn == true {
+		res, err := rsv.service.CreateArticles(params.Args)
+		return res, err
+	} else {
+		return nil, nil
+	}
+
 }
