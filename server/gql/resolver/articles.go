@@ -12,6 +12,8 @@ type ArticlesResolver interface {
 	GetArticlesAll(params graphql.ResolveParams) (interface{}, error)
 	UpdatePrivacy(params graphql.ResolveParams) (interface{}, error)
 	CreateArticles(params graphql.ResolveParams) (interface{}, error)
+	EditArticles(params graphql.ResolveParams) (interface{}, error)
+	DeleteArticles(params graphql.ResolveParams) (interface{}, error)
 }
 
 type articlesResolver struct {
@@ -58,5 +60,25 @@ func (rsv *articlesResolver) CreateArticles(params graphql.ResolveParams) (inter
 	} else {
 		return nil, nil
 	}
+}
 
+func (rsv *articlesResolver) EditArticles(params graphql.ResolveParams) (interface{}, error) {
+	CA := middleware.GetCookieAccess(params.Context)
+	if CA.IsSignedIn == true {
+		res, err := rsv.service.EditArticles(params.Args)
+		return res, err
+	} else {
+		return nil, nil
+	}
+
+}
+
+func (rsv *articlesResolver) DeleteArticles(params graphql.ResolveParams) (interface{}, error) {
+	CA := middleware.GetCookieAccess(params.Context)
+	if CA.IsSignedIn == true {
+		res, err := rsv.service.DeleteArticles(params.Args)
+		return res, err
+	} else {
+		return nil, nil
+	}
 }

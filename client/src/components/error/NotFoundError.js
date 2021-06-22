@@ -19,7 +19,6 @@ function NotFoundError() {
         buttonText="홈으로"
         onButtonClick={() => {
           history.push('/');
-        //   reset();
         }}
       />
     </>

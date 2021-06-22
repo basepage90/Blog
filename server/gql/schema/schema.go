@@ -80,7 +80,7 @@ func (s *schema) Mutation() *graphql.Object {
 			},
 			"updatePrivacy": &graphql.Field{
 				Type:        graphql.Int,
-				Description: "update articles's privacy",
+				Description: "Update articles's privacy",
 				Args: graphql.FieldConfigArgument{
 					"id": &graphql.ArgumentConfig{
 						Type: graphql.NewNonNull(graphql.Int),
@@ -91,32 +91,49 @@ func (s *schema) Mutation() *graphql.Object {
 				},
 				Resolve: s.articlesRsv.UpdatePrivacy,
 			},
-
 			"updateArticles": &graphql.Field{
-				Type:        articlesType, // the return type for this field
-				Description: "Update existing todo, mark it done or not done",
+				Type:        graphql.Int,
+				Description: "Edit articles",
 				Args: graphql.FieldConfigArgument{
 					"id": &graphql.ArgumentConfig{
-						Type: graphql.NewNonNull(graphql.String),
+						Type: graphql.NewNonNull(graphql.Int),
 					},
 					"title": &graphql.ArgumentConfig{
 						Type: graphql.NewNonNull(graphql.String),
 					},
+					"subtitle": &graphql.ArgumentConfig{
+						Type: graphql.NewNonNull(graphql.String),
+					},
+					"desc": &graphql.ArgumentConfig{
+						Type: graphql.NewNonNull(graphql.String),
+					},
+					"contents": &graphql.ArgumentConfig{
+						Type: graphql.NewNonNull(graphql.String),
+					},
+					"category_lg": &graphql.ArgumentConfig{
+						Type: graphql.NewNonNull(graphql.String),
+					},
+					"category_md": &graphql.ArgumentConfig{
+						Type: graphql.NewNonNull(graphql.String),
+					},
+					"thumbnail": &graphql.ArgumentConfig{
+						Type: graphql.NewNonNull(graphql.String),
+					},
+					"privacy": &graphql.ArgumentConfig{
+						Type: graphql.NewNonNull(graphql.String),
+					},
 				},
-				Resolve: func(params graphql.ResolveParams) (interface{}, error) {
-					// title, _ := params.Args["title"].(string)
-					// id, _ := params.Args["id"].(string)
-					affectedArticles := models.Articles{}
-
-					// for i := 0; i < len(ArticlesList); i++ {
-					// 	if ArticlesList[i].Id == id {
-					// 		ArticlesList[i].Title = title
-					// 		affectedArticles = ArticlesList[i]
-					// 		break
-					// 	}
-					// }
-					return affectedArticles, nil
+				Resolve: s.articlesRsv.EditArticles,
+			},
+			"deleteArticles": &graphql.Field{
+				Type:        graphql.Int,
+				Description: "delete articles by id",
+				Args: graphql.FieldConfigArgument{
+					"id": &graphql.ArgumentConfig{
+						Type: graphql.NewNonNull(graphql.Int),
+					},
 				},
+				Resolve: s.articlesRsv.DeleteArticles,
 			},
 		},
 	}

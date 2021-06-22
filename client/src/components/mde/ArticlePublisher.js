@@ -1,9 +1,9 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import styled from 'styled-components';
 import { useSelector, useDispatch } from "react-redux";
 import { closePublisher, setContents } from "store/store";
 import { useQuery, useMutation} from '@apollo/react-hooks'
-import { GetMenuList, CreateArticle } from 'gql/query'
+import { GetMenuList, CreateArticle, UpdateArticles } from 'gql/query'
 import { useSnackbar } from 'notistack';
 import axios from "axios";
 import Dropzone from 'components/common/upload/Dropzone'
@@ -116,7 +116,7 @@ const cutByLen = (str,maxByte) => {
   return str.substring(0,i);
 };
 
-const ArtilcePublisher = ({history}) => {
+const ArtilcePublisher = ({history,pdata}) => {
   // ↓ dialog
   const open = useSelector(state => state.publish.open);
   const dispatch = useDispatch({});
@@ -182,7 +182,6 @@ const ArtilcePublisher = ({history}) => {
   let category_lg;
   let category_md;
   let thumbnail;
-  let desc;
 
   const JustPublish = () => {
     const success = createArticle({ variables:  {
@@ -207,7 +206,36 @@ const ArtilcePublisher = ({history}) => {
         close();
         localStorage.removeItem(`smde_autoSaving`);
         dispatch(setContents(""));
-        history.goBack();
+        window.location.replace('/');
+      }
+    })
+  }
+
+  const JustUpdate = () => {
+    const success = updateArticles({ variables:  {
+        id: pdata.id,
+        title: title,
+        subtitle: subtitle,
+        contents: contents,
+        desc: desc,
+        category_lg : category_lg,
+        category_md: category_md,
+        thumbnail: thumbnail,
+        privacy: privacy,
+      }
+    })
+    
+    success.then(({data})=> {
+      // gql server 로부터 return 받은 data의 id가 존재할때만, publish 를 완료한다
+      if(data.updateArticles > 0) {
+        handleSnackbaraVariant('success')
+        close();
+        dispatch(setContents(""));
+        window.location.replace('/');
+        return;
+      } else {
+        handleSnackbaraVariant('error')
+        return;
       }
     })
   }
@@ -221,8 +249,12 @@ const ArtilcePublisher = ({history}) => {
     await axios.post(url, formData, headers)
     .then( (response) => {
         // try 
-        thumbnail = response.data.filePath
-        JustPublish();
+        thumbnail = response.data.filePath;
+        if(pdata === null){
+          JustPublish();
+        }else{
+          JustUpdate();
+        }
       }).catch( (error) => {
         // catch
         handleSnackbaraVariant('error')
@@ -231,10 +263,17 @@ const ArtilcePublisher = ({history}) => {
     });
   }
 
+  // Desc State
+  const [desc, setDesc] = useState("");
+  
+
   // 소개글 카운터
   const [byteLength, setByteLength] = useState(0);
   const maxByte = 110;
-  const countDesc = (event) => {
+
+  const ChangeAndCut = (event) => {
+    setDesc(event.target.value);
+
     const nowByte = CountByteLength(event.target.value);
     if(nowByte < maxByte){
       setByteLength(nowByte)
@@ -242,7 +281,7 @@ const ArtilcePublisher = ({history}) => {
       setByteLength(maxByte)
     }
     if(nowByte >= maxByte){
-      event.target.value = cutByLen(event.target.value,maxByte);
+      setDesc(cutByLen(event.target.value,maxByte));
     }
   }
 
@@ -259,15 +298,16 @@ const ArtilcePublisher = ({history}) => {
       return 'Middle Category';
     } else if(file === undefined){
       return 'Thumbnail';
-      } else if(desc === ""){
-          return 'Description';
-      }else{
-        return true;
-      }
+    } else if(desc === ""){
+        return 'Description';
+    }else{
+      return true;
+    }
     };
 
   // ↓ publish section
   const [ createArticle ] = useMutation(CreateArticle);
+  const [ updateArticles ] = useMutation(UpdateArticles);
   const contents = useSelector(state => state.post.contents);
   
   const doPublish = () => {
@@ -276,8 +316,6 @@ const ArtilcePublisher = ({history}) => {
     // ▼ data setting and vaildation
     title = document.getElementById('post__title').value;
     subtitle = document.getElementById('post__subtitle').value;
-    // const thumnail;
-    desc = document.getElementById('post__desc').value;
     
     const pv = postValidator();
 
@@ -301,6 +339,39 @@ const ArtilcePublisher = ({history}) => {
     uploadThumbnail();
   }
 
+  useEffect(() => {
+    // 1) pdata 가 존재하고, category data loading 이 완료상태이면,
+    if(pdata !== null && loading === false){
+      const lgVal = pdata.category_lg;
+      const mdVal = pdata.category_md;
+      let initLgno = 0;
+
+      // 2) Lgno의 초기값을 셋팅한다.
+      data.categoryList.map((lg,key) => {
+        if(lg.category_lg === lgVal){
+          setLgno(key)
+          initLgno = key;
+        }
+        return null
+      })
+
+      // 3) Lgno 초기값을 가지고, Mdno 초기값을 셋팅한다.
+      if(data.categoryList[initLgno].category_md.length === 0) {
+        setMdno(0);
+      } else {
+        data.categoryList[initLgno].category_md.map((md,key) => {
+          if(md.name === mdVal){
+            setMdno(key);
+          }
+          return null;
+        })
+      }
+      // 4) Desc 초기값을 셋팅한다.
+      setDesc(pdata.desc);
+    }
+
+  },[pdata,loading,data])
+  
   return (
     <>
       <Dialog
@@ -328,7 +399,7 @@ const ArtilcePublisher = ({history}) => {
               size="small"
               onClick={clickAlertOpen}
             >
-              발행하기
+              {pdata === null ? '발행하기': '수정하기'}
             </ButtonPublish>
             <Dialog
               open={openAlert}
@@ -338,10 +409,10 @@ const ArtilcePublisher = ({history}) => {
               aria-labelledby="alert-dialog-slide-title"
               aria-describedby="alert-dialog-slide-description"
             >
-              <DialogTitle id="alert-dialog-slide-title">{"현재 포스트를 발행할까요?"}</DialogTitle>
+              <DialogTitle id="alert-dialog-slide-title"> {pdata === null ? '현재 포스트를 발행할까요?': '현재 포스트를 수정할까요?'}</DialogTitle>
               <DialogContent>
                 <DialogContentText id="alert-dialog-slide-description">
-                  현재 포스트를 발행할까요?
+                {pdata === null ? '현재 포스트를 발행합니다': '현재 포스트를 수정합니다'}
                 </DialogContentText>
               </DialogContent>
               <DialogActions>
@@ -349,7 +420,7 @@ const ArtilcePublisher = ({history}) => {
                   취소
                 </Button>
                 <Button onClick={doPublish} color="primary">
-                  발행
+                {pdata === null ? '발행': '수정'}
                 </Button>
               </DialogActions>
             </Dialog>
@@ -390,8 +461,8 @@ const ArtilcePublisher = ({history}) => {
           </StFormControl>
         </>
         }
-        <Dropzone setFile={setFile} />
-        <TextFieldDesc id="post__desc" label="간략 소개" multiline={true} rows="2" rowsMax="5" variant="outlined" onChange={countDesc} />
+        <Dropzone pdata={pdata === null ? null : pdata} setFile={setFile} />
+        <TextFieldDesc id="post__desc" value={desc} label="간략 소개" multiline={true} rows="2" rowsMax="5" variant="outlined" onChange={ChangeAndCut} />
         <CountDescSpan byteLength={byteLength} maxByte={maxByte} > { byteLength} / {maxByte} </CountDescSpan>
         <ButtonWrapper>
           <ButtonPublic

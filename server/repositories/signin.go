@@ -32,6 +32,7 @@ func (r *signinRepository) FindByEmail(email string) (models.User, error) {
 	err := r.db.FindOne(context.TODO(), bson.M{"email": email}).Decode(&res)
 	return res, err
 }
+
 func (r *signinRepository) FindByUUID(certi_key string) (models.User, error) {
 	var res models.User
 	err := r.db.FindOne(context.TODO(), bson.M{"uuid": certi_key}).Decode(&res)

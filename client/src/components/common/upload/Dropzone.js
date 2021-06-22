@@ -49,7 +49,8 @@ const Div = styled.div`
 
 `;
 
-const Dropzone = ({setFile}) => {
+const Dropzone = ({pdata, setFile}) => {
+
     const handleChange = (files) => {
         if(files.length === 0 ){
             document.getElementsByClassName("MuiDropzoneArea-textContainer")[0].style.display="block";
@@ -69,6 +70,7 @@ const Dropzone = ({setFile}) => {
             dropzoneClass="dropzone__main"
             dropzoneParagraphClass="dropzone__paragraph"
             maxFileSize={10000000}
+            initialFiles={ pdata === null ? [] : [pdata.thumbnail] }
             />
         </Div>
     )

@@ -1,8 +1,7 @@
 import { useState } from "react";
 import styled from "styled-components";
 import { headerHeight } from 'styles/styleConst'
-import { Link } from "react-router-dom";
-import { useLocation, useHistory } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 import { useSelector, useDispatch } from "react-redux";
 import { adminOpen, snackBarOpen } from "store/store";
 import axios from "axios";
@@ -83,7 +82,7 @@ export default function SpeedDialButton(){
     
     const history = useHistory();
 
-    function goWrite () {
+    const goWrite = () => {
       history.push('/write')
     }
 

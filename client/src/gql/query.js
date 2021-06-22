@@ -25,6 +25,9 @@ export const GetArticles = gql`
       desc,
       contents,
       privacy,
+      category_lg,
+      category_md,
+      thumbnail,
     }
   }
 `;
@@ -68,11 +71,39 @@ export const CreateArticle = gql`
   }
 `;
 
+export const UpdateArticles = gql`
+  mutation UpdateArticles($id: Int!,
+                         $title: String!,
+                         $subtitle: String!,
+                         $contents: String!,
+                         $desc: String!,
+                         $category_lg: String!,
+                         $category_md: String!,
+                         $thumbnail: String!,
+                         $privacy: String!) {
+    updateArticles(id:$id,
+                   title:$title,
+                   subtitle: $subtitle,
+                   contents:$contents,
+                   desc: $desc,
+                   category_lg: $category_lg,
+                   category_md: $category_md,
+                   thumbnail: $thumbnail,
+                   privacy: $privacy)
+  }
+`;
+
 export const UpdatePrivacy = gql`
   mutation UpdatePrivacy($id: Int!,
                          $privacy: String! ){
       updatePrivacy(id: $id, 
                     privacy: $privacy)
+  }
+`;
+
+export const DeleteArticles = gql`
+  mutation DeleteArticles($id: Int!){
+    deleteArticles(id: $id)
   }
 `;
 

@@ -4,7 +4,7 @@ import "easymde/dist/easymde.min.css";
 import { useSelector, useDispatch } from "react-redux";
 import { setContents } from 'store/store'
 
-let flag = true;
+// let flag = true;
 
 const pattern1 = /^!\[\]\(/;
 const pattern2 = /\)$/;
@@ -23,7 +23,7 @@ const resizeImage = {
     title : "Resize Image Helper" , 
 };
 
-const MDWriter = () => {
+const MDWriter = ({pdata}) => {
     const contents = useSelector(state => state.post.contents);
     const dispatch = useDispatch();
 
@@ -41,7 +41,7 @@ const MDWriter = () => {
     }
     
     const delay = 1000;
-    const options = useMemo(() => {
+    const optionsWriteMode = useMemo(() => {
         return {
         autofocus: false,
         spellChecker: false,
@@ -82,20 +82,74 @@ const MDWriter = () => {
     };
     }, [delay]);
 
+    const optionsEditMode = useMemo(() => {
+        return {
+        autofocus: false,
+        spellChecker: false,
+        lineWrapping : false,
+        renderingConfig: {
+            singleLineBreaks: false,
+        },
+        autosave: {
+            enabled: false,
+            delay,
+        },
+        onToggleFullScreen: function(fullScreen) {
+            return setOverflow(fullScreen);
+        },
+        uploadImage: false,
+        imageUploadEndpoint: "http://wjk.ddns.net:5000/upload/postImg",
+        imagePathAbsolute: true,
+        hideIcons: ['image'],
+        showIcons: [
+            "quote", 
+            "strikethrough",
+            "code",
+            "table",
+            "redo",
+            "undo",
+            "clean-block",
+            "horizontal-rule",
+            "upload-image",
+        ],
+        toolbar: [ "bold", "italic", "strikethrough", "heading", "|",
+                   "code", "quote", "unordered-list", "ordered-list", "clean-block", "|",
+                   "link","upload-image", resizeImage, "table", "horizontal-rule", "|",
+                   "preview", "side-by-side", "fullscreen", "|",
+                   "guide", "|",
+                   "undo", "redo",
+        ]
+    };
+    }, [delay]);
+
     useEffect(() => {
-        if(flag){
+        if(pdata === null){
+            // write mode
             const autosavedValue = localStorage.getItem(`smde_autoSaving`);
             dispatch(setContents(autosavedValue));
-            flag = false;
+        } else {
+            // edit mode
+            const autosavedValue = pdata.contents;
+            dispatch(setContents(autosavedValue));
         }
-    });
+    },[pdata,dispatch]);
 
     return (
-        <SimpleMDE 
-        options={options}
-        value={contents}
-        onChange={updateContents}
-        />
+        <>
+        {pdata === null ? 
+            <SimpleMDE 
+            options={optionsWriteMode}
+            value={contents}
+            onChange={updateContents}
+            />
+        :
+            <SimpleMDE 
+            options={optionsEditMode}
+            value={contents}
+            onChange={updateContents}
+            />
+        }
+        </>
     )
 }
 

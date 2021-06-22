@@ -1,3 +1,4 @@
+import { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import TextField from '@material-ui/core/TextField';
 
@@ -21,14 +22,51 @@ const TextFieldTitle = styled(TextField)`
     margin-left: 20px;
 `;
 
-const ArticleTitleArea = ()=>{
+const ArticleTitleArea = ({pdata})=>{
+
+    const [state, setState] = useState({
+        title: "",
+        subtitle: "",
+    });
+    
+    const changeTitle = (props) => {
+        setState({
+            title: props.currentTarget.value,
+            subtitle: state.subtitle,
+        });
+    }
+    
+    const changeSubtitle = (props) => {
+        setState({
+            title: state.title,
+            subtitle: props.currentTarget.value,
+        });
+    }
+
+    useEffect(() => {
+        if(pdata !== null){
+            setState({
+                title: pdata.title,
+                subtitle: pdata.subtitle,
+            });
+        }
+    },[pdata])
+        
     return (
         <Div>
-            <TextFieldTitle id="post__title" label="Title" />
-            <TextFieldSubtitle id="post__subtitle" label="Subtitle" />
+            {pdata !== null ?
+            <>
+                <TextFieldTitle id="post__title" label="Title" value={state.title} onChange={changeTitle} />
+                <TextFieldSubtitle id="post__subtitle" label="Subtitle" value={state.subtitle} onChange={changeSubtitle} />
+            </>
+            :
+            <>
+                <TextFieldTitle id="post__title" label="Title" />
+                <TextFieldSubtitle id="post__subtitle" label="Subtitle" />
+            </>
+            }
         </Div>
     )
-
 }
 
 export default ArticleTitleArea;

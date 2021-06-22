@@ -12,13 +12,15 @@ import (
 )
 
 type ArticlesRepository interface {
+	InsertArticles(inputData models.Articles) (interface{}, error)
 	FindById(id int) (models.Articles, error)
 	FindAllByCategorylg(category_lg string) ([]models.Articles, error)
 	FindAllByCategorymd(category_lg, caategory_md string) ([]models.Articles, error)
 	FindAllByTitle(title string) ([]models.Articles, error)
 	FindAll() ([]models.Articles, error)
 	UpdatePrivacy(inputData models.Articles) (interface{}, error)
-	InsertArticles(inputData models.Articles) (interface{}, error)
+	UpdateArticles(inputData models.Articles) (interface{}, error)
+	DeleteArticlesById(id int) (interface{}, error)
 	getNextSequence(seqid string) int
 }
 
@@ -35,6 +37,30 @@ func NewArticlesRepository() ArticlesRepository {
 		db:    db,
 		seqdb: seqdb,
 	}
+}
+
+func (r *articlesRepository) InsertArticles(inputData models.Articles) (interface{}, error) {
+	reg_date := time.Now().Format("2006-01-02")
+
+	result, err := r.db.InsertOne(context.TODO(), bson.M{
+		"_id":         r.getNextSequence("seq_article"),
+		"title":       inputData.Title,
+		"subtitle":    inputData.Subtitle,
+		"reg_date":    reg_date,
+		"updt_date":   "",
+		"desc":        inputData.Desc,
+		"contents":    inputData.Contents,
+		"category_lg": inputData.Category_lg,
+		"category_md": inputData.Category_md,
+		"thumbnail":   inputData.Thumbnail,
+		"privacy":     inputData.Privacy,
+	})
+
+	id := int(result.InsertedID.(int32))
+	res := models.Articles{
+		Id: id,
+	}
+	return res, err
 }
 
 func (r *articlesRepository) FindById(id int) (models.Articles, error) {
@@ -94,27 +120,29 @@ func (r *articlesRepository) UpdatePrivacy(inputData models.Articles) (interface
 	return result.ModifiedCount, err
 }
 
-func (r *articlesRepository) InsertArticles(inputData models.Articles) (interface{}, error) {
-	reg_date := time.Now().Format("2006-01-02")
+func (r *articlesRepository) UpdateArticles(inputData models.Articles) (interface{}, error) {
+	updt_date := time.Now().Format("2006-01-02")
+	result, err := r.db.UpdateOne(context.TODO(),
+		bson.M{"_id": inputData.Id},
+		bson.M{"$set": bson.M{
+			"id":          inputData.Id,
+			"title":       inputData.Title,
+			"subtitle":    inputData.Subtitle,
+			"updt_date":   updt_date,
+			"desc":        inputData.Desc,
+			"contents":    inputData.Contents,
+			"category_lg": inputData.Category_lg,
+			"category_md": inputData.Category_md,
+			"thumbnail":   inputData.Thumbnail,
+			"privacy":     inputData.Privacy,
+		}},
+	)
+	return result.ModifiedCount, err
+}
 
-	result, err := r.db.InsertOne(context.TODO(), bson.M{
-		"_id":         r.getNextSequence("seq_article"),
-		"title":       inputData.Title,
-		"subtitle":    inputData.Subtitle,
-		"reg_date":    reg_date,
-		"desc":        inputData.Desc,
-		"contents":    inputData.Contents,
-		"category_lg": inputData.Category_lg,
-		"category_md": inputData.Category_md,
-		"thumbnail":   inputData.Thumbnail,
-		"privacy":     inputData.Privacy,
-	})
-
-	id := int(result.InsertedID.(int32))
-	res := models.Articles{
-		Id: id,
-	}
-	return res, err
+func (r *articlesRepository) DeleteArticlesById(id int) (interface{}, error) {
+	result, err := r.db.DeleteOne(context.TODO(), bson.M{"_id": id})
+	return result.DeletedCount, err
 }
 
 func (r *articlesRepository) getNextSequence(seqid string) int {

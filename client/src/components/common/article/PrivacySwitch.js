@@ -6,8 +6,11 @@ import { UpdatePrivacy } from 'gql/query';
 import { useSnackbar } from 'notistack';
 
 const SwitchWrapper =  styled.div`
-    .switch {
-    }
+    display: flex;
+    width: 220px;
+    justify-content: center;
+    align-items: center;
+    margin: 10px 0;
 `;
 
 const PrivacySwitch = ({data:{id,privacy}}) => {
@@ -61,7 +64,7 @@ const PrivacySwitch = ({data:{id,privacy}}) => {
             }
         })
         success.then(({data})=> {
-            // gql server 로 부터의 return 은 modified count. 즉,  update count 가 0 이면 실패.
+            // gql server 로 부터의 return 은 modified count. 즉,  update count 가 0 보다 크면 성공.
             if(data.updatePrivacy > 0) {
                 handleSnackbaraVariant('success', nowPrivacy)
                 setChk(!chk)

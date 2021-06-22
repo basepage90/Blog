@@ -6,7 +6,7 @@ import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import theme from "styles/theme/theme";
 import GlobalStyles from "styles/globalStyles";
 import BlogPage from "pages/blogPage/BlogPage"
-import MarkdownWriter from 'containers/mde/MarkdownWriter';
+import MarkdownPage from "pages/markdownPage/MarkdownPage"
 
 import styled from 'styled-components';
 import {Button} from '@material-ui/core';
@@ -29,8 +29,8 @@ function App() {
         <SnackbarProvider maxSnack={3} action={() => ( <StButton /> )} >
           <BrowserRouter>
             <Switch>
-              <Route path="/write" exact component={MarkdownWriter} />
-              <Route path="/edit/:id" exact component={MarkdownWriter} />
+              <Route path="/write" exact component={MarkdownPage} />
+              <Route path="/edit/:id" exact component={MarkdownPage} />
               <Route component={BlogPage} />
             </Switch>
           </BrowserRouter>
