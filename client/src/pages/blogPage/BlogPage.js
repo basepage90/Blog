@@ -27,18 +27,20 @@ function BlogPage(){
   const GetCurrentUserQuery = useQuery(GetCurrentUser,{fetchPolicy: "network-only"});
 
   const dispatch = useDispatch();
-
+  
   useEffect(() => {
     if(!GetCurrentUserQuery.loading){
-      if(GetCurrentUserQuery.data.getCurrentUser !== null){
-        const userInfo = {
-          email: GetCurrentUserQuery.data.getCurrentUser.email,
-          nickname: GetCurrentUserQuery.data.getCurrentUser.nickname,
-          admin_flag: GetCurrentUserQuery.data.getCurrentUser.admin_flag,
-        }
-        dispatch(setUser(userInfo));
-      }
-    }
+      if(GetCurrentUserQuery.data !== undefined){
+        if(GetCurrentUserQuery.data.getCurrentUser !== null){
+          const userInfo = {
+            email: GetCurrentUserQuery.data.getCurrentUser.email,
+            nickname: GetCurrentUserQuery.data.getCurrentUser.nickname,
+            admin_flag: GetCurrentUserQuery.data.getCurrentUser.admin_flag,
+          }
+          dispatch(setUser(userInfo));
+        } // getCurrentuser
+      } // data
+    } //loading
   },[GetCurrentUserQuery,dispatch])
 
   return(

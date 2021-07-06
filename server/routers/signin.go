@@ -17,8 +17,8 @@ func InitSigninRouter(Router *gin.RouterGroup) {
 	Router.GET("/signin/verify/:certi_key", signinResolver.Verify)
 
 	// // SNS Signin
-	// Router.GET("/singin/kakao", signinResolver.SigninKakao)
-	// Router.POST("/getSignin/kakao", signinResolver.GetSigninKakao)
+	Router.GET("/getRequestURL", signinResolver.GetRequestURL)
+	Router.POST("/doSignin/kakao", signinResolver.DoSigninKakao)
 
 	// // signout
 	Router.POST("/signout", signinResolver.DeleteToken)

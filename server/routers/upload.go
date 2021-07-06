@@ -2,9 +2,9 @@ package routers
 
 import (
 	"fmt"
-	"log"
 	"net/http"
 	"path/filepath"
+	"strings"
 
 	"github.com/gin-gonic/gin"
 	"github.com/google/uuid"
@@ -31,7 +31,6 @@ func uploadSingle_postImg(ctx *gin.Context) {
 	filename = uuidKey + "_" + filename
 	uploadPath := "static/img/postImg/" + filename
 
-	log.Println(filename)
 	if err := ctx.SaveUploadedFile(file, uploadPath); err != nil {
 		ctx.String(http.StatusBadRequest, fmt.Sprintf("upload file err: %s", err.Error()))
 		return
@@ -57,11 +56,16 @@ func uploadSingle_thumbnail(ctx *gin.Context) {
 
 	//  uuid + filename
 	filename := filepath.Base(file.Filename)
+	if len(filename) > 120 {
+		// 수정을 통해서, 반복하여 업로드하다보면, UUID가 계속해서 쌓이게되므로
+		// 파일이름 길이가 120을 넘어간다면, 마지막 매칭되는 "_" 를 찾아서 substring 한다.
+		substrLenth := strings.LastIndexAny(filename, "_") + 1
+		filename = filename[substrLenth:]
+	}
 	uuidKey := uuid.New().String()
 	filename = uuidKey + "_" + filename
 	uploadPath := "static/img/thumbnail/" + filename
 
-	log.Println(filename)
 	if err := ctx.SaveUploadedFile(file, uploadPath); err != nil {
 		ctx.String(http.StatusBadRequest, fmt.Sprintf("upload file err: %s", err.Error()))
 		return

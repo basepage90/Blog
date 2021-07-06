@@ -58,6 +58,7 @@ const MDWriter = ({pdata}) => {
             return setOverflow(fullScreen);
         },
         uploadImage: false,
+        imageMaxSize: 1024*1024*50,
         imageUploadEndpoint: "http://wjk.ddns.net:5000/upload/postImg",
         imagePathAbsolute: true,
         hideIcons: ['image'],
@@ -98,6 +99,7 @@ const MDWriter = ({pdata}) => {
             return setOverflow(fullScreen);
         },
         uploadImage: false,
+        imageMaxSize: 1024*1024*50,
         imageUploadEndpoint: "http://wjk.ddns.net:5000/upload/postImg",
         imagePathAbsolute: true,
         hideIcons: ['image'],

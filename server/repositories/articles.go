@@ -45,7 +45,7 @@ func (r *articlesRepository) InsertArticles(inputData models.Articles) (interfac
 	result, err := r.db.InsertOne(context.TODO(), bson.M{
 		"_id":         r.getNextSequence("seq_article"),
 		"title":       inputData.Title,
-		"subtitle":    inputData.Subtitle,
+		"hashtag":     inputData.Hashtag,
 		"reg_date":    reg_date,
 		"updt_date":   "",
 		"desc":        inputData.Desc,
@@ -125,9 +125,9 @@ func (r *articlesRepository) UpdateArticles(inputData models.Articles) (interfac
 	result, err := r.db.UpdateOne(context.TODO(),
 		bson.M{"_id": inputData.Id},
 		bson.M{"$set": bson.M{
-			"id":          inputData.Id,
+			"_id":         inputData.Id,
 			"title":       inputData.Title,
-			"subtitle":    inputData.Subtitle,
+			"hashtag":     inputData.Hashtag,
 			"updt_date":   updt_date,
 			"desc":        inputData.Desc,
 			"contents":    inputData.Contents,

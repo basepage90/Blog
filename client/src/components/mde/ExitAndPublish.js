@@ -13,7 +13,7 @@ const Div = styled.div`
     right: 0;
     z-index: 10;
 
-    ${({theme}) => theme.media.xsmall}{
+    ${({theme}) => theme.media.small}{
         position: relative;
         height: 30px;
         left: 0;
@@ -30,6 +30,7 @@ const InDiv = styled.div`
 
 const ButtonExit = styled(Button)`
     flex: 0 0 30%;
+    min-width: 80px;
     background-color: ${({theme}) => theme.palette.hotpink1};
     &:hover {
         background-color: ${({theme}) => theme.palette.hotpink0};
@@ -38,6 +39,7 @@ const ButtonExit = styled(Button)`
 
 const ButtonPublish = styled(Button)`
     flex: 0 0 30%;
+    min-width: 80px;
     background-color: ${({theme}) => theme.palette.sky1};
     &:hover {
         background-color: ${({theme}) => theme.palette.sky0};

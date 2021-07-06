@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 import { ImageNotFound } from 'statics/images';
@@ -38,7 +38,7 @@ const Article = styled.div`
     height: calc(100% - ${thumbHeight});
     display: flex;
     flex-direction: column;
-    padding: 8px 16px;
+    padding: 16px 16px 8px 16px;
     & p{
         flex: 1;
     }
@@ -48,17 +48,17 @@ const Article = styled.div`
 
     & .title {
         flex:1 1 auto;
-        margin-bottom: 8px;
         color: #212429;
         font-size: 1.1rem;
         font-weight: bold;
+        margin: 0;
         
         white-space: nowrap;
         overflow: hidden;
         text-overflow: ellipsis;
 
     }
-    & .subtitle {
+    & .hashtag {
         flex:1 1 auto;
         margin-bottom: 8px;
         color: #444A55;
@@ -87,10 +87,29 @@ const Article = styled.div`
     & .reg_date {
         color: #808999;
     }
+    & .privacy {
+        color: ${({theme}) => theme.palette.red3};
+        font-weight: bold;
+        float: right;
+    }
 `;
 export default function Card({data}){
+    
     const {pathname} = useLocation();
-    const {id,title,subtitle,reg_date,desc,thumbnail} = data;
+    const {id,title,reg_date,desc,thumbnail,privacy} = data;
+
+    const getFormatDate = (date) => {
+        const year = date.getFullYear();
+        const month = date.getMonth() + 1 ;
+        const day = date.getDate();
+        return year + '년 ' + month + '월 ' + day + "일";
+    }
+
+    var regDate = getFormatDate(new Date(reg_date))
+
+    useEffect(() =>{
+        window.scrollTo(0,0);
+    });
 
     return (
         <Link to={pathname === '/' ? { pathname: `/${id}` } : { pathname: `${pathname}/${id}` }} style={{textDecoration: 'none'}} >
@@ -100,9 +119,11 @@ export default function Card({data}){
             }
             <Article>
                 <h4 className="title">{title}</h4>
-                <p className="subtitle">{subtitle}</p>
                 <p className="desc">{desc}</p>
-                <span className="reg_date">{reg_date}</span>
+                <span className="reg_date">
+                    {regDate}
+                    {privacy === 'private' && <span className="privacy">비공개</span>}
+                </span>
             </Article>
         </Item>
         </Link>

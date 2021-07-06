@@ -62,8 +62,8 @@ func (service *articlesService) FindAll(args map[string]interface{}) ([]models.A
 			case "title":
 				res, err = service.repository.FindAllByTitle(ele)
 				break
-			// case "subtitle":
-			// 	res, err = service.repository.FindAllBySubtitle(ele)
+			// case "hashtag":
+			// 	res, err = service.repository.FindAllByHashtag(ele)
 			// 	break
 			// case "contents":
 			// 	res, err = service.repository.FindAllByContents(ele)
@@ -91,7 +91,7 @@ func (service *articlesService) UpdatePrivacy(args map[string]interface{}) (inte
 func (service *articlesService) CreateArticles(args map[string]interface{}) (interface{}, error) {
 	inputData := models.Articles{
 		Title:       args["title"].(string),
-		Subtitle:    args["subtitle"].(string),
+		Hashtag:     args["hashtag"].(string),
 		Desc:        args["desc"].(string),
 		Contents:    args["contents"].(string),
 		Category_lg: args["category_lg"].(string),
@@ -107,7 +107,7 @@ func (service *articlesService) EditArticles(args map[string]interface{}) (inter
 	inputData := models.Articles{
 		Id:          args["id"].(int),
 		Title:       args["title"].(string),
-		Subtitle:    args["subtitle"].(string),
+		Hashtag:     args["hashtag"].(string),
 		Desc:        args["desc"].(string),
 		Contents:    args["contents"].(string),
 		Category_lg: args["category_lg"].(string),
@@ -123,5 +123,4 @@ func (service *articlesService) DeleteArticles(args map[string]interface{}) (int
 	id := args["id"].(int)
 	res, err := service.repository.DeleteArticlesById(id)
 	return res, err
-
 }

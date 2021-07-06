@@ -30,7 +30,11 @@ func graphqlHandler() gin.HandlerFunc {
 	jwtService := services.NewJWTService()
 	signinResolver := resolver.NewSigninResolver(signinService, jwtService)
 
-	schema := schema.NewSchema(articlesResolver, categoryResolver, signinResolver)
+	replyRepository := repositories.NewReplyRepository()
+	replyService := services.NewReplyService(replyRepository)
+	replyResolver := resolver.NewReplyResolver(replyService)
+
+	schema := schema.NewSchema(articlesResolver, categoryResolver, signinResolver, replyResolver)
 
 	graphqlSchema, _ := graphql.NewSchema(graphql.SchemaConfig{
 		Query:    schema.Query(),

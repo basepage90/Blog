@@ -1,11 +1,8 @@
 package schema
 
 import (
-	"math/rand"
-
 	"github.com/graphql-go/graphql"
 	"github.com/woojebiz/gin-web/server/gql/resolver"
-	"github.com/woojebiz/gin-web/server/models"
 )
 
 type Schema interface {
@@ -17,30 +14,21 @@ type schema struct {
 	articlesRsv resolver.ArticlesResolver
 	categoryRsv resolver.CategoryResolver
 	signinRsv   resolver.SigninResolver
+	replyRsv    resolver.ReplyResolver
 }
 
 func NewSchema(
 	articlesRsv resolver.ArticlesResolver,
 	categoryRsv resolver.CategoryResolver,
 	signinRsv resolver.SigninResolver,
+	replyRsv resolver.ReplyResolver,
 ) Schema {
 	return &schema{
 		articlesRsv: articlesRsv,
 		categoryRsv: categoryRsv,
 		signinRsv:   signinRsv,
+		replyRsv:    replyRsv,
 	}
-}
-
-var ArticlesList []models.Articles
-
-var letterRunes = []rune("abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ")
-
-func RandStringRunes(n int) string {
-	b := make([]rune, n)
-	for i := range b {
-		b[i] = letterRunes[rand.Intn(len(letterRunes))]
-	}
-	return string(b)
 }
 
 func (s *schema) Mutation() *graphql.Object {
@@ -54,7 +42,7 @@ func (s *schema) Mutation() *graphql.Object {
 					"title": &graphql.ArgumentConfig{
 						Type: graphql.NewNonNull(graphql.String),
 					},
-					"subtitle": &graphql.ArgumentConfig{
+					"hashtag": &graphql.ArgumentConfig{
 						Type: graphql.NewNonNull(graphql.String),
 					},
 					"desc": &graphql.ArgumentConfig{
@@ -101,7 +89,7 @@ func (s *schema) Mutation() *graphql.Object {
 					"title": &graphql.ArgumentConfig{
 						Type: graphql.NewNonNull(graphql.String),
 					},
-					"subtitle": &graphql.ArgumentConfig{
+					"hashtag": &graphql.ArgumentConfig{
 						Type: graphql.NewNonNull(graphql.String),
 					},
 					"desc": &graphql.ArgumentConfig{
@@ -134,6 +122,53 @@ func (s *schema) Mutation() *graphql.Object {
 					},
 				},
 				Resolve: s.articlesRsv.DeleteArticles,
+			},
+			"createReply": &graphql.Field{
+				Type:        replyType,
+				Description: "Create new reply",
+				Args: graphql.FieldConfigArgument{
+					"article_id": &graphql.ArgumentConfig{
+						Type: graphql.NewNonNull(graphql.Int),
+					},
+					"depth": &graphql.ArgumentConfig{
+						Type: graphql.NewNonNull(graphql.Int),
+					},
+					"group_no": &graphql.ArgumentConfig{
+						Type: graphql.Int,
+					},
+					"sibling_name": &graphql.ArgumentConfig{
+						Type: graphql.String,
+					},
+					"name": &graphql.ArgumentConfig{
+						Type: graphql.NewNonNull(graphql.String),
+					},
+					"password": &graphql.ArgumentConfig{
+						Type: graphql.NewNonNull(graphql.String),
+					},
+					// "secret": &graphql.ArgumentConfig{
+					// 	Type: graphql.NewNonNull(graphql.Boolean),
+					// },
+					"contents": &graphql.ArgumentConfig{
+						Type: graphql.NewNonNull(graphql.String),
+					},
+					"admin_flag": &graphql.ArgumentConfig{
+						Type: graphql.NewNonNull(graphql.Boolean),
+					},
+				},
+				Resolve: s.replyRsv.CreateReply,
+			},
+			"removeReply": &graphql.Field{
+				Type:        graphql.Int,
+				Description: "Remove reply",
+				Args: graphql.FieldConfigArgument{
+					"id": &graphql.ArgumentConfig{
+						Type: graphql.NewNonNull(graphql.ID),
+					},
+					"password": &graphql.ArgumentConfig{
+						Type: graphql.NewNonNull(graphql.String),
+					},
+				},
+				Resolve: s.replyRsv.RemoveReply,
 			},
 		},
 	}
@@ -202,6 +237,16 @@ func (s *schema) Query() *graphql.Object {
 				Type:        userType,
 				Description: "get current user",
 				Resolve:     s.signinRsv.GetCurrentUser,
+			},
+			"reply": &graphql.Field{
+				Type:        graphql.NewList(replyType),
+				Description: "Get Reply in this Article",
+				Args: graphql.FieldConfigArgument{
+					"article_id": &graphql.ArgumentConfig{
+						Type: graphql.Int,
+					},
+				},
+				Resolve: s.replyRsv.GetReplyByArticleId,
 			},
 		},
 	}

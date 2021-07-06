@@ -3,7 +3,10 @@ import styled from "styled-components";
 import { adminClose } from "store/store";
 import { useDispatch, useSelector } from "react-redux";
 import { useLazyQuery } from '@apollo/client';
-import { SendAuthEmail } from 'gql/query'
+import { SendAuthEmail } from 'gql/query';
+import initKakao from 'util/initKakao'
+import { kakaoMono } from 'statics/images'
+
 
 import Avatar from '@material-ui/core/Avatar';
 import List from '@material-ui/core/List';
@@ -12,7 +15,6 @@ import ListItemAvatar from '@material-ui/core/ListItemAvatar';
 import ListItemText from '@material-ui/core/ListItemText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import Dialog from '@material-ui/core/Dialog';
-import PersonIcon from '@material-ui/icons/Person';
 import CloseIcon from '@material-ui/icons/Close';
 import IconButton from '@material-ui/core/IconButton';
 import DialogContent from '@material-ui/core/DialogContent';
@@ -21,6 +23,20 @@ import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import KeyboardBackspaceIcon from '@material-ui/icons/KeyboardBackspace';
 import Fab from '@material-ui/core/Fab';
+import CircularProgress from '@material-ui/core/CircularProgress';
+import EmailIcon from '@material-ui/icons/Email';
+import { useSnackbar } from 'notistack';
+
+const KakaoButton = styled.button`
+    background-image: url(${kakaoMono});
+    background-size: 80%;
+    background-position: center;
+    border: none;
+    width: 100%;
+    height: 50px;
+    border-radius: 12px;
+`;
+
 
 const CloseDiv = styled.div`
   position: absolute;
@@ -48,11 +64,13 @@ const SinginTypeWrapper = styled.div`
 const SiginWrapper = styled.div`
   display: ${props => props.openEmail ? 'flex' : 'none' } ;
   flex-direction: column;
-
   .btn__continue {
     margin: 20px 0;
-
   }
+`;
+
+const SpanMsg =  styled.span`
+  margin-bottom: 10px;
 `;
 
 const StFab = styled(Fab)`
@@ -62,7 +80,17 @@ const StFab = styled(Fab)`
   }
 `;
 
-const signinType = ['Email', 'Kakao'];
+const CircularProgressWrapper = styled.div`
+  position: absolute;
+  bottom: 26px;
+  left: 50%;
+  transform: translateX(-50%);
+`;
+
+const signinType = [
+  { name: 'Email', icon: <EmailIcon /> },
+  { name: 'Kakao', icon: <KakaoButton /> },
+];
 
 export default function AdminDialog() {
   const adminState = useSelector( state => state.admin.open )
@@ -76,16 +104,40 @@ export default function AdminDialog() {
 
   const [ openEmail, setOpenEmail ] = useState(false);
 
+  const loginWithKakao = () => {
+    initKakao();
+    window.Kakao.Auth.authorize({
+    redirectUri: 'http://wjk.ddns.net:80/signin/kakao'
+    })
+  }
+
   const selectType = (type) => {
     switch (type) {
       case 'Email' : setOpenEmail(!openEmail);
         break;
-      case 'Kakao' :
+      case 'Kakao' :loginWithKakao();
         break;
       default:
         break;
     }
   }
+
+
+  const { enqueueSnackbar, closeSnackbar } = useSnackbar();
+
+  const handleSnackbaraVariant = (variant) => {
+    let msg;
+    switch (variant) {
+      case 'warning':
+        msg = '등록되지 않은 이메일 입니다'
+        break;
+      default:
+          break;
+    }
+    const key = enqueueSnackbar(msg, { variant, onClick: () => {closeSnackbar(key)} })
+  };
+
+  const [dataLoading, setDataLoading] = useState(false);
 
   const [ sendEmail, setSendEmail ] = useState(false);
   
@@ -94,22 +146,24 @@ export default function AdminDialog() {
     onCompleted: (data) => {
       if(!data.sendAuthEmail.admin_flag){
         alert("관리자가 아닙니다.")
-        return;
+        setDataLoading(false);
       }else{
         setSendEmail(true)
+        setDataLoading(false);
       }
 
     },
     onError: (error) => {
-      alert("등록되지 않은 이메일 입니다.")
+      handleSnackbaraVariant('warning')
+      setDataLoading(false);
     }
   });
 
   const Continue = () => {
+    setDataLoading(true);
     const email = document.getElementById('email').value;
     getEmail({variables: { email : String(email) }});
   };
-
 
   return (
     <Dialog maxWidth="xl" onClose={() => {openEmail ? setOpenEmail(false) || setSendEmail(false) : handleClickClose()}} open={adminState}>
@@ -134,13 +188,13 @@ export default function AdminDialog() {
             <DialogContentText>로그인은 관리자 전용이에요!</DialogContentText>
             <List>
               {signinType.map((type) => (
-                <ListItem button onClick={() => selectType(type)} key={type}>
+                <ListItem button onClick={() => selectType(type.name)} key={type.name}>
                   <ListItemAvatar>
                     <Avatar >
-                      <PersonIcon />
+                    {type.icon}
                     </Avatar>
                   </ListItemAvatar>
-                  <ListItemText primary={type} />
+                  <ListItemText primary={type.name} />
                 </ListItem>
               ))}
             </List>
@@ -148,7 +202,7 @@ export default function AdminDialog() {
           <SiginWrapper openEmail={openEmail} >
           { sendEmail ?
             <>
-              <span>로그인 링크가 '이메일'로 발송 되었어요!</span>
+              <SpanMsg>로그인 링크가 '이메일'로 발송 되었어요!</SpanMsg>
               <StFab color="secondary" variant="extended" onClick={ () => {window.open('https://mail.google.com/'); } } >
                 ◀ 클릭해서 Gmail로 이동하기 ▶
               </StFab>
@@ -156,7 +210,20 @@ export default function AdminDialog() {
             :
             <>
               <TextField id="email" label="E-Mail" />
-              <ButtonContinue className="btn__continue" variant="contained" color="primary" onClick={Continue}>Continue</ButtonContinue>
+              <ButtonContinue
+                className="btn__continue"
+                variant="contained"
+                color="primary"
+                onClick={Continue}
+                disabled={dataLoading}
+              >
+                Continue
+              </ButtonContinue>
+              {dataLoading && 
+                <CircularProgressWrapper >
+                  <CircularProgress size={26} /> 
+                </CircularProgressWrapper>
+              }
             </>
           }
           </SiginWrapper>

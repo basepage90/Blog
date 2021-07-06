@@ -4,10 +4,10 @@ const GlobalStyles = createGlobalStyle`
     body {
         color: #495057;
         background-color: #FAFAFA;
-        fontSize: 1rem;
-        fontWeight: 400;
-        fontFamily: 'Roboto', 'Helvetica', 'Arial', sans-serif;
-        lineHeight: 1.5em;
+        font-size: 1rem;
+        font-weight: 400;
+        font-family: 'Roboto', 'Helvetica', 'Arial', sans-serif;
+        line-height: 1.5em;
     }
     
     input, button, textarea {

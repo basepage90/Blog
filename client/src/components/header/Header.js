@@ -9,6 +9,7 @@ import SearchBox from "components/header/SearchBox";
 import SpeedDialButton from "components/header/SpeedDialButton"
 import {Link} from "react-router-dom";
 import AdminDialog from 'components/header/AdminDialog'
+import initKakao from 'util/initKakao'
 
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
@@ -17,8 +18,6 @@ import ChevronLeft from '@material-ui/icons/ChevronLeft';
 import ArrowRightIcon from '@material-ui/icons/ArrowRight';
 import AccountCircle from '@material-ui/icons/AccountCircle';
 import IconButton from '@material-ui/core/IconButton';
-
-
 import HomeIcon from '@material-ui/icons/Home';
 import FaceIcon from '@material-ui/icons/Face';
 import HeadsetIcon from '@material-ui/icons/Headset';
@@ -26,8 +25,6 @@ import ComputerIcon from '@material-ui/icons/Computer';
 import RestaurantIcon from '@material-ui/icons/Restaurant';
 import CreateIcon from '@material-ui/icons/Create';
 import ExitToAppIcon from '@material-ui/icons/ExitToApp';
-
-
 
 const Div = styled.div`
     position: fixed;
@@ -158,6 +155,7 @@ function Header({ loading, data }){
 
 
     const signout = async () => {
+        initKakao();
         const apiClient = axios.create({
             baseURL: "http://wjk.ddns.net:5000",
             withCredentials: true,
@@ -165,8 +163,20 @@ function Header({ loading, data }){
         const url = "/signout"
         await apiClient.post(url)
         .then( (response) => {
-            // try 
-            window.location.replace('/');
+            // try
+            // case1) 서비스연결끊기 : 약관동의만료 + 토큰만료
+            window.Kakao.API.request({
+                url: '/v1/user/unlink',
+                success: function(response) {
+                    window.location.replace('/');
+                },
+                fail: function(error) {
+                    window.location.replace('/');
+                },
+            });
+
+            // case2) 계정로그아웃	: 계정 로그아웃 + 토큰만료
+            // window.location.href = 'https://kauth.kakao.com/oauth/logout?client_id=17e2b41913f7f223f6c370c7cfe2d33b&logout_redirect_uri=http://wjk.ddns.net'; 
         }).catch( (error) => {
             // catch
         }).then( () => {

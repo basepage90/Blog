@@ -2,7 +2,7 @@ import React from 'react'
 import styled from 'styled-components';
 import ReactMarkdown from 'react-markdown'
 import gfm from 'remark-gfm'
-import rehypeRaw  from 'rehype-raw'
+import rehypeRaw from 'rehype-raw'
 import {Prism as SyntaxHighlighter} from 'react-syntax-highlighter'
 import {dark} from 'react-syntax-highlighter/dist/esm/styles/prism'
 
@@ -21,6 +21,28 @@ const Tr = styled.tr`
   border: 1px solid #DFE2E5;
 `;
 
+const Blockquote = styled.blockquote`
+  border-left: .25em solid ${({theme}) => theme.palette.sky2};
+  background: ${({theme}) => theme.palette.gray0};
+  padding: 0.5rem 0.5rem 0.5rem 1rem;
+  margin: 16px 0;
+  border-top-right-radius: 4px;
+  border-bottom-right-radius: 4px;
+  
+  & p {
+    margin: 0;
+  }
+`;
+
+const Code = styled.code`
+    padding: .2em .4em;
+    background-color: ${({theme}) => theme.palette.gray1};
+    margin: 0;
+    font-size: 85%;
+    color: inherit;
+    border-radius: 3px;
+`;
+
 const CustomStyle ={
   overflowX: 'auto'
 };
@@ -31,18 +53,19 @@ const components = {
     return !inline && match ? (
       <SyntaxHighlighter style={dark} customStyle={CustomStyle} language={match[1]} PreTag="div" children={String(children).replace(/\n$/, '')} {...props} />
     ) : (
-      <code className={className} children={children}  {...props} />
+      <Code children={children}  {...props} />
     )
   },
   th: ({node, ...props}) => <Th {...props} />,
   td: ({node, ...props}) => <Td {...props} />,
   tr: ({node, ...props}) => <Tr {...props} />,
- 
+  blockquote: ({node, ...props}) => <Blockquote {...props} />,
 }
 
 const MDRenderer = ({contents}) => {
     return (
-        <ReactMarkdown  remarkPlugins={[gfm]}
+        <ReactMarkdown  
+                        remarkPlugins={[gfm]}
                         rehypePlugins={[rehypeRaw]}
                         components={components}
                         children={contents}

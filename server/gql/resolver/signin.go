@@ -1,6 +1,7 @@
 package resolver
 
 import (
+	"fmt"
 	"net/http"
 
 	"github.com/gin-gonic/gin"
@@ -15,6 +16,8 @@ type SigninResolver interface {
 	Verify(ctx *gin.Context)
 	DeleteToken(ctx *gin.Context)
 	GetCurrentUser(params graphql.ResolveParams) (interface{}, error)
+	GetRequestURL(ctx *gin.Context)
+	DoSigninKakao(ctx *gin.Context)
 }
 
 type signinResolver struct {
@@ -63,7 +66,6 @@ func (rsv *signinResolver) Verify(ctx *gin.Context) {
 			// 토큰 발행 에러
 			ctx.JSON(http.StatusUnauthorized, gin.H{"err": "token genetation error!"})
 		}
-
 		ctx.Redirect(http.StatusFound, "http://wjk.ddns.net:80/")
 	} else {
 		ctx.Redirect(http.StatusFound, "http://wjk.ddns.net:80/verifyError")
@@ -87,4 +89,56 @@ func (rsv *signinResolver) GetCurrentUser(params graphql.ResolveParams) (interfa
 	} else {
 		return nil, nil
 	}
+}
+
+func (rsv *signinResolver) GetRequestURL(ctx *gin.Context) {
+	/* 01. Request token with kakao code */
+	host_url := "https://kauth.kakao.com/oauth/token"
+	grant_type := "grant_type=authorization_code"
+	client_id := "client_id=17e2b41913f7f223f6c370c7cfe2d33b"
+	redirect_uri := "redirect_uri=http://wjk.ddns.net:80/signin/kakao"
+	code := "code=" + ctx.Query("code")
+
+	requestURL := fmt.Sprintf(
+		"%s?%s&%s&%s&%s",
+		host_url,
+		grant_type,
+		client_id,
+		redirect_uri,
+		code)
+
+	ctx.JSON(http.StatusOK, gin.H{"requestURL": requestURL})
+
+}
+
+func (rsv *signinResolver) DoSigninKakao(ctx *gin.Context) {
+	/* 01. kakao api로 부터 얻은 email을 가져온다 */
+	email, _, _ := rsv.signinService.GetKakaoInfo(ctx)
+
+	if email == "" {
+		ctx.JSON(http.StatusUnauthorized, gin.H{"err": "kakao signin error"})
+		return
+	}
+	args := map[string]interface{}{
+		"email": email,
+	}
+
+	/* 02. 추출한 email로 MongoDB에서 조회 */
+	res, err := rsv.signinService.FindByEmail(args)
+
+	if res.Email != "" { /* 02-01. 조회 된 경우*/
+
+		// 자체 토큰 발행
+		if token := rsv.jwtService.GenerateToken(res.Email, true); token != "" {
+			// cookie 저장 방식
+			ctx.SetCookie("crispy-token", token, 60*60*24, "/", "wjk.ddns.net", false, true)
+			ctx.JSON(http.StatusOK, gin.H{"cookieSetting": true})
+		} else {
+			// 로그인 에러
+			ctx.JSON(http.StatusUnauthorized, gin.H{"err": err.Error()})
+		}
+	} else { /* 02-02. 조회되지 않은 경우*/
+		ctx.JSON(http.StatusUnauthorized, gin.H{"err": err.Error()})
+	}
+
 }

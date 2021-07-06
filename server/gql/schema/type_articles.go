@@ -11,7 +11,7 @@ var articlesType = graphql.NewObject(graphql.ObjectConfig{
 		"title": &graphql.Field{
 			Type: graphql.String,
 		},
-		"subtitle": &graphql.Field{
+		"hashtag": &graphql.Field{
 			Type: graphql.String,
 		},
 		"reg_date": &graphql.Field{

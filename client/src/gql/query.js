@@ -20,7 +20,7 @@ export const GetArticles = gql`
     articles(id: $id) {
       id,
       title,
-      subtitle,
+      hashtag,
       reg_date,
       desc,
       contents,
@@ -33,14 +33,14 @@ export const GetArticles = gql`
 `;
 
 export const GetCardList = gql`
-  query getCardList($category_lg: String!,
+  query GetCardList($category_lg: String!,
                     $category_md: String!) {
-	  articlesListByCategory (category_lg: $category_lg, category_md: $category_md ) {
+	  articlesListByCategory (category_lg: $category_lg, category_md: $category_md) {
       category_lg,
       category_md,
       id,
       title,
-      subtitle,
+      hashtag,
       desc,
       thumbnail,
       reg_date,
@@ -51,7 +51,7 @@ export const GetCardList = gql`
 
 export const CreateArticle = gql`
   mutation CreateArticle($title: String!,
-                         $subtitle: String!,
+                         $hashtag: String!,
                          $contents: String!,
                          $desc: String!,
                          $category_lg: String!,
@@ -59,7 +59,7 @@ export const CreateArticle = gql`
                          $thumbnail: String!,
                          $privacy: String!) {
     createArticles(title:$title,
-                   subtitle: $subtitle,
+                   hashtag: $hashtag,
                    contents:$contents,
                    desc: $desc,
                    category_lg: $category_lg,
@@ -74,7 +74,7 @@ export const CreateArticle = gql`
 export const UpdateArticles = gql`
   mutation UpdateArticles($id: Int!,
                          $title: String!,
-                         $subtitle: String!,
+                         $hashtag: String!,
                          $contents: String!,
                          $desc: String!,
                          $category_lg: String!,
@@ -83,7 +83,7 @@ export const UpdateArticles = gql`
                          $privacy: String!) {
     updateArticles(id:$id,
                    title:$title,
-                   subtitle: $subtitle,
+                   hashtag: $hashtag,
                    contents:$contents,
                    desc: $desc,
                    category_lg: $category_lg,
@@ -126,5 +126,53 @@ export const GetCurrentUser = gql`
       nickname,
       admin_flag,
     }
+  }
+`;
+
+export const Reply = gql`
+  query Reply($article_id: Int!){
+    reply(article_id: $article_id){
+      id,
+      article_id,
+      depth,
+      group_no,
+      sibling_name,
+      name,
+      password,
+      reg_date,
+      contents,
+      blind,
+      admin_flag,
+    }
+  }
+`;
+
+export const CreateReply = gql`
+  mutation CreateReply($article_id: Int!,
+                       $depth: Int!,
+                       $group_no: Int!,
+                       $sibling_name: String!,
+                       $name: String!,
+                       $password: String!,
+                       $contents: String!,
+                       $admin_flag: Boolean!){
+    createReply(article_id: $article_id
+                depth: $depth,
+                group_no: $group_no,
+                sibling_name: $sibling_name,
+                name: $name,
+                password: $password,
+                contents: $contents,
+                admin_flag: $admin_flag){
+      id
+    }
+  }
+`;
+
+export const RemoveReply = gql`
+  mutation RemoveReply($id: ID!,
+                       $password: String!){
+    removeReply(id: $id,
+                password: $password)
   }
 `;

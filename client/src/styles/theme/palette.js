@@ -1,8 +1,10 @@
 const palette = {
   /* personal color */
+  sky00: '#1359A0',
   sky0: '#1976D2',
   sky1: '#1B82E7',
   sky2: '#5398DD',
+  sky3: '#D1E6FA',
   
   sea0: '#008FBE',
   sea1: '#1A9BC6',
@@ -32,7 +34,7 @@ const palette = {
   gray3: '#DEE2E6',
   gray4: '#CED4DA',
   gray5: '#ADB5BD',
-  gray6: '#868E96',
+  gray6: '#7B858E',
   gray7: '#495057',
   gray8: '#343A40',
   gray9: '#212529',

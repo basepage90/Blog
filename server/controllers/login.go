@@ -141,7 +141,7 @@ func (con *loginController) LoginKakao(ctx *gin.Context) {
 	host_url := "https://kauth.kakao.com/oauth/token"
 	grant_type := "grant_type=authorization_code"
 	client_id := "client_id=17e2b41913f7f223f6c370c7cfe2d33b"
-	redirect_uri := "redirect_uri=http://wjk.ddns.net/login/kakao"
+	redirect_uri := "redirect_uri=http://wjk.ddns.net:5000/login/kakao"
 	code := "code=" + ctx.Query("code")
 
 	requestURL := fmt.Sprintf(

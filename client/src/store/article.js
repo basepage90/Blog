@@ -3,7 +3,7 @@ import { createSlice } from '@reduxjs/toolkit';
 const initialState = {
     id: '',
     title: '',
-    subtitle: '',
+    hashtag: '',
     info: '',
     contents: '',
     desc: '',
@@ -16,7 +16,7 @@ const article = createSlice({
     cardClick : (state,action) => { 
         state.id = action.payload.id
         state.title = action.payload.title
-        state.subtitle = action.payload.subtitle
+        state.hashtag = action.payload.hashtag
         state.info = action.payload.info
         state.contents = action.payload.contents
         state.desc = action.payload.desc

@@ -3,7 +3,7 @@ package models
 type Articles struct {
 	Id          int    `bson:"_id" json:"id"`
 	Title       string `json:"title"`
-	Subtitle    string `json:"subtitle"`
+	Hashtag     string `json:"hashtag"`
 	Reg_date    string `json:"reg_date"`
 	Desc        string `json:"desc"`
 	Contents    string `json:"contents"`

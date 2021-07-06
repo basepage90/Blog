@@ -5,7 +5,7 @@ import TextField from '@material-ui/core/TextField';
 const Div = styled.div`
     height: 120px;
     width: 80%;
-    ${({theme}) => theme.media.xsmall}{
+    ${({theme}) => theme.media.small}{
         width: 100%;
     }
     display: flex;
@@ -15,31 +15,33 @@ const Div = styled.div`
 const TextFieldTitle = styled(TextField)`
     flex: 1 1 auto;
     margin-left: 20px;
-`;
+    margin-right: 20px;
+    `;
     
-    const TextFieldSubtitle = styled(TextField)`
+const TextFieldHashtag = styled(TextField)`
     flex: 1 1 auto;
     margin-left: 20px;
+    margin-right: 20px;
 `;
 
 const ArticleTitleArea = ({pdata})=>{
 
     const [state, setState] = useState({
         title: "",
-        subtitle: "",
+        hashtag: "",
     });
     
     const changeTitle = (props) => {
         setState({
             title: props.currentTarget.value,
-            subtitle: state.subtitle,
+            hashtag: state.hashtag,
         });
     }
     
-    const changeSubtitle = (props) => {
+    const changeHashtag = (props) => {
         setState({
             title: state.title,
-            subtitle: props.currentTarget.value,
+            hashtag: props.currentTarget.value,
         });
     }
 
@@ -47,7 +49,7 @@ const ArticleTitleArea = ({pdata})=>{
         if(pdata !== null){
             setState({
                 title: pdata.title,
-                subtitle: pdata.subtitle,
+                hashtag: pdata.hashtag,
             });
         }
     },[pdata])
@@ -57,12 +59,12 @@ const ArticleTitleArea = ({pdata})=>{
             {pdata !== null ?
             <>
                 <TextFieldTitle id="post__title" label="Title" value={state.title} onChange={changeTitle} />
-                <TextFieldSubtitle id="post__subtitle" label="Subtitle" value={state.subtitle} onChange={changeSubtitle} />
+                <TextFieldHashtag id="post__hashtag" label="Hashtag" value={state.hashtag} onChange={changeHashtag} />
             </>
             :
             <>
                 <TextFieldTitle id="post__title" label="Title" />
-                <TextFieldSubtitle id="post__subtitle" label="Subtitle" />
+                <TextFieldHashtag id="post__hashtag" label="Hashtag" />
             </>
             }
         </Div>

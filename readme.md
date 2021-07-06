@@ -22,6 +22,15 @@ React and Go with Clean-Architecture
 <details> 
     <summary> 👉 Click Me  ( Expand Detail Tag ) </summary>
 
+### Gin-Web (tag : v0.2.5)
+- Multiple CORS
+- kakao login 구현
+    - server side working : kakaoAPI / JWT / SMPT
+- 댓글 구현
+    - refetch : cache-first (cache-and-network 으로 동작시, 전체렌더링이 일어난다)
+- Add detail to style
+
+
 ### Gin-Web (tag : v0.2.4)
 - Markdown
     - edit / delete 기능 구현

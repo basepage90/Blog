@@ -178,7 +178,7 @@ const ArtilcePublisher = ({history,pdata}) => {
   }
   
   let title;
-  let subtitle;
+  let hashtag;
   let category_lg;
   let category_md;
   let thumbnail;
@@ -186,7 +186,7 @@ const ArtilcePublisher = ({history,pdata}) => {
   const JustPublish = () => {
     const success = createArticle({ variables:  {
         title: title,
-        subtitle: subtitle,
+        hashtag: hashtag,
         contents: contents,
         desc: desc,
         category_lg : category_lg,
@@ -198,15 +198,15 @@ const ArtilcePublisher = ({history,pdata}) => {
     
     success.then(({data})=> {
       // gql server 로부터 return 받은 data의 id가 존재할때만, publish 를 완료한다
-      if(data.createArticles.id === undefined) {
-        handleSnackbaraVariant('error')
+      if(data.createArticles.id !== undefined) {
+        handleSnackbaraVariant('success')
+        dispatch(setContents(""));
+        localStorage.removeItem(`smde_autoSaving`);
+        window.location.replace('/');
         return;
       } else {
-        handleSnackbaraVariant('success')
-        close();
-        localStorage.removeItem(`smde_autoSaving`);
-        dispatch(setContents(""));
-        window.location.replace('/');
+        handleSnackbaraVariant('error')
+        return;
       }
     })
   }
@@ -215,7 +215,7 @@ const ArtilcePublisher = ({history,pdata}) => {
     const success = updateArticles({ variables:  {
         id: pdata.id,
         title: title,
-        subtitle: subtitle,
+        hashtag: hashtag,
         contents: contents,
         desc: desc,
         category_lg : category_lg,
@@ -229,7 +229,6 @@ const ArtilcePublisher = ({history,pdata}) => {
       // gql server 로부터 return 받은 data의 id가 존재할때만, publish 를 완료한다
       if(data.updateArticles > 0) {
         handleSnackbaraVariant('success')
-        close();
         dispatch(setContents(""));
         window.location.replace('/');
         return;
@@ -288,8 +287,8 @@ const ArtilcePublisher = ({history,pdata}) => {
   const postValidator = () => {
     if ( title.length === 0 ){
       return 'Title';
-    } else if ( subtitle.length === 0 ) {
-      return 'Subtitle';
+    } else if ( hashtag.length === 0 ) {
+      return 'Hashtag';
     } else if(contents === "" || contents === null){
       return 'Contents';
     } else if(lgno === ""){
@@ -315,7 +314,7 @@ const ArtilcePublisher = ({history,pdata}) => {
     
     // ▼ data setting and vaildation
     title = document.getElementById('post__title').value;
-    subtitle = document.getElementById('post__subtitle').value;
+    hashtag = document.getElementById('post__hashtag').value;
     
     const pv = postValidator();
 
