@@ -1,11 +1,11 @@
-import ArticleViewer from "containers/article/articleViewer"
-import ReplySection from "containers/article/ReplySection"
+import ArticleViewer from "containers/article/ArticleViewer"
+import ReplyContainer from "containers/article/ReplyContainer"
 
 const ArticlePage = () => {
     return(
         <>
             <ArticleViewer />
-            <ReplySection />
+            <ReplyContainer />
             {/* <ArticlePreviewer /> */}
         </>
     )

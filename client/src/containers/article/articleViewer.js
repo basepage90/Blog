@@ -1,6 +1,6 @@
-import Article from 'components/common/article/article'
-import PrivacySwitch from 'components/common/article/PrivacySwitch'
-import EditAndDelete from 'components/common/article/EditAndDelete'
+import Article from 'components/article/Article'
+import PrivacySwitchContainer from 'containers/article/PrivacySwitchContainer'
+import EditAndDelete from 'containers/article/EditAndDelete'
 import { useSelector } from "react-redux";
 import { useParams } from 'react-router-dom';
 import { useQuery } from '@apollo/react-hooks'
@@ -26,7 +26,7 @@ function ArtilceViewer (){
             <>
                 {userInfo.admin_flag ? 
                 <>
-                    <PrivacySwitch data={data.articles} />
+                    <PrivacySwitchContainer data={data.articles} />
                     <EditAndDelete data={data.articles}/>
                 </>
                 : null}

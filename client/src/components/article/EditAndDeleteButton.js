@@ -1,9 +1,4 @@
-import { useState } from "react";
 import styled from "styled-components";
-import { useHistory } from "react-router-dom";
-import { useMutation } from '@apollo/react-hooks';
-import { DeleteArticles } from 'gql/query';
-import { useSnackbar } from 'notistack';
 
 import Button from '@material-ui/core/Button';
 import DeleteIcon from '@material-ui/icons/Delete';
@@ -39,62 +34,7 @@ const ButtonDelete = styled(Button)`
     }
 `;
 
-
-const EditAndDelete = ({data:{id}}) => {
-
-    const history = useHistory();
-
-    const goEdit = () => {
-        history.push('/edit/'+id)
-    }
-
-
-
-
-    const [open, setOpen] = useState(false);
-
-    const handleClickOpen = () => {
-      setOpen(true);
-    };
-  
-    const handleClose = () => {
-      setOpen(false);
-    };
-
-    const { enqueueSnackbar, closeSnackbar } = useSnackbar();
-
-    const handleSnackbaraVariant = (variant) => {
-        let msg;
-        switch (variant) {
-            case 'success':
-                msg = '포스트를 삭제했어요 :)';
-                break;
-            case 'error':
-                msg = '포스트 삭제에 실패했어요(server response error)';
-                break;
-            default:
-                break;
-        }
-        const key = enqueueSnackbar(msg, { variant, onClick: () => {closeSnackbar(key)} })
-    };
-
-    const [ deleteArticles ] = useMutation(DeleteArticles)
-
-    const doDelete = () => {
-        const success = deleteArticles({ variables: {id: id}})
-
-        success.then(({data})=> {
-            // gql server 로 부터의 return 은 delete count. 즉,  0보다 크면 성공.
-            if(data.deleteArticles > 0) {
-                handleSnackbaraVariant('success')
-            } else {
-                handleSnackbaraVariant('error')
-            }
-            handleClose();
-            window.location.replace('/');
-        })
-    }
-
+const EditAndDeleteButton = ({open,handleClickOpen,handleClose,doDelete,goEdit}) => {
     return(
         <>
             <ButtonWrapper>
@@ -142,4 +82,4 @@ const EditAndDelete = ({data:{id}}) => {
     )
 }
 
-export default EditAndDelete;
+export default EditAndDeleteButton;

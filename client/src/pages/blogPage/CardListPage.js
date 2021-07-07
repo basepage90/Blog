@@ -1,5 +1,5 @@
 import React from 'react';
-import CardListViewer from "containers/article/CardListViewer"
+import CardListViewer from "containers/card/CardListViewer"
 
  const CardListPage = () => {
     return (

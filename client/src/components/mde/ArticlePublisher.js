@@ -7,6 +7,7 @@ import { GetMenuList, CreateArticle, UpdateArticles } from 'gql/query'
 import { useSnackbar } from 'notistack';
 import axios from "axios";
 import Dropzone from 'components/common/upload/Dropzone'
+import { CountByteLength, CutByLen } from 'util/useFunction'
 
 import Select from '@material-ui/core/Select';
 import MenuItem from '@material-ui/core/MenuItem';
@@ -51,12 +52,12 @@ const ButtonPublish = styled(Button)`
 `;
 
 const TextFieldDesc = styled(TextField)`
-    margin: 0 24px;
+  margin: 0 24px;
 `;
 
 const CountDescSpan = styled.span`
-    margin: 10px 24px 10px auto;
-    color: ${props => props.byteLength < props.maxByte ? '#868E96;' : 'red;' }
+  margin: 10px 24px 10px auto;
+  color: ${props => props.byteLength < props.maxByte ? '#868E96;' : 'red;' }
 `;
 
 const ButtonWrapper = styled.div`
@@ -87,34 +88,6 @@ const ButtonPrivate = styled(Button)`
 const Typo = styled.span`
     margin-left: 10px;
 `;
-
-// 바이트 계산 함수 : 한글은 2, 그외 영문숫자 특수문자는 1로 취급
-// 다만,utf8에서한글은 3이며, 사실 현재 바이트를 구하기 위함이 아니다.
-const CountByteLength = (str) => {
-  let b = 0;
-  let i = 0;
-  let c = 0;
-  for(i=0; i < str.length; i++){
-    c = str.charCodeAt(i);
-    b = b + (c >> 7 ? 2 : 1);
-  }
-  return b;
-};
-
-// 바이트 단위로 substring 하는 함수
-const cutByLen = (str,maxByte) => {
-  let b = 0;
-  let i = 0;
-  let c = 0;
-  for(i=0; i < str.length; i++) {
-    c = str.charCodeAt(i);
-    b = b+ (c >> 7 ? 2 : 1) ;
-    if (b >= maxByte){
-      return str.substring(0,i);
-    }
-  }
-  return str.substring(0,i);
-};
 
 const ArtilcePublisher = ({history,pdata}) => {
   // ↓ dialog
@@ -280,7 +253,7 @@ const ArtilcePublisher = ({history,pdata}) => {
       setByteLength(maxByte)
     }
     if(nowByte >= maxByte){
-      setDesc(cutByLen(event.target.value,maxByte));
+      setDesc(CutByLen(event.target.value,maxByte));
     }
   }
 
@@ -310,8 +283,6 @@ const ArtilcePublisher = ({history,pdata}) => {
   const contents = useSelector(state => state.post.contents);
   
   const doPublish = () => {
-
-    
     // ▼ data setting and vaildation
     title = document.getElementById('post__title').value;
     hashtag = document.getElementById('post__hashtag').value;
@@ -492,4 +463,3 @@ const ArtilcePublisher = ({history,pdata}) => {
 }
 
 export default ArtilcePublisher;
-

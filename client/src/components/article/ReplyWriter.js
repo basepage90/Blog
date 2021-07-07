@@ -1,10 +1,5 @@
 import { useState } from 'react';
 import styled from 'styled-components';
-import { useSelector, shallowEqual } from "react-redux";
-import { useParams } from 'react-router-dom';
-import { useMutation } from '@apollo/react-hooks';
-import { CreateReply } from 'gql/query';
-import { useSnackbar } from 'notistack';
 
 import TextField from '@material-ui/core/TextField';
 import Input from '@material-ui/core/Input';
@@ -30,6 +25,7 @@ const ReplyWriterInner = styled.div`
 const NameField = styled(TextField)`
   flex: 1 1 auto;
   max-width: 46%;
+  ime-mode: active;
   
   .MuiInputLabel-root.Mui-focused {
     color: ${({theme}) => theme.palette.sky0};
@@ -54,9 +50,11 @@ const PasswordField = styled(FormControl)`
 `;
 
 const ContentsField = styled(TextField)`
-    & .MuiOutlinedInput-root.Mui-focused fieldset{
-      border-color: ${({theme}) => theme.palette.sky1};
-    }
+  ime-mode:active;
+  
+  & .MuiOutlinedInput-root.Mui-focused fieldset{
+    border-color: ${({theme}) => theme.palette.sky1};
+  }
 `;
 
 const SubmitWrapper = styled.div`
@@ -92,16 +90,12 @@ color: ${props => props.currentLength < props.maxLength ? '#868E96;' : 'red;' }
 `;
 
 
-const ReplyWriter = ({replyId,depth,siblingName,groupNo,refetch,setOpenReply}) => {
-
-  const { admin_flag, nickname } = useSelector(
-    state => ({
-      admin_flag: state.user.admin_flag,
-      nickname: state.user.nickname,
-    }),shallowEqual)
-        
-  
-  const { id } = useParams();
+const ReplyWriter = ({replyId,admin_flag,doCreateReply}) => {
+  const [currentLength, setCurrentLength] = useState(0)
+    
+  const countLength = (e) => {
+    setCurrentLength(e.target.value.length)
+  }
   
   const [values, setValues] = useState({
     amount: '',
@@ -111,12 +105,6 @@ const ReplyWriter = ({replyId,depth,siblingName,groupNo,refetch,setOpenReply}) =
     showPassword: false,
   });
   
-  const [currentLength, setCurrentLength] = useState(0)
-
-  const countLength = (e) => {
-    setCurrentLength(e.target.value.length)
-  }
-
   const handleChange = (prop) => (event) => {
     setValues({ ...values, [prop]: event.target.value });
   };
@@ -128,97 +116,6 @@ const ReplyWriter = ({replyId,depth,siblingName,groupNo,refetch,setOpenReply}) =
   const handleMouseDownPassword = (event) => {
     event.preventDefault();
   };
-  
-  const replyValidator = (name,password,contents) => {
-    if (admin_flag){
-      if ( contents.length === 0 ) {
-        return '댓글 내용';
-      }else{
-        return true;
-      }
-    }else{
-      if ( name.length === 0 ){
-        return '이름';
-      } else if ( password.length === 0 ) {
-        return '비밀번호';
-      } else if ( contents.length === 0 ) {
-        return '댓글 내용';
-      }else{
-        return true;
-      }
-    }
-  };
-
-  const { enqueueSnackbar, closeSnackbar } = useSnackbar();
-
-  const handleSnackbaraVariant = (variant, rv) => {
-    let msg;
-    switch (variant) {
-      case 'success':
-        msg = '댓글을 등록했어요 :)'
-        break;
-      case 'error':
-        msg = '댓들등록에 실패했어요 (server response error)'
-        break;
-      case 'warning':
-        msg = rv + ' 이(가) 비어 있어요!';
-        break;
-      default:
-          break;
-    }
-    const key = enqueueSnackbar(msg, { variant, onClick: () => {closeSnackbar(key)} })
-  };
-
-  const [ createReply ] = useMutation(CreateReply)
-  
-  const doCreateReply = () => {
-    let name;
-    let password;
-    const contents = document.getElementById('reply__contents__'+replyId).value;
-    // const secret = document.getElementById('reply__secret__'+replyId).checked;
-
-    if(admin_flag){
-      name = nickname;
-      password = "";
-    }else{
-      name = document.getElementById('reply__name__'+replyId).value;
-      password = document.getElementById('reply__password__'+replyId).value;
-    }
-
-    const rp = replyValidator(name,password,contents)
-
-    if(rp !== true ){
-      handleSnackbaraVariant('warning', rp)
-      return;
-    }
-    
-    const success = createReply({ variables: {
-      article_id : id,
-      depth: depth === undefined ? 0 : depth,
-      group_no: groupNo === undefined ? 0 : groupNo,
-      sibling_name: siblingName === undefined ? "" : siblingName,
-      name: name,
-      password: password,
-      contents: contents,
-      admin_flag: admin_flag,
-      }})
-
-        success.then(({data})=> {
-            // gql server 로 부터의 return 은 id. 즉, 생성한 id 를 반환받으면 성공
-            if(data.createReply.id !== undefined || data.createReply.id !== null) {
-                handleSnackbaraVariant('success')
-                document.getElementById('reply__contents__'+replyId).value = "";
-                if(setOpenReply !== undefined ){
-                  setOpenReply(false);
-                }
-                refetch();
-            } else {
-                handleSnackbaraVariant('error')
-            }
-            // handleClose();
-        })
-
-    }
 
     return (
           <ReplyWriterInner >

@@ -24,8 +24,8 @@ const Tr = styled.tr`
 const Blockquote = styled.blockquote`
   border-left: .25em solid ${({theme}) => theme.palette.sky2};
   background: ${({theme}) => theme.palette.gray0};
-  padding: 0.5rem 0.5rem 0.5rem 1rem;
-  margin: 16px 0;
+  padding: 1rem 1rem 1rem 1.5rem;
+  margin: 1.5rem 0;
   border-top-right-radius: 4px;
   border-bottom-right-radius: 4px;
   

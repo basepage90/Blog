@@ -1,13 +1,14 @@
 import { useSelector } from 'react-redux';
 import styled from 'styled-components';
-import ReplyHeader from 'components/common/article/ReplyHeader'
-import ReplyWriter from 'components/common/article/ReplyWriter'
-import ReplyList from 'components/common/article/ReplyList'
-import Paper from '@material-ui/core/Paper';
+import ReplyHeader from 'components/article/ReplyHeader'
+import ReplyWriterContainer from 'containers/article/ReplyWriteContainer'
+import ReplyListContainer from 'containers/article/ReplyListContainer'
 import { bottomMargin, sidebarWidth } from 'styles/styleConst'
 import { useParams } from 'react-router-dom';
 import { useQuery } from '@apollo/react-hooks';
 import { Reply } from 'gql/query'
+
+import Paper from '@material-ui/core/Paper';
 
 const Div = styled.div`
     margin-bottom: ${bottomMargin};
@@ -38,7 +39,7 @@ const ReplyWriterWrapper = styled.div`
   border-bottom: 1px solid #DDDFE4;
 `;
 
-const ReplySection = () => {
+const ReplyContainer = () => {
     const { id } = useParams();
 
     const sideBarState = useSelector(state => state.sideBarHidden.sideBarState);
@@ -54,9 +55,9 @@ const ReplySection = () => {
                 <Paper className="paper" elevation={3} >
                     {!loading && <ReplyHeader replyList={data.reply} />}
                     <ReplyWriterWrapper >
-                        <ReplyWriter refetch={refetch} />
+                        <ReplyWriterContainer refetch={refetch} />
                     </ReplyWriterWrapper>
-                    {!loading && <ReplyList replyList={data.reply} refetch={refetch} />}
+                    {!loading && <ReplyListContainer replyList={data.reply} refetch={refetch} />}
                 </Paper>
             </Div>
         </>
@@ -64,4 +65,4 @@ const ReplySection = () => {
 
 }
 
-export default ReplySection;
+export default ReplyContainer;

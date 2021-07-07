@@ -1,11 +1,4 @@
-import React, { useState } from 'react';
 import styled from 'styled-components';
-import { useSelector } from "react-redux";
-import { useMutation } from '@apollo/react-hooks';
-import { RemoveReply } from 'gql/query';
-import { useSnackbar } from 'notistack';
-import ReplyWriter from 'components/common/article/ReplyWriter'
-
 
 import Avatar from '@material-ui/core/Avatar';
 import IconButton from '@material-ui/core/IconButton';
@@ -13,6 +6,7 @@ import SmsIcon from '@material-ui/icons/Sms';
 import HighlightOffIcon from '@material-ui/icons/HighlightOff';
 import Popover from '@material-ui/core/Popover';
 import { myAvartar } from 'statics/images'
+import { useSelector } from 'react-redux';
 
 const ReplyWrapper = styled.div`
     height: 100%;
@@ -43,23 +37,6 @@ const Reply = styled.div`
     background-color: #FFFFFF;
 `;
 
-const ReplyChild = styled.div`
-    display: flex;
-    flex-direction: row;
-    padding: 16px 16px 16px 48px;
-    background-color: ${({theme}) => theme.palette.gray0};
-
-    ::before {
-        position: relative;
-        top: 6px;
-        left: -12px;
-        content: "";
-        width: 12px;
-        height: 12px;
-        border-left: 1px solid #C5CBD0;
-        border-bottom: 1px solid #C5CBD0;
-    }
-`;
 
 const AvatarBox = styled.div`
     flex: 0 0 56px;
@@ -151,90 +128,8 @@ const BtnBox = styled.div`
     }
 `;
 
-const ReplyList = ({replyList,refetch}) => {
-    const [openReply, setOpenReply] = useState(false)
-    const [currentId, setCurrentId] = useState(0)
-    const [currentRemoveId, setCurrentRemoveId] = useState(0)
-    const [anchorEl, setAnchorEl] = useState(null);
-
+const ReplyList = ({replyList,open,anchorEl,handleClick,handleClose,openReply,ReplyChild,ShowReplyChild,doRemoveReply,RenderReplyChild}) => {
     const admin_flag = useSelector( state => state.user.admin_flag);
-
-    const handleClick = (e,id) => {
-        setAnchorEl(e.currentTarget);
-        setCurrentRemoveId(id)
-    };
-
-    const handleClose = () => {
-        setAnchorEl(null);
-    };
-
-    const open = Boolean(anchorEl);
-    
-
-    const ShowReplyChild = (replyId) => {
-        if(replyId !== currentId){
-            setCurrentId(replyId);
-            setOpenReply(true);
-        } else{
-            setOpenReply(!openReply);
-        }
-    };
-
-    const RenderReplyChild = (replyId,groupNo,replyName) => {
-        return (
-            <>
-                {replyId === currentId &&
-                    <ReplyChild >
-                        <ReplyWriter
-                            replyId={replyId}
-                            depth={1}
-                            groupNo={groupNo}
-                            siblingName={replyName}
-                            refetch={refetch}
-                            setOpenReply={setOpenReply}
-                        />
-                    </ReplyChild >
-                }
-            </>
-        )
-    }
-
-    const { enqueueSnackbar, closeSnackbar } = useSnackbar();
-
-    const handleSnackbaraVariant = (variant) => {
-      let msg;
-      switch (variant) {
-        case 'success':
-          msg = '댓글을 삭제했어요 :)'
-          break;
-        case 'warning':
-          msg = '비밀번호가 틀려요 :('
-          break;
-        default:
-            break;
-      }
-      const key = enqueueSnackbar(msg, { variant, onClick: () => {closeSnackbar(key)} })
-    };
-
-    const [ removeReply ] = useMutation(RemoveReply)
-
-    const doRemoveReply = () => {
-        const password = document.getElementById('pop__password').value;
-
-        const success = removeReply({ variables: {id: currentRemoveId, password: String(password)}})
-
-        success.then(({data})=> {
-            // gql server 로 부터의 return 은 delete count. 즉,  0보다 크면 성공.
-            if(data.removeReply > 0) {
-                handleSnackbaraVariant('success')
-                handleClose();
-                refetch();
-            } else {
-                handleSnackbaraVariant('warning')
-            }
-        })
-
-    }
 
     return (
         <ReplyWrapper className="ReplyWrapper">
@@ -246,8 +141,7 @@ const ReplyList = ({replyList,refetch}) => {
                             <Reply >
                                 <AvatarBox>
                                 {reply.admin_flag ?
-                                    <Avatar src={myAvartar} >
-                                    </Avatar>
+                                    <Avatar src={myAvartar} />
                                 :
                                     <Avatar >
                                     {reply.blind ? "" : reply.name.substr(0,1).toUpperCase()}
@@ -297,8 +191,7 @@ const ReplyList = ({replyList,refetch}) => {
                             <ReplyChild >
                                 <AvatarBoxChild>
                                 {reply.admin_flag ?
-                                    <Avatar src={myAvartar} >
-                                    </Avatar>
+                                    <Avatar src={myAvartar} />
                                 :
                                     <Avatar style={{width: '30px', height: '30px'}}>
                                         {reply.name.substr(0,1).toUpperCase()}

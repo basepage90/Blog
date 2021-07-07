@@ -39,9 +39,11 @@ const Article = styled.div`
     display: flex;
     flex-direction: column;
     padding: 16px 16px 8px 16px;
+
     & p{
         flex: 1;
     }
+
     & span{
         font-size: 0.8rem;
     }
@@ -58,6 +60,7 @@ const Article = styled.div`
         text-overflow: ellipsis;
 
     }
+
     & .hashtag {
         flex:1 1 auto;
         margin-bottom: 8px;
@@ -70,6 +73,7 @@ const Article = styled.div`
         text-overflow: ellipsis;
 
     }
+
     & .desc {
         flex:2 2 auto;
         margin-bottom: 16px;
@@ -84,9 +88,11 @@ const Article = styled.div`
         -webkit-line-clamp: 3;
         -webkit-box-orient: vertical;
     }
+
     & .reg_date {
         color: #808999;
     }
+    
     & .privacy {
         color: ${({theme}) => theme.palette.red3};
         font-weight: bold;

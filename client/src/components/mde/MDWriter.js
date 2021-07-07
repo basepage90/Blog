@@ -87,7 +87,7 @@ const MDWriter = ({pdata}) => {
         return {
         autofocus: false,
         spellChecker: false,
-        lineWrapping : false,
+        lineWrapping : true,
         renderingConfig: {
             singleLineBreaks: false,
         },

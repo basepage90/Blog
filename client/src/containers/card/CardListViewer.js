@@ -1,4 +1,4 @@
-import Card from 'components/common/card/card'
+import Card from 'components/card/Card'
 import GridContainer from 'components/common/layoutContainer/gridContainer'
 import { useParams } from 'react-router-dom'
 import { useQuery } from '@apollo/react-hooks'

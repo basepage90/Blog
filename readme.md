@@ -1,4 +1,4 @@
-# Gin-Web
+# Blog
 Crispy's Blog
 
 React and Go with Clean-Architecture
@@ -22,7 +22,14 @@ React and Go with Clean-Architecture
 <details> 
     <summary> 👉 Click Me  ( Expand Detail Tag ) </summary>
 
-### Gin-Web (tag : v0.2.5)
+### Blog (tag : v0.2.6)
+- component 분리
+    - container components
+    - presentational components
+- 저장소 이름 변경
+    - gin-web → Blog
+
+### Blog (tag : v0.2.5)
 - Multiple CORS
 - kakao login 구현
     - server side working : kakaoAPI / JWT / SMPT
@@ -31,12 +38,12 @@ React and Go with Clean-Architecture
 - Add detail to style
 
 
-### Gin-Web (tag : v0.2.4)
+### Blog (tag : v0.2.4)
 - Markdown
     - edit / delete 기능 구현
     - MDWriter : editMode 와 writeMode 로 분류
     
-### Gin-Web (tag : v0.2.3)
+### Blog (tag : v0.2.3)
 - privacy setting switch
     - public / private
     - apollo useQuery option : fetchPolicy
@@ -64,7 +71,7 @@ React and Go with Clean-Architecture
     - Authentication(authenticate) = login + password (who you are)
     - Authorization(authorize) = permissions (what you are allowed to do)
 
-### Gin-Web (tag : v0.2.2)
+### Blog (tag : v0.2.2)
 - Post(article) and MDE
     - article max-width 동적 CSS 적용
     - post validation
@@ -72,10 +79,10 @@ React and Go with Clean-Architecture
     - mde resize image helper 추가
     - card css 수정
 
-### Gin-Web (tag : v0.2.1)
+### Blog (tag : v0.2.1)
 - Markdown : server image upload 구현
 
-### Gin-Web (tag : v0.2.0)
+### Blog (tag : v0.2.0)
 - client :
     - router page 구조 변경/ header subject 동작 개선 / 버그 수정
     - MarkDown
@@ -92,15 +99,15 @@ React and Go with Clean-Architecture
         3. type : int64 / NumberLong()
         4. findOneAndUpdate, findOneAndReplace ← ~~findAndModify~~
 
-### Gin-Web (tag : v0.1.9)
+### Blog (tag : v0.1.9)
 - testData 대신 모두 MongoDB 데이터로 변경
 
-### Gin-Web (tag : v0.1.8)
+### Blog (tag : v0.1.8)
 - server : CORS Middleware 생성
 - client : yarn add apollo-boost graphgql @react-apollo
     - Menu - server data load
 
-### Gin-Web (tag : v0.1.7)
+### Blog (tag : v0.1.7)
 - server
     - AS-IS : Mysql / RESTful
     - TO-BE : MongoDB / GraphQL
@@ -127,23 +134,23 @@ React and Go with Clean-Architecture
 
     ```
 
-### Gin-Web (tag : v0.1.6)
+### Blog (tag : v0.1.6)
 - server : db connection 방식 변경
     - The connection is only done once
 
-### Gin-Web (tag : v0.1.5)
+### Blog (tag : v0.1.5)
 - VanillaJS 코드를 React-Router-dom Hook 으로 대체
     - page - container - component 연결
 
-### Gin-Web (tag : v0.1.4)
+### Blog (tag : v0.1.4)
 - SpeedDialog 추가
 
-### Gin-Web (tag : v0.1.3)
+### Blog (tag : v0.1.3)
 - header subject 동작 개선
 - useEffect(componentWillUnmount) 에서의 removeEventListener
 - catching bug O_O
 
-### Gin-Web (tag : v0.1.2)
+### Blog (tag : v0.1.2)
 - Hook 으로 대체
     - connect -> useSelector, useDispatch
     - store.subscribe -> useEffect
@@ -154,7 +161,7 @@ React and Go with Clean-Architecture
     - useEffect
         - 의존성배열없이 componentDidMount 처럼 동작 하기위한 변수(꽁수?) 추가
 
-### Gin-Web (tag : v0.1.1)
+### Blog (tag : v0.1.1)
 - useEffect expression
 ```plain
     - componentDidMount
@@ -176,57 +183,57 @@ React and Go with Clean-Architecture
          });
 ```
 
-### Gin-Web (tag : v0.1.0)
+### Blog (tag : v0.1.0)
 - router 및 SideBar 추가 작업
 
-### Gin-Web (tag : v0.0.9)
+### Blog (tag : v0.0.9)
 - redux 및 sidebar hidden/expand 작업
 
-### Gin-Web (tag : v0.0.8)
+### Blog (tag : v0.0.8)
 - 블로그로 컨셉 변경
     - 뼈대 생성
     - styled component 기반에 약간의 material-ui 를 곁들인...
 
-### Gin-Web (tag : v0.0.7.2)
+### Blog (tag : v0.0.7.2)
 - Using yarn instead of npm
 
     ![ex_screenshot](./server/docs/react_structure.PNG)
 
-### Gin-Web (tag : v0.0.7.1)
+### Blog (tag : v0.0.7.1)
 - Refactoring : Folder Structure
 
-### Gin-Web (tag : v0.0.7)
+### Blog (tag : v0.0.7)
 - kakao api Login 구현
     - kakao 토큰 발급확인 후, 자체 JWT 로그인 진행
 - Logout 구현
 
-### Gin-Web (tag : v0.0.6)
+### Blog (tag : v0.0.6)
 - 로그인 기능 구현 완료
     - signup 후 email 인증 (google uuid를 인증키값으로 사용)
 
-### Gin-Web (tag : v0.0.5)
+### Blog (tag : v0.0.5)
 - JWT을 통한 로그인 적용
     - http only Cookie
     - *CSRF Defence 대책 필요*
 
-### Gin-Web (tag : v0.0.4)
+### Blog (tag : v0.0.4)
 - CleanArchitecutre 적용
 - DB 연동
     - gorm / mysql / read config env
     - *gorm 의 TableName 메서드가 필요이상으로 여러번 호출되는 문제를 보임*
 
-### Gin-Web (tag : v0.0.3)
+### Blog (tag : v0.0.3)
 - CleanArchitecture 로 변경중
 - ajax 로 동작하는 article 제거버튼 추가
 
-### Gin-Web (tag : v0.0.2)
+### Blog (tag : v0.0.2)
 - request의 accept header 별로 처리해줄 redner 함수 추가
 - middleware 디렉토리 생성 ( gin.Default() 에서 gin.New() 로 변경 )
     - Logging 추가
     - basic auth 추가
     - ~~req/res 디버깅을 위한 gindump 추가~~
 
-### Gin-Web (tag : v0.0.1)
+### Blog (tag : v0.0.1)
 - 각 언론사의 뉴스기사를 스크랩하여, 원하는 키워드별로 정리해서 보여주는 website 계획
     - 하나의 키워드에 대하여 여러 언론사의 기사를 비교하여 볼수 있다.
 - directorty  재구성
