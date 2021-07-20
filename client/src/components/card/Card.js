@@ -113,7 +113,7 @@ export default function Card({data}){
     useEffect(() =>{
         // window.scrollTo(0,0);
         return () => {
-            // window.scrollTo(0,0);
+            window.scrollTo(0,0);
         }
     },[]);
 
@@ -129,6 +129,7 @@ export default function Card({data}){
                 <span className="reg_date">
                     {regDate}
                     {privacy === 'private' && <span className="privacy">비공개</span>}
+                    {id}
                 </span>
             </Article>
         </Item>

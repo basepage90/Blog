@@ -22,9 +22,13 @@ React and Go with Clean-Architecture
 <details> 
     <summary> 👉 Click Me  ( Expand Detail Tag ) </summary>
 
+### Blog (tag : v0.2.8)
+- Infinite Scroll(NewstViewer) : cursor 방식으로 변경
+    - 특정 상황을 제외하고서는 cursor 방식의 pagination을 사용하는 것이 바람직하다.
+
 ### Blog (tag : v0.2.7)
 - CORS Middleware : dropzone initial file 문제로 default 값 설정
-- Infiinte Scroll(NewstViewer) : offset 방식
+- Infinite Scroll(NewstViewer) : offset 방식
 
 
 ### Blog (tag : v0.2.6)

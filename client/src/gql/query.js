@@ -50,8 +50,8 @@ export const GetCardList = gql`
 `;
 
 export const GetArticlesList = gql`
-  query GetArticlesList($offset: Int, $limit: Int){
-    articlesList(offset: $offset, limit: $limit){
+  query GetArticlesList($cursorId: Int, $limit: Int){
+    articlesList(cursorId: $cursorId, limit: $limit){
         category_lg,
         category_md,
         id,

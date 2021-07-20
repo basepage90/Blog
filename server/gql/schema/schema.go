@@ -212,7 +212,7 @@ func (s *schema) Query() *graphql.Object {
 					"title": &graphql.ArgumentConfig{
 						Type: graphql.String,
 					},
-					"offset": &graphql.ArgumentConfig{
+					"cursorId": &graphql.ArgumentConfig{
 						Type: graphql.Int,
 					},
 					"limit": &graphql.ArgumentConfig{

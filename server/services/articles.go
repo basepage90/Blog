@@ -55,13 +55,13 @@ func (service *articlesService) FindAll(args map[string]interface{}) ([]models.A
 	var res []models.Articles
 	var err error
 
-	var offset int
+	var cursorId int
 	var limit int
 
-	if args["offset"] == nil {
-		offset = 0
+	if args["cursorId"] == nil {
+		cursorId = 0
 	} else {
-		offset = args["offset"].(int)
+		cursorId = args["cursorId"].(int)
 	}
 
 	if args["limit"] == nil {
@@ -72,10 +72,10 @@ func (service *articlesService) FindAll(args map[string]interface{}) ([]models.A
 
 	// offset := args["offset"].(int)
 	// limit := args["limit"].(int)
-	fmt.Println(offset)
+	fmt.Println(cursorId)
 	fmt.Println(limit)
 
-	res, err = service.repository.FindAll(offset, limit)
+	res, err = service.repository.FindAll(cursorId, limit)
 
 	// for key, element := range args {
 	// 	switch key {

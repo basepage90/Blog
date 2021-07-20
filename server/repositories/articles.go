@@ -17,7 +17,7 @@ type ArticlesRepository interface {
 	FindAllByCategorylg(category_lg string) ([]models.Articles, error)
 	FindAllByCategorymd(category_lg, caategory_md string) ([]models.Articles, error)
 	FindAllByTitle(title string) ([]models.Articles, error)
-	FindAll(offset, limit int) ([]models.Articles, error)
+	FindAll(cursorId, limit int) ([]models.Articles, error)
 	UpdatePrivacy(inputData models.Articles) (interface{}, error)
 	UpdateArticles(inputData models.Articles) (interface{}, error)
 	DeleteArticlesById(id int) (interface{}, error)
@@ -102,18 +102,27 @@ func (r *articlesRepository) FindAllByTitle(title string) ([]models.Articles, er
 	return res, err
 }
 
-func (r *articlesRepository) FindAll(offset, limit int) ([]models.Articles, error) {
+func (r *articlesRepository) FindAll(cursorId, limit int) ([]models.Articles, error) {
 	var res []models.Articles
+	var data *mongo.Cursor
+	var err error
 
 	opts := options.Find().
 		SetSort(bson.M{"_id": -1}).
-		SetSkip(int64(offset)).
 		SetLimit(int64(limit)).
 		SetCollation(&options.Collation{
 			Locale:          "en_US",
 			NumericOrdering: true,
 		})
-	data, err := r.db.Find(context.TODO(), bson.D{{}}, opts)
+
+	if cursorId == 0 {
+		// first fetch
+		data, err = r.db.Find(context.TODO(), bson.M{}, opts)
+	} else {
+		// fetchMore : cursor pagination
+		data, err = r.db.Find(context.TODO(), bson.M{"_id": bson.M{"$lt": cursorId}}, opts)
+	}
+
 	err = data.All(context.TODO(), &res)
 	return res, err
 }
