@@ -22,6 +22,11 @@ React and Go with Clean-Architecture
 <details> 
     <summary> 👉 Click Me  ( Expand Detail Tag ) </summary>
 
+### Blog (tag : v0.2.7)
+- CORS Middleware : dropzone initial file 문제로 default 값 설정
+- Infiinte Scroll(NewstViewer) : offset 방식
+
+
 ### Blog (tag : v0.2.6)
 - component 분리
     - container components

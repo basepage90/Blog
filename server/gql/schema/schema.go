@@ -212,6 +212,12 @@ func (s *schema) Query() *graphql.Object {
 					"title": &graphql.ArgumentConfig{
 						Type: graphql.String,
 					},
+					"offset": &graphql.ArgumentConfig{
+						Type: graphql.Int,
+					},
+					"limit": &graphql.ArgumentConfig{
+						Type: graphql.Int,
+					},
 				},
 				Resolve: s.articlesRsv.GetArticlesAll,
 			},

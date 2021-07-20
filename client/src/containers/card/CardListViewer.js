@@ -1,5 +1,5 @@
 import Card from 'components/card/Card'
-import GridContainer from 'components/common/layoutContainer/gridContainer'
+import GridContainer from 'components/common/layoutContainer/GridContainer'
 import { useParams } from 'react-router-dom'
 import { useQuery } from '@apollo/react-hooks'
 import { GetCardList } from 'gql/query'
@@ -22,9 +22,9 @@ const CardListViewer = () => {
     } else {
         return(
             <GridContainer className="sub__container">
-            {data.articlesListByCategory.map((articlesData,key) =>
-                admin_flag === false && articlesData.privacy === "private" ? null : <Card data={articlesData} key={key}/>
-            )}
+                {data.articlesListByCategory.map((articlesData,key) =>
+                    admin_flag === false && articlesData.privacy === "private" ? null : <Card data={articlesData} key={key}/>
+                )}
             </GridContainer>
         )
     }

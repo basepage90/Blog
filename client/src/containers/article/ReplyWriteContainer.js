@@ -90,7 +90,7 @@ const ReplyWriterContainer = ({replyId,depth,siblingName,groupNo,refetch,setOpen
           password: password,
           contents: contents,
           admin_flag: admin_flag,
-          }})
+        }})
     
           success.then(({data})=> {
               // gql server 로 부터의 return 은 id. 즉, 생성한 id 를 반환받으면 성공

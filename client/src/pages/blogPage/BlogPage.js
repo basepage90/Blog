@@ -8,13 +8,14 @@ import { GetMenuList, GetCurrentUser } from 'gql/query'
 import SideBar from "components/sideBar/SideBar";
 import Header from "components/header/Header";
 import CardListPage from 'pages/blogPage/CardListPage'
-import RootContainer from 'components/common/layoutContainer/rootContainer'
+import NewestPage from 'pages/blogPage/NewestPage'
+import RootContainer from 'components/common/layoutContainer/RootContainer'
 import ArticlePage from 'pages/blogPage/ArticlePage'
 import NotFoundPage from 'pages/NotFoundPage';
 
 const switchRoutes = (
   <Switch>
-    <Route path="/" exact component={CardListPage} />
+    <Route path="/" exact component={NewestPage} />
     <Route path="/:categoryLg/:categoryMd" exact component={CardListPage} />
     <Route path="/:categoryLg/:categoryMd/:id" exact component={ArticlePage} />
     <Route component={NotFoundPage} />
@@ -24,7 +25,7 @@ const switchRoutes = (
 function BlogPage(){
   const { loading, data } = useQuery(GetMenuList);
 
-  const GetCurrentUserQuery = useQuery(GetCurrentUser,{fetchPolicy: "network-only"});
+  const GetCurrentUserQuery = useQuery(GetCurrentUser,{licy: "network-only"});
 
   const dispatch = useDispatch();
   

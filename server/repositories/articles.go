@@ -17,7 +17,7 @@ type ArticlesRepository interface {
 	FindAllByCategorylg(category_lg string) ([]models.Articles, error)
 	FindAllByCategorymd(category_lg, caategory_md string) ([]models.Articles, error)
 	FindAllByTitle(title string) ([]models.Articles, error)
-	FindAll() ([]models.Articles, error)
+	FindAll(offset, limit int) ([]models.Articles, error)
 	UpdatePrivacy(inputData models.Articles) (interface{}, error)
 	UpdateArticles(inputData models.Articles) (interface{}, error)
 	DeleteArticlesById(id int) (interface{}, error)
@@ -40,7 +40,7 @@ func NewArticlesRepository() ArticlesRepository {
 }
 
 func (r *articlesRepository) InsertArticles(inputData models.Articles) (interface{}, error) {
-	reg_date := time.Now().Format("2006-01-02")
+	reg_date := time.Now().Format("2006-01-02 15:04:05")
 
 	result, err := r.db.InsertOne(context.TODO(), bson.M{
 		"_id":         r.getNextSequence("seq_article"),
@@ -102,10 +102,13 @@ func (r *articlesRepository) FindAllByTitle(title string) ([]models.Articles, er
 	return res, err
 }
 
-func (r *articlesRepository) FindAll() ([]models.Articles, error) {
+func (r *articlesRepository) FindAll(offset, limit int) ([]models.Articles, error) {
 	var res []models.Articles
+
 	opts := options.Find().
 		SetSort(bson.M{"_id": -1}).
+		SetSkip(int64(offset)).
+		SetLimit(int64(limit)).
 		SetCollation(&options.Collation{
 			Locale:          "en_US",
 			NumericOrdering: true,

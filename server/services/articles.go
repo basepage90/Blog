@@ -1,6 +1,8 @@
 package services
 
 import (
+	"fmt"
+
 	"github.com/woojebiz/gin-web/server/models"
 	"github.com/woojebiz/gin-web/server/repositories"
 )
@@ -53,26 +55,46 @@ func (service *articlesService) FindAll(args map[string]interface{}) ([]models.A
 	var res []models.Articles
 	var err error
 
-	if len(args) == 0 {
-		res, err = service.repository.FindAll()
+	var offset int
+	var limit int
+
+	if args["offset"] == nil {
+		offset = 0
 	} else {
-		for key, element := range args {
-			ele := element.(string)
-			switch key {
-			case "title":
-				res, err = service.repository.FindAllByTitle(ele)
-				break
-			// case "hashtag":
-			// 	res, err = service.repository.FindAllByHashtag(ele)
-			// 	break
-			// case "contents":
-			// 	res, err = service.repository.FindAllByContents(ele)
-			// 	break
-			default:
-				break
-			}
-		}
+		offset = args["offset"].(int)
 	}
+
+	if args["limit"] == nil {
+		limit = 10
+	} else {
+		limit = args["limit"].(int)
+	}
+
+	// offset := args["offset"].(int)
+	// limit := args["limit"].(int)
+	fmt.Println(offset)
+	fmt.Println(limit)
+
+	res, err = service.repository.FindAll(offset, limit)
+
+	// for key, element := range args {
+	// 	switch key {
+	// 	case "limit":
+	// 		res, err = service.repository.FindAll(element.(int))
+	// 		break
+	// 	case "title":
+	// 		res, err = service.repository.FindAllByTitle(element.(string))
+	// 		break
+	// 	// case "hashtag":
+	// 	// 	res, err = service.repository.FindAllByHashtag(ele)
+	// 	// 	break
+	// 	// case "contents":
+	// 	// 	res, err = service.repository.FindAllByContents(ele)
+	// 	// 	break
+	// 	default:
+	// 		break
+	// 	}
+	// }
 
 	return res, err
 }

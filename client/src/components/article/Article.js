@@ -87,7 +87,7 @@ function Article({data}){
     const hashtagArr = hashtag.split('#');
     
     useEffect(() =>{
-        window.scrollTo(0,0);
+        // window.scrollTo(0,0);
     });
 
     return(

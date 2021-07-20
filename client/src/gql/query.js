@@ -49,6 +49,22 @@ export const GetCardList = gql`
   }
 `;
 
+export const GetArticlesList = gql`
+  query GetArticlesList($offset: Int, $limit: Int){
+    articlesList(offset: $offset, limit: $limit){
+        category_lg,
+        category_md,
+        id,
+        title,
+        hashtag,
+        desc,
+        thumbnail,
+        reg_date,
+        privacy
+    }
+  }
+`;
+
 export const CreateArticle = gql`
   mutation CreateArticle($title: String!,
                          $hashtag: String!,

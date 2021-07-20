@@ -59,6 +59,7 @@ const Dropzone = ({pdata, setFile}) => {
             setFile(files[0])
         }
     }
+
     return (
         <Div>
             <DropzoneArea

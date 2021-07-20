@@ -2,7 +2,6 @@ import React, { useEffect } from 'react';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 import { ImageNotFound } from 'statics/images';
-import { useLocation } from 'react-router-dom';
 
 const Item = styled.div`
     width:100%;
@@ -100,9 +99,7 @@ const Article = styled.div`
     }
 `;
 export default function Card({data}){
-    
-    const {pathname} = useLocation();
-    const {id,title,reg_date,desc,thumbnail,privacy} = data;
+    const {id,title,reg_date,desc,thumbnail,privacy,category_lg,category_md} = data;
 
     const getFormatDate = (date) => {
         const year = date.getFullYear();
@@ -114,11 +111,14 @@ export default function Card({data}){
     var regDate = getFormatDate(new Date(reg_date))
 
     useEffect(() =>{
-        window.scrollTo(0,0);
-    });
+        // window.scrollTo(0,0);
+        return () => {
+            // window.scrollTo(0,0);
+        }
+    },[]);
 
     return (
-        <Link to={pathname === '/' ? { pathname: `/${id}` } : { pathname: `${pathname}/${id}` }} style={{textDecoration: 'none'}} >
+        <Link to={{pathname: `/${category_lg}/${category_md}/${id}`}} style={{textDecoration: 'none'}} >
         <Item >
             {thumbnail === "" ? <Thumb /> :
                 <Thumb style={{backgroundImage: 'url("'+thumbnail+'")'}} />
