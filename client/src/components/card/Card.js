@@ -120,16 +120,13 @@ export default function Card({data}){
     return (
         <Link to={{pathname: `/${category_lg}/${category_md}/${id}`}} style={{textDecoration: 'none'}} >
         <Item >
-            {thumbnail === "" ? <Thumb /> :
-                <Thumb style={{backgroundImage: 'url("'+thumbnail+'")'}} />
-            }
+            {thumbnail === "" ? <Thumb /> : <Thumb style={{backgroundImage: 'url("'+thumbnail+'")'}} />}
             <Article>
                 <h4 className="title">{title}</h4>
                 <p className="desc">{desc}</p>
                 <span className="reg_date">
                     {regDate}
                     {privacy === 'private' && <span className="privacy">비공개</span>}
-                    {id}
                 </span>
             </Article>
         </Item>

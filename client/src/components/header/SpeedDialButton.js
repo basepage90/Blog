@@ -3,8 +3,11 @@ import styled from "styled-components";
 import { headerHeight } from 'styles/styleConst'
 import { useHistory } from 'react-router-dom';
 import { useSelector, useDispatch } from "react-redux";
-import { adminOpen, snackBarOpen } from "store/store";
+import { adminOpen, snackBarOpen, openSearchDialog } from "store/store";
 import axios from "axios";
+import AdminDialog from "components/header/AdminDialog"
+import SearchDialog from "components/header/SearchDialog"
+import UrlCopy from 'components/header/UrlCopy';
 
 import SpeedDial from '@material-ui/lab/SpeedDial';
 import SpeedDialAction from '@material-ui/lab/SpeedDialAction';
@@ -16,8 +19,6 @@ import AccountCircle from '@material-ui/icons/AccountCircle';
 import SearchIcon from '@material-ui/icons/Search';
 import LinkIcon from '@material-ui/icons/Link';
 
-import AdminDialog from "components/header/AdminDialog"
-import UrlCopy from 'components/header/UrlCopy';
 
 const Div = styled.div`
     position: relative;
@@ -49,15 +50,19 @@ export default function SpeedDialButton(){
     const dispatch = useDispatch({});
     
     // Admin Dialog
-    const handleClickOpen = () => {
-        dispatch(adminOpen());
-    };
+    const handleClick = (val) => {
 
-    // SnackBar
-    const snackOpen = () => {
-        dispatch(snackBarOpen());
+        switch (val){
+            case 'admin': dispatch(adminOpen());
+                break;
+            case 'search': dispatch(openSearchDialog());
+                break;
+            case 'snack': dispatch(snackBarOpen());
+                break;
+            default:
+                break;
+        }
     };
-
 
     const { admin_flag } = useSelector(
         state => ({admin_flag: state.user.admin_flag})
@@ -89,16 +94,16 @@ export default function SpeedDialButton(){
     const DialChild = 
         admin_flag ?
             [
-                { icon: <SearchIcon />, name: 'Search', onClick: handleClickOpen, compo: null },
-                { icon: <LinkIcon />, name: 'Link', onClick: snackOpen, compo: UrlCopy },
+                { icon: <SearchIcon />, name: 'Search', onClick: () => {handleClick('search')}, compo: SearchDialog },
+                { icon: <LinkIcon />, name: 'Link', onClick: () => {handleClick('snack')}, compo: UrlCopy },
                 { icon: <CreateIcon />, name: 'Write', onClick: goWrite, compo: null} , 
                 { icon: <ExitToAppIcon />, name: 'Sign out', onClick: signout, compo: null }
             ]
         : 
             [
-                { icon: <SearchIcon />, name: 'Search', onClick: handleClickOpen, compo: null },
-                { icon: <LinkIcon />, name: 'Link', onClick: snackOpen, compo: UrlCopy },
-                { icon: <AccountCircle />, name: 'Admin', onClick: handleClickOpen, compo: AdminDialog }
+                { icon: <SearchIcon />, name: 'Search', onClick: () => {handleClick('search')}, compo: SearchDialog },
+                { icon: <LinkIcon />, name: 'Link', onClick: () => {handleClick('snack')}, compo: UrlCopy },
+                { icon: <AccountCircle />, name: 'Admin', onClick: ()=> {handleClick('admin')}, compo: AdminDialog }
             ]
     ;
 

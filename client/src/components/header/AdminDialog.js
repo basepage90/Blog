@@ -122,7 +122,6 @@ export default function AdminDialog() {
     }
   }
 
-
   const { enqueueSnackbar, closeSnackbar } = useSnackbar();
 
   const handleSnackbaraVariant = (variant) => {

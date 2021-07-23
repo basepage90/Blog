@@ -10,6 +10,7 @@ import SpeedDialButton from "components/header/SpeedDialButton"
 import {Link} from "react-router-dom";
 import AdminDialog from 'components/header/AdminDialog'
 import initKakao from 'util/initKakao'
+import ResultViewer from 'containers/search/ResultViewer'
 
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
@@ -54,7 +55,6 @@ const StToolbar = styled(Toolbar)`
         align-items: center;
     }
 `;
-
 
 let prevScrollpos = window.pageYOffset;
 
@@ -238,6 +238,7 @@ function Header({ loading, data }){
                     }
                 </StToolbar>
             </StAppBar>
+            <ResultViewer />
         </Div>
     )
 };

@@ -1,8 +1,6 @@
 package services
 
 import (
-	"fmt"
-
 	"github.com/woojebiz/gin-web/server/models"
 	"github.com/woojebiz/gin-web/server/repositories"
 )
@@ -57,6 +55,8 @@ func (service *articlesService) FindAll(args map[string]interface{}) ([]models.A
 
 	var cursorId int
 	var limit int
+	var searchType int
+	var searchWord string
 
 	if args["cursorId"] == nil {
 		cursorId = 0
@@ -70,31 +70,26 @@ func (service *articlesService) FindAll(args map[string]interface{}) ([]models.A
 		limit = args["limit"].(int)
 	}
 
-	// offset := args["offset"].(int)
-	// limit := args["limit"].(int)
-	fmt.Println(cursorId)
-	fmt.Println(limit)
+	if args["searchType"] == nil {
+		searchType = 0
+	} else {
+		searchType = args["searchType"].(int)
+	}
 
-	res, err = service.repository.FindAll(cursorId, limit)
+	if args["searchWord"] == nil {
+		searchWord = ""
+	} else {
+		searchWord = args["searchWord"].(string)
+	}
 
-	// for key, element := range args {
-	// 	switch key {
-	// 	case "limit":
-	// 		res, err = service.repository.FindAll(element.(int))
-	// 		break
-	// 	case "title":
-	// 		res, err = service.repository.FindAllByTitle(element.(string))
-	// 		break
-	// 	// case "hashtag":
-	// 	// 	res, err = service.repository.FindAllByHashtag(ele)
-	// 	// 	break
-	// 	// case "contents":
-	// 	// 	res, err = service.repository.FindAllByContents(ele)
-	// 	// 	break
-	// 	default:
-	// 		break
-	// 	}
-	// }
+	switch searchType {
+	case 1:
+		res, err = service.repository.FindAllBySearchWord(cursorId, limit, searchWord)
+		break
+	default:
+		res, err = service.repository.FindAll(cursorId, limit)
+		break
+	}
 
 	return res, err
 }

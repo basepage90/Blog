@@ -16,7 +16,7 @@ type ArticlesRepository interface {
 	FindById(id int) (models.Articles, error)
 	FindAllByCategorylg(category_lg string) ([]models.Articles, error)
 	FindAllByCategorymd(category_lg, caategory_md string) ([]models.Articles, error)
-	FindAllByTitle(title string) ([]models.Articles, error)
+	FindAllBySearchWord(cursorId, limit int, searchWord string) ([]models.Articles, error)
 	FindAll(cursorId, limit int) ([]models.Articles, error)
 	UpdatePrivacy(inputData models.Articles) (interface{}, error)
 	UpdateArticles(inputData models.Articles) (interface{}, error)
@@ -95,9 +95,42 @@ func (r *articlesRepository) FindAllByCategorymd(category_lg, category_md string
 	return res, err
 }
 
-func (r *articlesRepository) FindAllByTitle(title string) ([]models.Articles, error) {
+func (r *articlesRepository) FindAllBySearchWord(cursorId, limit int, searchWord string) ([]models.Articles, error) {
 	var res []models.Articles
-	data, err := r.db.Find(context.TODO(), bson.M{"title": bson.M{"$regex": title, "$options": "i"}})
+	var data *mongo.Cursor
+	var err error
+
+	opts := options.Find().
+		SetSort(bson.M{"_id": -1}).
+		SetLimit(int64(limit)).
+		SetCollation(&options.Collation{
+			Locale:          "en_US",
+			NumericOrdering: true,
+		})
+
+	if cursorId == 0 {
+		// first fetch
+		data, err = r.db.Find(context.TODO(), bson.M{
+			"$or": []bson.M{
+				{"title": bson.M{"$regex": searchWord, "$options": "i"}},
+				{"desc": bson.M{"$regex": searchWord, "$options": "i"}},
+				{"contents": bson.M{"$regex": searchWord, "$options": "i"}},
+				{"hashtag": bson.M{"$regex": searchWord, "$options": "i"}},
+			},
+		}, opts)
+	} else {
+		// fetchMore : cursor pagination
+		data, err = r.db.Find(context.TODO(), bson.M{
+			"_id": bson.M{"$lt": cursorId},
+			"$or": []bson.M{
+				{"title": bson.M{"$regex": searchWord, "$options": "i"}},
+				{"desc": bson.M{"$regex": searchWord, "$options": "i"}},
+				{"contents": bson.M{"$regex": searchWord, "$options": "i"}},
+				{"hashtag": bson.M{"$regex": searchWord, "$options": "i"}},
+			},
+		}, opts)
+	}
+
 	err = data.All(context.TODO(), &res)
 	return res, err
 }

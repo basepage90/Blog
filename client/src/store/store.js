@@ -35,5 +35,9 @@ export const { cardClick } = article.actions;
 export const { openPublisher, closePublisher } = publish.actions;
 export const { setContents } = post.actions;
 export const { setUser } = user.actions;
+export const {
+    showResult, hiddenResult, updateSearchword,
+    showResultMobile, hiddenResultMobile, updateSearchwordMobile, openSearchDialog, closeSearchDialog
+} = search.actions;
 
 export default store;

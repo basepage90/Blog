@@ -22,6 +22,10 @@ React and Go with Clean-Architecture
 <details> 
     <summary> 👉 Click Me  ( Expand Detail Tag ) </summary>
 
+### Blog (tag : v0.2.9)
+- 검색 기능 구현
+    - Apllo Issue : [ObservableQuery with this id doesn't exist: id](https://github.com/apollographql/apollo-client/issues/4114)
+
 ### Blog (tag : v0.2.8)
 - Infinite Scroll(NewstViewer) : cursor 방식으로 변경
     - 특정 상황을 제외하고서는 cursor 방식의 pagination을 사용하는 것이 바람직하다.

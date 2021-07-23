@@ -50,12 +50,13 @@ export const GetCardList = gql`
 `;
 
 export const GetArticlesList = gql`
-  query GetArticlesList($cursorId: Int, $limit: Int){
-    articlesList(cursorId: $cursorId, limit: $limit){
+  query GetArticlesList($cursorId: Int, $limit: Int, $searchType: Int, $searchWord: String){
+    articlesList(cursorId: $cursorId, limit: $limit, searchType: $searchType, searchWord: $searchWord){
         category_lg,
         category_md,
         id,
         title,
+        contents,
         hashtag,
         desc,
         thumbnail,

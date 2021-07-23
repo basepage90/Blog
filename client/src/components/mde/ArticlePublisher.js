@@ -286,6 +286,9 @@ const ArtilcePublisher = ({history,pdata}) => {
     // ▼ data setting and vaildation
     title = document.getElementById('post__title').value;
     hashtag = document.getElementById('post__hashtag').value;
+    if(hashtag.indexOf("#", 0) !== 0){
+      hashtag = "#" + hashtag;
+    }
     
     const pv = postValidator();
 

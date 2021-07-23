@@ -206,17 +206,23 @@ func (s *schema) Query() *graphql.Object {
 				Type:        graphql.NewList(articlesType),
 				Description: "List of articles",
 				Args: graphql.FieldConfigArgument{
-					"id": &graphql.ArgumentConfig{
-						Type: graphql.Int,
-					},
-					"title": &graphql.ArgumentConfig{
-						Type: graphql.String,
-					},
+					// "id": &graphql.ArgumentConfig{
+					// 	Type: graphql.Int,
+					// },
+					// "title": &graphql.ArgumentConfig{
+					// 	Type: graphql.String,
+					// },
 					"cursorId": &graphql.ArgumentConfig{
 						Type: graphql.Int,
 					},
 					"limit": &graphql.ArgumentConfig{
 						Type: graphql.Int,
+					},
+					"searchType": &graphql.ArgumentConfig{
+						Type: graphql.Int,
+					},
+					"searchWord": &graphql.ArgumentConfig{
+						Type: graphql.String,
 					},
 				},
 				Resolve: s.articlesRsv.GetArticlesAll,
