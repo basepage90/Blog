@@ -9,7 +9,6 @@ import { useInView } from "react-intersection-observer"
 import { useState } from 'react'
 
 const Div = styled.div`
-    display: ${props => !props.focus && 'none'};
     position: relative;
     z-index: 2000;
     top: 64px;
@@ -59,9 +58,8 @@ let cursorId = 0;
 const limit = 5;
 
 const ResultViewerMobile = () => {
-    const { focusMobile, searchwordMobile, admin_flag, mobileFlag } = useSelector(
+    const { searchwordMobile, admin_flag, mobileFlag } = useSelector(
         state => ({
-            focusMobile: state.search.focusMobile,
             searchwordMobile: state.search.searchwordMobile,
             admin_flag: state.user.admin_flag,
             mobileFlag: state.sideBarHidden.mobileFlag,
@@ -125,7 +123,7 @@ const ResultViewerMobile = () => {
     },[inView,searchwordMobile,data,fetchMore]);
     
     return (
-        <Div focus={focusMobile}>
+        <Div>
             {!loading && data !== undefined && data.articlesList.length > 0  &&
                 <> 
                     <ResultContainer className="sub__container" ref={checker} checker={checker} mobileFlag={mobileFlag} >

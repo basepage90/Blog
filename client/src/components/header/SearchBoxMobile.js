@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 import { useDispatch } from "react-redux";
-import { showResultMobile, updateSearchwordMobile } from "store/store";
+import { updateSearchwordMobile } from "store/store";
 
 import SearchIcon from '@material-ui/icons/Search';
 
@@ -46,10 +46,6 @@ function SearchBoxMobile(){
 
     const dispatch = useDispatch();
 
-    const handleInputFocus = () => {
-        dispatch(showResultMobile());
-    };
-
     const updateValue = (props) => {
         const rawValue = props.target.value;
         const searchword = rawValue.trim(rawValue);
@@ -63,10 +59,9 @@ function SearchBoxMobile(){
             </div>
             <Input
                 type="text"
-                id="searchbox"
+                id="searchbox__mobile"
                 placeholder="Search..."
                 autoComplete="off"
-                onFocus={handleInputFocus}
                 onChange={updateValue}
             />
         </Div>

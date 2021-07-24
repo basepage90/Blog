@@ -37,7 +37,7 @@ export const { setContents } = post.actions;
 export const { setUser } = user.actions;
 export const {
     showResult, hiddenResult, updateSearchword,
-    showResultMobile, hiddenResultMobile, updateSearchwordMobile, openSearchDialog, closeSearchDialog
+    updateSearchwordMobile, openSearchDialog, closeSearchDialog
 } = search.actions;
 
 export default store;

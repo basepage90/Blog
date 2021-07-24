@@ -22,6 +22,13 @@ React and Go with Clean-Architecture
 <details> 
     <summary> 👉 Click Me  ( Expand Detail Tag ) </summary>
 
+### Blog (tag : v0.3.0)
+- 검색 기능 보완
+    - transition을 동작을 위해 css 수정
+        - display: none → visiblity : hidden
+    - 태그 자동입력
+    - Apllo Issue : [ObservableQuery with this id doesn't exist: id](https://github.com/apollographql/apollo-client/issues/4114)
+
 ### Blog (tag : v0.2.9)
 - 검색 기능 구현
     - Apllo Issue : [ObservableQuery with this id doesn't exist: id](https://github.com/apollographql/apollo-client/issues/4114)

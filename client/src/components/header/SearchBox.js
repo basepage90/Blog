@@ -44,7 +44,6 @@ const Input = styled.input`
 `;
 
 function SearchBox(){
-
     const dispatch = useDispatch();
 
     const handleInputFocus = () => {
@@ -52,9 +51,7 @@ function SearchBox(){
     };
 
     const handleInputBlur = () => {
-        setTimeout(function() {
-            dispatch(hiddenResult());
-        }, 150);
+        dispatch(hiddenResult());
     };
 
     const updateValue = (props) => {

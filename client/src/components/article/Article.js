@@ -1,8 +1,9 @@
-import { useEffect } from 'react';
-import { useSelector } from 'react-redux';
 import styled from 'styled-components';
+import { useSelector, shallowEqual } from 'react-redux';
 import { bottomMargin, sidebarWidth } from 'styles/styleConst'
 import MDRenderer from 'components/mde/MDRenderer';
+import { useDispatch } from "react-redux";
+import { showResult, updateSearchword, openSearchDialog, updateSearchwordMobile } from "store/store";
 
 import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
@@ -73,7 +74,10 @@ const Div = styled.div`
 function Article({data}){
     const {title,reg_date,hashtag,contents} = data;
     
-    const sideBarState = useSelector(state => state.sideBarHidden.sideBarState);
+    const { sideBarState, mobileFlag } = useSelector( state => ({
+        sideBarState: state.sideBarHidden.sideBarState,
+        mobileFlag : state.sideBarHidden.mobileFlag,
+    }), shallowEqual);
     
     const getFormatDate = (date) => {
         const year = date.getFullYear();
@@ -85,10 +89,26 @@ function Article({data}){
     var regDate = getFormatDate(new Date(reg_date))
 
     const hashtagArr = hashtag.split('#');
-    
-    useEffect(() =>{
-        // window.scrollTo(0,0);
-    });
+
+    const dispatch = useDispatch();
+
+    const PushSearchword = (txt) => {
+        if(mobileFlag){
+            dispatch(openSearchDialog());
+            setTimeout(function() {
+                const searchbox = document.getElementById('searchbox__mobile');
+                searchbox.value = txt;
+                dispatch(updateSearchwordMobile(txt));
+            }, 300);
+
+        }else{
+            const searchbox = document.getElementById('searchbox');
+            searchbox.value = txt;
+            dispatch(updateSearchword(txt));
+            dispatch(showResult());
+            searchbox.focus();
+        }
+    }
 
     return(
         <Div sideBarState={sideBarState} >
@@ -105,7 +125,7 @@ function Article({data}){
                 </div>
                 <div>
                     {hashtagArr.map( item => {
-                        return item !== "" && <Chip key={item} label={"#"+item} clickable /> ;
+                        return item.trim() !== "" && <Chip key={item.trim()} label={"#"+item.trim()} clickable  onClick={() => PushSearchword(item.trim())} /> ;
                     })}
                 </div>
             </Paper>

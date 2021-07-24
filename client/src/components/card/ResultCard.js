@@ -17,11 +17,17 @@ const Item = styled.div`
     border-radius: 12px;
     box-shadow: ${({theme}) => theme.shadow[1]};
     position: relative;
-    transition: ${({theme}) => theme.transition.duration.long};
+    
+    transition-property: visibility, transform;
+    transition-duration: ${({theme}) => theme.transition.duration.shortest}, ${({theme}) => theme.transition.duration.long};
+    
     &:hover {
-        transition: ${({theme}) => theme.transition.duration.long};
         transform : translate(0px, -2%); 
         box-shadow: ${({theme}) => theme.shadow[5]};
+        
+        transition-property: visibility, transform;
+        transition-duration: ${({theme}) => theme.transition.duration.shortest}, ${({theme}) => theme.transition.duration.long};
+
     }
 `;
 
@@ -158,7 +164,7 @@ export default function ResultCard({data}){
 
     return (
         <Link to={{pathname: `/${category_lg}/${category_md}/${id}`}} style={{textDecoration: 'none'}}>
-        <Item >
+        <Item>
             {thumbnail === "" ? <Thumb /> : <Thumb style={{backgroundImage: 'url("'+thumbnail+'")'}} />}
             <Article>
                 <h4 className="title">{doTextHighlight(title,"title")}</h4>

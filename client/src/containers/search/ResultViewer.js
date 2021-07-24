@@ -9,7 +9,12 @@ import { useInView } from "react-intersection-observer"
 import { useState } from 'react'
 
 const Div = styled.div`
-    display: ${props => !props.focus && 'none'};
+    visibility: ${props => !props.focus && 'hidden'};
+    & > * {
+        visibility: ${props => !props.focus && 'hidden'};
+    }
+    transition-property: visibility;
+    transition-duration: ${({theme}) => theme.transition.duration.shortest};
     position: absolute;
     z-index: 2000;
     top: 64px;
@@ -127,17 +132,14 @@ const ResultViewer = () => {
         }
     },[inView,searchword,data,fetchMore]);
     
-
-
-
     return (
-        <Div className="test" focus={focus}>
+        <Div className="test" focus={focus} >
             {!loading && data !== undefined && data.articlesList.length > 0  &&
                 <> 
                     <ResultContainer className="sub__container" ref={checker} checker={checker} >
                         {data.articlesList.map((articlesData,key) => {
                                 cursorId = articlesData.id
-                                return admin_flag === false && articlesData.privacy === "private" ? null : <ResultCard data={articlesData} key={key}/> ;
+                                return admin_flag === false && articlesData.privacy === "private" ? null : <ResultCard data={articlesData} key={key} /> ;
                             }
                         )}
                     </ResultContainer>
