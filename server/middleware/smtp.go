@@ -11,7 +11,7 @@ import (
 var smtpConfig, _ = godotenv.Read("./conf/smtpConfig.env")
 
 func SendCertiMail(user models.User) error {
-	certiTag := "<a href=\"http://wjk.ddns.net:5000/signin/verify/" + user.Uuid + "\"> Click Me !</a>"
+	certiTag := "<a href=\"http://crispyblog.ddns.net:5000/signin/verify/" + user.Uuid + "\"> Click Me !</a>"
 
 	e := email.NewEmail()
 	e.From = "<basepage79@gmail.com>"
@@ -24,5 +24,4 @@ func SendCertiMail(user models.User) error {
 	e.HTML = []byte("<h1>아래 링크를 클릭하면,  '로그인' 됩니다.</h1>" + certiTag + " ")
 
 	return e.Send("smtp.gmail.com:587", smtp.PlainAuth("", smtpConfig["SMTP_ACC"], smtpConfig["SMTP_PWD"], "smtp.gmail.com"))
-
 }

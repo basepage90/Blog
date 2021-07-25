@@ -18,19 +18,19 @@ func InitRouter() {
 
 	r.Use(gin.Logger(), middleware.Logger())
 
-	r.LoadHTMLGlob("templates/*")
+	// r.LoadHTMLGlob("templates/*")
 	r.Static("/static", "static")
 
 	// Init Router Group
 	rgGuest := r.Group("")
-	InitLoginRouter(rgGuest)
 	InitUploadRouter(rgGuest)
 	InitSigninRouter(rgGuest)
 	InitGql(rgGuest)
+	// InitLoginRouter(rgGuest)
 
-	rgUser := r.Group("", middleware.AuthorizeJWT())
-	InitIndexRouter(rgUser)
-	InitArticleRouter(rgUser)
+	// rgUser := r.Group("", middleware.AuthorizeJWT())
+	// InitIndexRouter(rgUser)
+	// InitArticleRouter(rgUser)
 
 	r.Run(":5000")
 }

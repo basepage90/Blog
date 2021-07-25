@@ -34,7 +34,6 @@ func NewSigninResolver(signinService services.SigninService, jwtService services
 
 func (rsv *signinResolver) SendAuthEmail(params graphql.ResolveParams) (interface{}, error) {
 	// var ctx *gin.Context
-
 	res, err := rsv.signinService.FindByEmail(params.Args)
 
 	// email 이 find 되었다면, uuid를 update 하고 인증메일을 발송한다.
@@ -42,6 +41,7 @@ func (rsv *signinResolver) SendAuthEmail(params graphql.ResolveParams) (interfac
 		uuidKey := uuid.New().String()
 		res.Uuid = uuidKey
 		err := rsv.signinService.UpdateUUID(res)
+
 		if err == nil {
 			// 인증메일 발송
 			sendErr := middleware.SendCertiMail(res)
@@ -61,20 +61,20 @@ func (rsv *signinResolver) Verify(ctx *gin.Context) {
 	if res.Admin_flag == true {
 		if token := rsv.jwtService.GenerateToken(res.Email, true); token != "" {
 			// 토큰 발행 (cookie 저장 방식)
-			ctx.SetCookie("crispy-token", token, 60*60*24, "/", "wjk.ddns.net", false, true)
+			ctx.SetCookie("crispy-token", token, 60*60*24, "/", "crispyblog.ddns.net", false, true)
 		} else {
 			// 토큰 발행 에러
 			ctx.JSON(http.StatusUnauthorized, gin.H{"err": "token genetation error!"})
 		}
-		ctx.Redirect(http.StatusFound, "http://wjk.ddns.net:80/")
+		ctx.Redirect(http.StatusFound, "http://crispyblog.ddns.net:80/")
 	} else {
-		ctx.Redirect(http.StatusFound, "http://wjk.ddns.net:80/verifyError")
+		ctx.Redirect(http.StatusFound, "http://crispyblog.ddns.net:80/verifyError")
 	}
 }
 
 func (rsv *signinResolver) DeleteToken(ctx *gin.Context) {
 	// Delete cookie : 3rd param is -1
-	ctx.SetCookie("crispy-token", "", -1, "/", "wjk.ddns.net", false, true)
+	ctx.SetCookie("crispy-token", "", -1, "/", "crispyblog.ddns.net", false, true)
 }
 
 func (rsv *signinResolver) GetCurrentUser(params graphql.ResolveParams) (interface{}, error) {
@@ -96,7 +96,7 @@ func (rsv *signinResolver) GetRequestURL(ctx *gin.Context) {
 	host_url := "https://kauth.kakao.com/oauth/token"
 	grant_type := "grant_type=authorization_code"
 	client_id := "client_id=17e2b41913f7f223f6c370c7cfe2d33b"
-	redirect_uri := "redirect_uri=http://wjk.ddns.net:80/signin/kakao"
+	redirect_uri := "redirect_uri=http://crispyblog.ddns.net:80/signin/kakao"
 	code := "code=" + ctx.Query("code")
 
 	requestURL := fmt.Sprintf(
@@ -131,7 +131,7 @@ func (rsv *signinResolver) DoSigninKakao(ctx *gin.Context) {
 		// 자체 토큰 발행
 		if token := rsv.jwtService.GenerateToken(res.Email, true); token != "" {
 			// cookie 저장 방식
-			ctx.SetCookie("crispy-token", token, 60*60*24, "/", "wjk.ddns.net", false, true)
+			ctx.SetCookie("crispy-token", token, 60*60*24, "/", "crispyblog.ddns.net", false, true)
 			ctx.JSON(http.StatusOK, gin.H{"cookieSetting": true})
 		} else {
 			// 로그인 에러

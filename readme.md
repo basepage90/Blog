@@ -3,6 +3,8 @@ Crispy's Blog
 
 React and Go with Clean-Architecture
 
+http://crispyblog.ddns.net/
+
 ## Project Stack
 
 ### frontend (client)
@@ -21,6 +23,12 @@ React and Go with Clean-Architecture
 ## Version History
 <details> 
     <summary> 👉 Click Me  ( Expand Detail Tag ) </summary>
+
+### Blog (tag : v0.3.1)
+- 임시배포(naver cloud)
+    - docker
+    - nginx
+    - go cross os build
 
 ### Blog (tag : v0.3.0)
 - 검색 기능 보완

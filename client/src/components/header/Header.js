@@ -157,7 +157,7 @@ function Header({ loading, data }){
     const signout = async () => {
         initKakao();
         const apiClient = axios.create({
-            baseURL: "http://wjk.ddns.net:5000",
+            baseURL: "http://crispyblog.ddns.net:5000",
             withCredentials: true,
           });
         const url = "/signout"
@@ -176,7 +176,7 @@ function Header({ loading, data }){
             });
 
             // case2) 계정로그아웃	: 계정 로그아웃 + 토큰만료
-            // window.location.href = 'https://kauth.kakao.com/oauth/logout?client_id=17e2b41913f7f223f6c370c7cfe2d33b&logout_redirect_uri=http://wjk.ddns.net'; 
+            // window.location.href = 'https://kauth.kakao.com/oauth/logout?client_id=17e2b41913f7f223f6c370c7cfe2d33b&logout_redirect_uri=http://crispyblog.ddns.net'; 
         }).catch( (error) => {
             // catch
         }).then( () => {

@@ -59,7 +59,7 @@ const MDWriter = ({pdata}) => {
         },
         uploadImage: false,
         imageMaxSize: 1024*1024*50,
-        imageUploadEndpoint: "http://wjk.ddns.net:5000/upload/postImg",
+        imageUploadEndpoint: "http://crispyblog.ddns.net:5000/upload/postImg",
         imagePathAbsolute: true,
         hideIcons: ['image'],
         showIcons: [
@@ -100,7 +100,7 @@ const MDWriter = ({pdata}) => {
         },
         uploadImage: false,
         imageMaxSize: 1024*1024*50,
-        imageUploadEndpoint: "http://wjk.ddns.net:5000/upload/postImg",
+        imageUploadEndpoint: "http://crispyblog.ddns.net:5000/upload/postImg",
         imagePathAbsolute: true,
         hideIcons: ['image'],
         showIcons: [

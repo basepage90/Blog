@@ -14,8 +14,8 @@ func main() {
 
 	// setupLogOutPut()
 
-	db.ConnectMysql()
-	defer db.CloseMysql()
+	// db.ConnectMysql()
+	// defer db.CloseMysql()
 
 	db.ConnectionMongoDB()
 	defer db.CloseMongoDB()

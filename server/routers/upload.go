@@ -37,7 +37,7 @@ func uploadSingle_postImg(ctx *gin.Context) {
 	}
 
 	data := map[string]string{
-		"filePath": "http://wjk.ddns.net:5000/" + uploadPath,
+		"filePath": "http://crispyblog.ddns.net:5000/" + uploadPath,
 	}
 
 	ctx.JSON(200, gin.H{
@@ -72,6 +72,6 @@ func uploadSingle_thumbnail(ctx *gin.Context) {
 	}
 
 	ctx.JSON(200, gin.H{
-		"filePath": "http://wjk.ddns.net:5000/" + uploadPath,
+		"filePath": "http://crispyblog.ddns.net:5000/" + uploadPath,
 	})
 }

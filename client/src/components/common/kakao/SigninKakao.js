@@ -19,7 +19,7 @@ const SigninKakao = () => {
 
     const getUrl = async () => {
         const apiClient = axios.create({
-            baseURL: "http://wjk.ddns.net:5000",
+            baseURL: "http://crispyblog.ddns.net:5000",
             withCredentials: true,
           });
         const url = "/getRequestURL?code=" + code;
@@ -50,7 +50,7 @@ const SigninKakao = () => {
     }
 
     const getLogin_kakao = async (access_token) => {
-        const url = "http://wjk.ddns.net:5000/doSignin/kakao"
+        const url = "http://crispyblog.ddns.net:5000/doSignin/kakao"
         const formData = {"access_token":access_token}
         const config = { 
             headers: {"Content-Type": "application/json"},

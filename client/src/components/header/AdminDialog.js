@@ -107,7 +107,7 @@ export default function AdminDialog() {
   const loginWithKakao = () => {
     initKakao();
     window.Kakao.Auth.authorize({
-    redirectUri: 'http://wjk.ddns.net:80/signin/kakao'
+    redirectUri: 'http://crispyblog.ddns.net:80/signin/kakao'
     })
   }
 

@@ -6,6 +6,7 @@ import (
 
 func CORSMiddleware() gin.HandlerFunc {
 	var allowedOrigins = [...]string{
+		"http://crispyblog.ddns.net",
 		"http://wjk.ddns.net",
 		"http://localhost",
 	}
@@ -18,7 +19,7 @@ func CORSMiddleware() gin.HandlerFunc {
 		// request header 의 Origin 이 allowedOrigins 중 하나이면, response header의 Origin 에 해당 값을 설정한다.
 
 		// default origin : dropzone 에서의 cors 때문에 defualt를 설정해둔다.
-		c.Header("Access-Control-Allow-Origin", "http://wjk.ddns.net")
+		c.Header("Access-Control-Allow-Origin", "http://crispyblog.ddns.net")
 
 		requestOrigin := c.Request.Header.Get("Origin")
 

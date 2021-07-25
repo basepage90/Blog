@@ -213,7 +213,7 @@ const ArtilcePublisher = ({history,pdata}) => {
   }
 
   const uploadThumbnail = async () => {
-    const url = "http://wjk.ddns.net:5000/upload/thumbnail"
+    const url = "http://crispyblog.ddns.net:5000/upload/thumbnail"
     const formData = new FormData();
     formData.append("thumbnail", file);
     const headers = { headers: { "Content-Type": "multipart/form-data" } };
