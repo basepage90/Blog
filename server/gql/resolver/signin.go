@@ -62,7 +62,7 @@ func (rsv *signinResolver) Verify(ctx *gin.Context) {
 	if res.Admin_flag == true {
 		if token := rsv.jwtService.GenerateToken(res.Email, true); token != "" {
 			// 토큰 발행 (cookie 저장 방식)
-			ctx.SetCookie("crispy-token", token, 60*60*24, "/", conf.BaseURL, false, true)
+			ctx.SetCookie("crispy-token", token, 60*60*24, "/", conf.TokenURL, false, true)
 		} else {
 			// 토큰 발행 에러
 			ctx.JSON(http.StatusUnauthorized, gin.H{"err": "token genetation error!"})
@@ -75,7 +75,7 @@ func (rsv *signinResolver) Verify(ctx *gin.Context) {
 
 func (rsv *signinResolver) DeleteToken(ctx *gin.Context) {
 	// Delete cookie : 3rd param is -1
-	ctx.SetCookie("crispy-token", "", -1, "/", conf.BaseURL, false, true)
+	ctx.SetCookie("crispy-token", "", -1, "/", conf.TokenURL, false, true)
 }
 
 func (rsv *signinResolver) GetCurrentUser(params graphql.ResolveParams) (interface{}, error) {
@@ -108,6 +108,8 @@ func (rsv *signinResolver) GetRequestURL(ctx *gin.Context) {
 		redirect_uri,
 		code)
 
+	fmt.Println("test")
+
 	ctx.JSON(http.StatusOK, gin.H{"requestURL": requestURL})
 
 }
@@ -132,7 +134,7 @@ func (rsv *signinResolver) DoSigninKakao(ctx *gin.Context) {
 		// 자체 토큰 발행
 		if token := rsv.jwtService.GenerateToken(res.Email, true); token != "" {
 			// cookie 저장 방식
-			ctx.SetCookie("crispy-token", token, 60*60*24, "/", conf.BaseURL, false, true)
+			ctx.SetCookie("crispy-token", token, 60*60*24, "/", conf.TokenURL, false, true)
 			ctx.JSON(http.StatusOK, gin.H{"cookieSetting": true})
 		} else {
 			// 로그인 에러

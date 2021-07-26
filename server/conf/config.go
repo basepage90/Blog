@@ -11,8 +11,10 @@ var MysqlConfig string
 var MongoDBConfig string
 
 var BaseURL string = "http://crispyblog.ddns.net"
+var TokenURL string = "crispyblog.ddns.net"
 
 // var BaseURL string = "http://wjk.ddns.net"
+// var TokenURL string = "wjk.ddns.net"
 var ServerPort string = ":5000"
 var ClientPort string = ":80"
 
