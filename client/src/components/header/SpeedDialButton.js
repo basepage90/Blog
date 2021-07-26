@@ -1,6 +1,7 @@
 import { useState } from "react";
 import styled from "styled-components";
-import { headerHeight } from 'styles/styleConst'
+import { BaseURL, ServerPort } from 'constants/AddressConstant'
+import { headerHeight } from 'constants/StyleConstant'
 import { useHistory } from 'react-router-dom';
 import { useSelector, useDispatch } from "react-redux";
 import { adminOpen, snackBarOpen, openSearchDialog } from "store/store";
@@ -70,7 +71,7 @@ export default function SpeedDialButton(){
 
     const signout = async () => {
         const apiClient = axios.create({
-            baseURL: "http://crispyblog.ddns.net:5000",
+            baseURL: BaseURL + ServerPort,
             withCredentials: true,
           });
         const url = "/signout"

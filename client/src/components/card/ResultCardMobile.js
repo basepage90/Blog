@@ -42,7 +42,7 @@ const Article = styled.div`
     width: calc(100% - ${thumbHeight});
     display: flex;
     flex-direction: column;
-    padding: 16px 8px;
+    padding: 12px 8px;
 
     & p{
         flex: 1;

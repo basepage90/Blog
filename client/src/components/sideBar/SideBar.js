@@ -3,7 +3,7 @@ import styled from "styled-components";
 import Logo from "components/sideBar/Logo";
 import Menu from "components/sideBar/Menu";
 import LinkFoot from "components/sideBar/LinkFoot";
-import { sidebarWidth } from 'styles/styleConst'
+import { sidebarWidth } from 'constants/StyleConstant'
 
 import { transSideBar, transMobileFlag} from "store/store";
 import { useDispatch, useSelector } from 'react-redux'

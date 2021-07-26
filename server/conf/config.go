@@ -8,8 +8,13 @@ import (
 )
 
 var MysqlConfig string
-
 var MongoDBConfig string
+
+var BaseURL string = "http://crispyblog.ddns.net"
+
+// var BaseURL string = "http://wjk.ddns.net"
+var ServerPort string = ":5000"
+var ClientPort string = ":80"
 
 // Read dbconfig.env for MysqlConfig
 func init() {

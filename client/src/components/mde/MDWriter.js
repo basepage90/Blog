@@ -1,4 +1,5 @@
 import { useMemo, useEffect } from 'react'
+import { BaseURL, ServerPort } from 'constants/AddressConstant'
 import SimpleMDE from 'react-simplemde-editor'
 import "easymde/dist/easymde.min.css";
 import { useSelector, useDispatch } from "react-redux";
@@ -59,7 +60,7 @@ const MDWriter = ({pdata}) => {
         },
         uploadImage: false,
         imageMaxSize: 1024*1024*50,
-        imageUploadEndpoint: "http://crispyblog.ddns.net:5000/upload/postImg",
+        imageUploadEndpoint: BaseURL + ServerPort + "/upload/postImg",
         imagePathAbsolute: true,
         hideIcons: ['image'],
         showIcons: [
@@ -100,7 +101,7 @@ const MDWriter = ({pdata}) => {
         },
         uploadImage: false,
         imageMaxSize: 1024*1024*50,
-        imageUploadEndpoint: "http://crispyblog.ddns.net:5000/upload/postImg",
+        imageUploadEndpoint: BaseURL + ServerPort + "/upload/postImg",
         imagePathAbsolute: true,
         hideIcons: ['image'],
         showIcons: [

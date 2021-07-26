@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { bottomMargin } from 'styles/styleConst'
+import { bottomMargin } from 'constants/StyleConstant'
 
 const GridContainer = styled.div`
     margin-bottom: ${bottomMargin};

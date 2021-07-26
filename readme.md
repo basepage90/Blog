@@ -24,6 +24,11 @@ http://crispyblog.ddns.net/
 <details> 
     <summary> 👉 Click Me  ( Expand Detail Tag ) </summary>
 
+### Blog (tag : v0.3.2)
+- Edit CSS
+- Change Logo & Favicon
+- Add URL Constant
+
 ### Blog (tag : v0.3.1)
 - 임시배포(naver cloud)
     - docker

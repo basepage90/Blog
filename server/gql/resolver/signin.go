@@ -7,6 +7,7 @@ import (
 	"github.com/gin-gonic/gin"
 	"github.com/google/uuid"
 	"github.com/graphql-go/graphql"
+	"github.com/woojebiz/gin-web/server/conf"
 	"github.com/woojebiz/gin-web/server/middleware"
 	"github.com/woojebiz/gin-web/server/services"
 )
@@ -61,20 +62,20 @@ func (rsv *signinResolver) Verify(ctx *gin.Context) {
 	if res.Admin_flag == true {
 		if token := rsv.jwtService.GenerateToken(res.Email, true); token != "" {
 			// 토큰 발행 (cookie 저장 방식)
-			ctx.SetCookie("crispy-token", token, 60*60*24, "/", "crispyblog.ddns.net", false, true)
+			ctx.SetCookie("crispy-token", token, 60*60*24, "/", conf.BaseURL, false, true)
 		} else {
 			// 토큰 발행 에러
 			ctx.JSON(http.StatusUnauthorized, gin.H{"err": "token genetation error!"})
 		}
-		ctx.Redirect(http.StatusFound, "http://crispyblog.ddns.net:80/")
+		ctx.Redirect(http.StatusFound, conf.BaseURL+conf.ClientPort)
 	} else {
-		ctx.Redirect(http.StatusFound, "http://crispyblog.ddns.net:80/verifyError")
+		ctx.Redirect(http.StatusFound, conf.BaseURL+conf.ClientPort+"/verifyError")
 	}
 }
 
 func (rsv *signinResolver) DeleteToken(ctx *gin.Context) {
 	// Delete cookie : 3rd param is -1
-	ctx.SetCookie("crispy-token", "", -1, "/", "crispyblog.ddns.net", false, true)
+	ctx.SetCookie("crispy-token", "", -1, "/", conf.BaseURL, false, true)
 }
 
 func (rsv *signinResolver) GetCurrentUser(params graphql.ResolveParams) (interface{}, error) {
@@ -96,7 +97,7 @@ func (rsv *signinResolver) GetRequestURL(ctx *gin.Context) {
 	host_url := "https://kauth.kakao.com/oauth/token"
 	grant_type := "grant_type=authorization_code"
 	client_id := "client_id=17e2b41913f7f223f6c370c7cfe2d33b"
-	redirect_uri := "redirect_uri=http://crispyblog.ddns.net:80/signin/kakao"
+	redirect_uri := "redirect_uri=" + conf.BaseURL + conf.ClientPort + "/signin/kakao"
 	code := "code=" + ctx.Query("code")
 
 	requestURL := fmt.Sprintf(
@@ -131,7 +132,7 @@ func (rsv *signinResolver) DoSigninKakao(ctx *gin.Context) {
 		// 자체 토큰 발행
 		if token := rsv.jwtService.GenerateToken(res.Email, true); token != "" {
 			// cookie 저장 방식
-			ctx.SetCookie("crispy-token", token, 60*60*24, "/", "crispyblog.ddns.net", false, true)
+			ctx.SetCookie("crispy-token", token, 60*60*24, "/", conf.BaseURL, false, true)
 			ctx.JSON(http.StatusOK, gin.H{"cookieSetting": true})
 		} else {
 			// 로그인 에러

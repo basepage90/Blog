@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import ReplyHeader from 'components/article/ReplyHeader'
 import ReplyWriterContainer from 'containers/article/ReplyWriteContainer'
 import ReplyListContainer from 'containers/article/ReplyListContainer'
-import { bottomMargin, sidebarWidth } from 'styles/styleConst'
+import { bottomMargin, sidebarWidth } from 'constants/StyleConstant'
 import { useParams } from 'react-router-dom';
 import { useQuery } from '@apollo/react-hooks';
 import { Reply } from 'gql/query'

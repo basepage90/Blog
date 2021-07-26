@@ -8,6 +8,7 @@ import (
 
 	"github.com/gin-gonic/gin"
 	"github.com/google/uuid"
+	"github.com/woojebiz/gin-web/server/conf"
 )
 
 func InitUploadRouter(Router *gin.RouterGroup) {
@@ -37,7 +38,7 @@ func uploadSingle_postImg(ctx *gin.Context) {
 	}
 
 	data := map[string]string{
-		"filePath": "http://crispyblog.ddns.net:5000/" + uploadPath,
+		"filePath": conf.BaseURL + conf.ServerPort + "/" + uploadPath,
 	}
 
 	ctx.JSON(200, gin.H{
@@ -72,6 +73,6 @@ func uploadSingle_thumbnail(ctx *gin.Context) {
 	}
 
 	ctx.JSON(200, gin.H{
-		"filePath": "http://crispyblog.ddns.net:5000/" + uploadPath,
+		"filePath": conf.BaseURL + conf.ServerPort + "/" + uploadPath,
 	})
 }

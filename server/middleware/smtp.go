@@ -5,13 +5,14 @@ import (
 
 	"github.com/joho/godotenv"
 	"github.com/jordan-wright/email"
+	"github.com/woojebiz/gin-web/server/conf"
 	"github.com/woojebiz/gin-web/server/models"
 )
 
 var smtpConfig, _ = godotenv.Read("./conf/smtpConfig.env")
 
 func SendCertiMail(user models.User) error {
-	certiTag := "<a href=\"http://crispyblog.ddns.net:5000/signin/verify/" + user.Uuid + "\"> Click Me !</a>"
+	certiTag := "<a href=\"" + conf.BaseURL + conf.ServerPort + "/signin/verify/" + user.Uuid + "\"> Click Me !</a>"
 
 	e := email.NewEmail()
 	e.From = "<basepage79@gmail.com>"

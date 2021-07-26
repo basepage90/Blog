@@ -6,6 +6,8 @@ import { useParams } from 'react-router-dom';
 import { useQuery } from '@apollo/react-hooks'
 import { GetArticles } from 'gql/query'
 import NotFoundPage from 'pages/NotFoundPage';
+import ReplyContainer from "containers/article/ReplyContainer"
+
 
 function ArtilceViewer (){
     const { id } = useParams();
@@ -31,6 +33,7 @@ function ArtilceViewer (){
                 </>
                 : null}
                 <Article data={data.articles} /> 
+                <ReplyContainer />
             </>
         )
     }

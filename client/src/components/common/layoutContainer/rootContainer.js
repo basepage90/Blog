@@ -1,6 +1,6 @@
 import React from "react";
 import styled from 'styled-components';
-import {sidebarWidth,headerHeight} from 'styles/styleConst'
+import {sidebarWidth,headerHeight} from 'constants/StyleConstant'
 import { useSelector } from "react-redux";
 
 const Div = styled.div`

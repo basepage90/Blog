@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import { LogoImg } from 'statics/images';
-import {sidebarWidth} from 'styles/styleConst'
+import {sidebarWidth} from 'constants/StyleConstant'
 
 
 const MyLogo = styled.a`
@@ -15,8 +15,8 @@ const MyLogo = styled.a`
 `;
     
 const LogoImage = styled.div`
-    width: 75%;
-    height: 75%;
+    width: 80%;
+    height: 70%;
     background-image: url(${LogoImg});
     background-size: cover;
     background-position: center;

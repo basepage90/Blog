@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 import { useSelector, shallowEqual } from 'react-redux';
-import { bottomMargin, sidebarWidth } from 'styles/styleConst'
+import { bottomMargin, sidebarWidth } from 'constants/StyleConstant'
 import MDRenderer from 'components/mde/MDRenderer';
 import { useDispatch } from "react-redux";
 import { showResult, updateSearchword, openSearchDialog, updateSearchwordMobile } from "store/store";

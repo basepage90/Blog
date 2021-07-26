@@ -1,4 +1,5 @@
 import styled from 'styled-components'
+import { BaseURL, ServerPort } from 'constants/AddressConstant'
 import axios from "axios";
 import { useEffect } from "react";
 import { useLocation } from "react-router";
@@ -19,7 +20,7 @@ const SigninKakao = () => {
 
     const getUrl = async () => {
         const apiClient = axios.create({
-            baseURL: "http://crispyblog.ddns.net:5000",
+            baseURL: BaseURL + ServerPort,
             withCredentials: true,
           });
         const url = "/getRequestURL?code=" + code;
@@ -50,7 +51,7 @@ const SigninKakao = () => {
     }
 
     const getLogin_kakao = async (access_token) => {
-        const url = "http://crispyblog.ddns.net:5000/doSignin/kakao"
+        const url = BaseURL + ServerPort + "/doSignin/kakao"
         const formData = {"access_token":access_token}
         const config = { 
             headers: {"Content-Type": "application/json"},

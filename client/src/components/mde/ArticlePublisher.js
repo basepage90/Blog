@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import styled from 'styled-components';
+import { BaseURL, ServerPort } from 'constants/AddressConstant'
 import { useSelector, useDispatch } from "react-redux";
 import { closePublisher, setContents } from "store/store";
 import { useQuery, useMutation} from '@apollo/react-hooks'
@@ -213,7 +214,7 @@ const ArtilcePublisher = ({history,pdata}) => {
   }
 
   const uploadThumbnail = async () => {
-    const url = "http://crispyblog.ddns.net:5000/upload/thumbnail"
+    const url = BaseURL + ServerPort + "/upload/thumbnail"
     const formData = new FormData();
     formData.append("thumbnail", file);
     const headers = { headers: { "Content-Type": "multipart/form-data" } };

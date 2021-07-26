@@ -1,6 +1,7 @@
 import React, { useEffect } from "react";
 import styled from "styled-components";
-import {sidebarWidth,headerHeight} from 'styles/styleConst'
+import { BaseURL, ServerPort } from 'constants/AddressConstant'
+import {sidebarWidth,headerHeight} from 'constants/StyleConstant'
 import axios from "axios";
 import { useLocation } from 'react-router-dom';
 import { transSideBar, adminOpen } from "store/store";
@@ -157,7 +158,7 @@ function Header({ loading, data }){
     const signout = async () => {
         initKakao();
         const apiClient = axios.create({
-            baseURL: "http://crispyblog.ddns.net:5000",
+            baseURL: BaseURL + ServerPort,
             withCredentials: true,
           });
         const url = "/signout"

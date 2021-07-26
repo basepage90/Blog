@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import styled from "styled-components";
+import { BaseURL, ClientPort } from 'constants/AddressConstant'
 import { adminClose } from "store/store";
 import { useDispatch, useSelector } from "react-redux";
 import { useLazyQuery } from '@apollo/client';
@@ -107,7 +108,7 @@ export default function AdminDialog() {
   const loginWithKakao = () => {
     initKakao();
     window.Kakao.Auth.authorize({
-    redirectUri: 'http://crispyblog.ddns.net:80/signin/kakao'
+    redirectUri: BaseURL + ClientPort + `/signin/kakao`
     })
   }
 
