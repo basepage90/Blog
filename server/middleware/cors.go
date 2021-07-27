@@ -8,6 +8,7 @@ import (
 func CORSMiddleware() gin.HandlerFunc {
 	var allowedOrigins = [...]string{
 		conf.BaseURL,
+		"http://wjk.ddns.net",
 		"http://localhost",
 	}
 	return func(c *gin.Context) {

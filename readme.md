@@ -3,7 +3,7 @@ Crispy's Blog
 
 React and Go with Clean-Architecture
 
-http://crispyblog.ddns.net/
+http://crispyblog.kr/
 
 ## Project Stack
 
@@ -23,6 +23,10 @@ http://crispyblog.ddns.net/
 ## Version History
 <details> 
     <summary> 👉 Click Me  ( Expand Detail Tag ) </summary>
+
+### Blog (tag : v0.3.2.1)
+- 도메인 등록
+    -  ddns: noip → dns: 가비아
 
 ### Blog (tag : v0.3.2)
 - Edit CSS

@@ -8,14 +8,14 @@ import { GetMenuList, GetCurrentUser } from 'gql/query'
 import SideBar from "components/sideBar/SideBar";
 import Header from "components/header/Header";
 import CardListPage from 'pages/blogPage/CardListPage'
-import NewestPage from 'pages/blogPage/NewestPage'
+import LatestPage from 'pages/blogPage/LatestPage'
 import RootContainer from 'components/common/layoutContainer/RootContainer'
 import ArticlePage from 'pages/blogPage/ArticlePage'
 import NotFoundPage from 'pages/NotFoundPage';
 
 const switchRoutes = (
   <Switch>
-    <Route path="/" exact component={NewestPage} />
+    <Route path="/" exact component={LatestPage} />
     <Route path="/:categoryLg/:categoryMd" exact component={CardListPage} />
     <Route path="/:categoryLg/:categoryMd/:id" exact component={ArticlePage} />
     <Route component={NotFoundPage} />
