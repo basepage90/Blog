@@ -5,7 +5,6 @@ import GitHubIcon from '@material-ui/icons/GitHub';
 const Div = styled.div`
   flex: 0 0 auto;
   display: flex;
-  width: inherit;
   bottom: 0;
   padding: 15px;
   align-items: center;

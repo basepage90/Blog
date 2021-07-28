@@ -10,6 +10,8 @@ const Div = styled.div`
   width: calc(100% - ${sidebarWidth});
   padding: 2% 2% 0 2%;
   transition: all ${({theme}) => theme.transition.duration.standard};
+  
+
 `;
 
 function RootContainer({switchRoutes}){

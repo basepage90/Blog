@@ -10,13 +10,19 @@ const GlobalStyles = createGlobalStyle`
         line-height: 1.5em;
         word-break: break-word;
     }
-    
-    input, button, textarea {
-        font-family: inherit;
-    }
- 
+
     html, body, #root {
         height: 100%;
+        width: 100%;
+        margin:0;
+    }
+    
+    * {
+        box-sizing: border-box;
+    }
+
+    input, button, textarea {
+        font-family: inherit;
     }
     
     img {

@@ -15,7 +15,6 @@
     "@types/dotenv": "^8.2.0",
     "apollo-boost": "^0.4.9",
     "axios": "^0.21.1",
-    "bootstrap": "^4.6.0",
     "easymde": "^2.15.0",
     "graphql": "^15.5.0",
     "js-cookie": "^2.2.1",
@@ -24,9 +23,8 @@
     "prop-types": "^15.7.2",
     "react": "^17.0.2",
     "react-apollo": "^3.1.5",
-    "react-bootstrap": "^1.5.2",
     "react-dom": "^17.0.2",
-    "react-helmet": "^6.1.0",
+    "react-helmet-async": "^1.0.9",
     "react-intersection-observer": "^8.32.0",
     "react-loadable": "^5.5.0",
     "react-markdown": "^6.0.2",
@@ -34,7 +32,6 @@
     "react-router-dom": "^5.2.0",
     "react-scripts": "4.0.3",
     "react-simplemde-editor": "^5.0.1",
-    "react-snap": "^1.23.0",
     "react-syntax-highlighter": "^15.4.3",
     "redux": "^4.1.0",
     "rehype-highlight": "^4.1.0",
@@ -48,8 +45,7 @@
     "start": "set port=80 && react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject",
-    "postbuild": "react-snap"
+    "eject": "react-scripts eject"
   },
   "eslintConfig": {
     "extends": [

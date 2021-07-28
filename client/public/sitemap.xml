@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset
+      xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9
+            http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">
+
+<url>
+  <loc>http://crispyblog.kr/</loc>
+  <lastmod>2021-07-27</lastmod>
+</url>
+
+<!-- categoy  -->
+<url>
+  <loc>http://crispyblog.kr/about/about</loc>
+  <lastmod>2021-07-27</lastmod>
+</url>
+
+<url>
+  <loc>http://crispyblog.kr/development/java</loc>
+  <lastmod>2021-07-27</lastmod>
+</url>
+<url>
+  <loc>http://crispyblog.kr/development/java</loc>
+  <lastmod>2021-07-27</lastmod>
+</url>
+<url>
+  <loc>http://crispyblog.kr/development/golang</loc>
+  <lastmod>2021-07-27</lastmod>
+</url>
+<url>
+  <loc>http://crispyblog.kr/development/front-end</loc>
+  <lastmod>2021-07-27</lastmod>
+</url>
+<url>
+  <loc>http://crispyblog.kr/development/dbms</loc>
+  <lastmod>2021-07-27</lastmod>
+</url>
+<url>
+  <loc>http://crispyblog.kr/development/os</loc>
+  <lastmod>2021-07-27</lastmod>
+</url>
+<url>
+  <loc>http://crispyblog.kr/development/architecture</loc>
+  <lastmod>2021-07-27</lastmod>
+</url>
+<url>
+  <loc>http://crispyblog.kr/development/common</loc>
+  <lastmod>2021-07-27</lastmod>
+</url>
+
+<url>
+  <loc>http://crispyblog.kr/music/%ED%9E%99%ED%95%A9</loc>
+  <lastmod>2021-07-27</lastmod>
+</url>
+<url>
+  <loc>http://crispyblog.kr/music/hiphop</loc>
+  <lastmod>2021-07-27</lastmod>
+</url>
+<url>
+  <loc>http://crispyblog.kr/music/r&amp;b</loc>
+  <lastmod>2021-07-27</lastmod>
+</url>
+<url>
+  <loc>http://crispyblog.kr/music/pop</loc>
+  <lastmod>2021-07-27</lastmod>
+</url>
+
+<url>
+  <loc>http://crispyblog.kr/recipe/recipe</loc>
+  <lastmod>2021-07-27</lastmod>
+</url>
+
+
+<!-- article -->
+<url>
+  <loc>http://crispyblog.kr/about/about/1</loc>
+  <lastmod>2021-07-27</lastmod>
+</url>
+
+</urlset>

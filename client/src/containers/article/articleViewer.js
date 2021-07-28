@@ -7,6 +7,7 @@ import { useQuery } from '@apollo/react-hooks'
 import { GetArticles } from 'gql/query'
 import NotFoundPage from 'pages/NotFoundPage';
 import ReplyContainer from "containers/article/ReplyContainer"
+import Meta from 'components/common/helmet/Meta';
 
 
 function ArtilceViewer (){
@@ -26,6 +27,7 @@ function ArtilceViewer (){
     } else {
         return(
             <>
+                <Meta data={data.articles} />
                 {userInfo.admin_flag ? 
                 <>
                     <PrivacySwitchContainer data={data.articles} />

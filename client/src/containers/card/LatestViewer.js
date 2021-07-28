@@ -6,6 +6,7 @@ import { GetArticlesList } from 'gql/query'
 import { useSelector } from 'react-redux'
 import { useInView } from "react-intersection-observer"
 import { useEffect } from 'react'
+import { Helmet } from 'react-helmet-async';
 
 let cursorId = 0;
 const limit = 10;
@@ -46,6 +47,9 @@ const LatestViewer = () => {
     return (
         !loading && 
         <>
+            <Helmet>
+                <meta name="description" content="소프트웨어 엔지니어, 크리스피의 블로그 입니다!" />
+            </Helmet>
             <Div>Latest Post</Div>
             <GridContainer className="sub__container" >
                 

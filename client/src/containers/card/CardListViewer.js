@@ -4,6 +4,7 @@ import { useParams } from 'react-router-dom'
 import { useQuery } from '@apollo/react-hooks'
 import { GetCardList } from 'gql/query'
 import { useSelector } from 'react-redux'
+import Meta from 'components/common/helmet/Meta'
 
 const CardListViewer = () => {
     const { categoryLg, categoryMd } = useParams();
@@ -21,11 +22,14 @@ const CardListViewer = () => {
         )
     } else {
         return(
-            <GridContainer className="sub__container">
-                {data.articlesListByCategory.map((articlesData,key) =>
-                    admin_flag === false && articlesData.privacy === "private" ? null : <Card data={articlesData} key={key}/>
-                )}
-            </GridContainer>
+            <>
+                <Meta />
+                <GridContainer className="sub__container">
+                    {data.articlesListByCategory.map((articlesData,key) =>
+                        admin_flag === false && articlesData.privacy === "private" ? null : <Card data={articlesData} key={key}/>
+                    )}
+                </GridContainer>
+            </>
         )
     }
 };
