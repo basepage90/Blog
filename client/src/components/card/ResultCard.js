@@ -82,7 +82,7 @@ const Article = styled.div`
 
     & .resultText {
         flex:2 2 auto;
-        margin-bottom: 0;
+        margin: 0;
         color: #444A55;
         font-size: 0.875rem;
         
