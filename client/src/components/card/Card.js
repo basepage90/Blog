@@ -75,6 +75,7 @@ const Article = styled.div`
 
     & .desc {
         flex:2 2 auto;
+        margin-top: 0;
         margin-bottom: 16px;
         color: #444A55;
         font-size: 0.875rem;

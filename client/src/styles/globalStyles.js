@@ -23,6 +23,8 @@ const GlobalStyles = createGlobalStyle`
 
     input, button, textarea {
         font-family: inherit;
+        font-size: inherit;
+        line-height: inherit;
     }
     
     img {

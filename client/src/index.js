@@ -6,6 +6,7 @@ import store from 'store/store';
 import { ApolloProvider } from '@apollo/react-hooks';
 import client from 'gql/Apollo'
 import { HelmetProvider } from 'react-helmet-async';
+// import 'bootstrap/dist/css/bootstrap.min.css';
 
 ReactDOM.render(
   <HelmetProvider>
