@@ -27,6 +27,11 @@ const GlobalStyles = createGlobalStyle`
         line-height: inherit;
     }
     
+    a {
+        color: ${({theme}) => theme.palette.sky1};
+        text-decoration: none;
+    }
+
     img {
         max-width: 100%;
         display: block;

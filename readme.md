@@ -24,6 +24,9 @@ http://crispyblog.kr/
 <details> 
     <summary> 👉 Click Me  ( Expand Detail Tag ) </summary>
 
+### Blog (tag : v0.3.3.1)
+- Edit CSS
+
 ### Blog (tag : v0.3.3)
 - SEO
     - search console
@@ -34,7 +37,7 @@ http://crispyblog.kr/
     - pre-render
         - 구글봇은 JS까지 렌더링하여 크롤링하도록 업그레이드 되었다. 이제는 굳이 pre-render 가 필요없는 것으로 보인다.
         - Static Generation : 정적생성
-            - 정정 라우팅에 대한 처리 : 빌드시점에 명시한 url 크롤링 → 페이지별 index.html 생성
+            - 정적 라우팅에 대한 처리 : 빌드시점에 명시한 url 크롤링 → 페이지별 index.html 생성
             - 동적 라우터에 대한 처리 : 웹팩기반으로 빌드시점에 동적페이지들을 로드 → 크롤링 → index.html 생성 → url 매핑 필요 (simple is best 에서 벗어나므로 배제하였다)
             - react-snap / prerender-spa-plugin
         - Server Side Rendering : 서버 사이드 렌더링
