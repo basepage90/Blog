@@ -49,6 +49,7 @@ const LatestViewer = () => {
         <>
             <Helmet>
                 <meta name="description" content="소프트웨어 엔지니어, 크리스피의 블로그 입니다!" />
+                <link rel="canonical" href="http://crispyblog.kr/" />
             </Helmet>
             <Div>Latest Post</Div>
             <GridContainer className="sub__container" >

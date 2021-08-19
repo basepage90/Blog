@@ -8,14 +8,17 @@ const locales = {
 };
 
 const Meta = ({ data }) => {
-  const { categoryMd } = useParams();
+  const { categoryLg, categoryMd } = useParams();
   
   // category
   if(data === undefined){
+    const description = `크리스피의 블로그 - ${categoryMd}`
+    const canonical = `http://crispyblog.kr/${categoryLg}/${categoryMd}`;
     return(
       <Helmet titleTemplate="%s">
         <title>Crispy's Blog - {categoryMd}</title>
-        <meta name="description" content={categoryMd} />
+        <meta name="description" content={description} />
+        <link rel="canonical" href={canonical} />
       </Helmet>
     )
   }   

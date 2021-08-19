@@ -1,18 +1,18 @@
 import React from 'react';
 import ErrorScreenTemplate from './ErrorScreenTemplate';
-import { PageNotFound } from 'statics/images';
+import { Shhhhh } from 'statics/images';
 import { useHistory } from 'react-router-dom';
 
-function NotFoundError() {
+function SecretError() {
   const history = useHistory();
 
   return (
     <>
       <ErrorScreenTemplate
-        image={PageNotFound}
-        message="DON'T CRY..."
-        reason="It's just 404 Error"
-        reasonDesc="(PageNotFound)"
+        image={Shhhhh}
+        message="TOP Secret 😎"
+        reason="비공개 포스트랍니다"
+        reasonDesc="(Private Post)"
         buttonText="홈으로"
         onButtonClick={() => {
           history.push('/');
@@ -22,4 +22,4 @@ function NotFoundError() {
   );
 }
 
-export default NotFoundError;
+export default SecretError;

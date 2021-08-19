@@ -130,7 +130,7 @@ export default function ResultCardMobile({data}){
         let startIndex;
 
         ResultList.some((result) =>  {
-            startIndex = result.indexOf(searchwordMobile, 0);
+            startIndex = result.toLowerCase().indexOf(searchwordMobile.toLowerCase(), 0);
             if(startIndex >= 0){
                 res = result;
             }
@@ -143,7 +143,7 @@ export default function ResultCardMobile({data}){
     }
 
     const doTextHighlight = (text,type) => {
-        if (searchwordMobile !== '' && text.includes(searchwordMobile)) {
+        if (searchwordMobile !== '' && text.toLowerCase().includes(searchwordMobile.toLowerCase())) {
           const parts = text.split(new RegExp(`(${searchwordMobile})`, 'gi'));
           return (
             <>

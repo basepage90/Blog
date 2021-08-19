@@ -24,6 +24,12 @@ http://crispyblog.kr/
 <details> 
     <summary> 👉 Click Me  ( Expand Detail Tag ) </summary>
 
+### Blog (tag : v0.3.3.3)
+- Add secret page
+
+### Blog (tag : v0.3.3.2)
+- Edit Metatag
+
 ### Blog (tag : v0.3.3.1)
 - Edit CSS
 
