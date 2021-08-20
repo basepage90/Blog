@@ -24,6 +24,9 @@ http://crispyblog.kr/
 <details> 
     <summary> 👉 Click Me  ( Expand Detail Tag ) </summary>
 
+### Blog (tag : v0.3.3.3)
+- header 버그 수정
+
 ### Blog (tag : v0.3.3.2)
 - Edit Metatag
 - Add secret page

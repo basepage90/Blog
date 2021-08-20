@@ -124,17 +124,15 @@ function Header({ loading, data }){
                             subject = [selectIcon(lg.category_lg), nbsp+nbsp, lg.screen_name]
                         } else{
                             lg.category_md.map( md => {
-                            subject = [selectIcon(lg.category_lg), nbsp+nbsp, arrowIcon, nbsp, md.screen_name]
-                            return null;
+                                if(location_md === md.name){
+                                    subject = [selectIcon(lg.category_lg), nbsp+nbsp, arrowIcon, nbsp, md.screen_name]
+                                }   
+                                return null;
                             })
                         }
                     } else {
                         if(lg.category_md.length === 0){
-                            if(location_md === location_lg){
-                                subject = [selectIcon(lg.category_lg), nbsp+nbsp, lg.screen_name]
-                            } else {
-                                return null;
-                            }
+                            subject = [selectIcon(lg.category_lg), nbsp+nbsp, lg.screen_name]
                         } else {
                             lg.category_md.map( md => {
                                 if(location_md === md.name){
