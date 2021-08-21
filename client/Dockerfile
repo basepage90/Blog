@@ -2,13 +2,13 @@
 FROM nginx
 
 # work dir
-WORKDIR /home/blog
+WORKDIR /home/blog/client
 
 # work dir 에 build 폴더 생성 : /home/blog/build
-RUN mkdir ./client/build
+RUN mkdir ./build
 
 # host pc의 현재경로의 build 폴더를 workdir 의 build 폴더로 복사
-ADD ./client/build ./client/build
+ADD ./build ./build
 
 # nginx 의 default.conf 를 삭제
 RUN rm /etc/nginx/conf.d/default.conf
