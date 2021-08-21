@@ -8,8 +8,8 @@ WORKDIR /home/blog/client
 RUN mkdir ./build
 
 # yarn install & build
-RUN yarn install
-RUN yarn build
+RUN sh yarn install
+RUN sh yarn build
 
 # host pc의 현재경로의 build 폴더를 workdir 의 build 폴더로 복사
 ADD ./build ./build
