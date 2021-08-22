@@ -89,8 +89,6 @@ const selectIcon = (text) => {
 function Header({ loading, data }){
     const dispatch = useDispatch();
 
-    console.log("build test");
-
     // SideBar 
     const { mobileFlag, sideBarState, admin_flag } = useSelector(
         state => ({
