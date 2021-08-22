@@ -26,6 +26,7 @@
     "react-dom": "^17.0.2",
     "react-helmet-async": "^1.0.9",
     "react-intersection-observer": "^8.32.0",
+    "react-is": "^17.0.2",
     "react-loadable": "^5.5.0",
     "react-markdown": "^6.0.2",
     "react-redux": "^7.2.4",

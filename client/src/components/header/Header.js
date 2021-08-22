@@ -89,7 +89,7 @@ const selectIcon = (text) => {
 function Header({ loading, data }){
     const dispatch = useDispatch();
 
-    console.log("test jenkins5");
+    console.log("build test");
 
     // SideBar 
     const { mobileFlag, sideBarState, admin_flag } = useSelector(
