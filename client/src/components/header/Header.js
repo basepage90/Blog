@@ -152,7 +152,6 @@ function Header({ loading, data }){
         return subject
     }
 
-
     const signout = async () => {
         initKakao();
         const apiClient = axios.create({
