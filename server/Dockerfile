@@ -1,4 +1,4 @@
-## multi stage build
+## multi stage build 로 극단적 경량화 이미지 만들기
 
 # golang 이미지를 사용
 FROM golang:1.16-alpine as builder
@@ -23,6 +23,6 @@ COPY --from=builder /home/blog/server/main /home/blog/server/main
 
 COPY --from=builder /home/blog/server/conf /home/blog/server/conf
 
-COPY --from=builder /home/blog/server/static /home/blog/server/static
+COPY --from=builder /etc/passwd /etc/passwd
 
 CMD [ "./main" ]
