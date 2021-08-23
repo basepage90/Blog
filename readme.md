@@ -24,6 +24,12 @@ http://crispyblog.kr/
 <details> 
     <summary> 👉 Click Me  ( Expand Detail Tag ) </summary>
 
+### Blog (tag : v0.3.4)
+- CI/CD
+    - github
+    - jenkins
+    - docker
+
 ### Blog (tag : v0.3.3.3)
 - header 버그 수정
 
