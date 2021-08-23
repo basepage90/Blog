@@ -24,6 +24,13 @@ http://crispyblog.kr/
 <details> 
     <summary> 👉 Click Me  ( Expand Detail Tag ) </summary>
 
+### Blog (tag : v0.3.5)
+- CI/CD
+    - jenkins
+        - 서버이관 완료 : 저사양 서버에서의 빌드를 위한 옵션 모두 해제
+    - docker
+        - scratch 빌드로 인한 로그인 이슈 해결
+
 ### Blog (tag : v0.3.4)
 - CI/CD
     - jenkins
