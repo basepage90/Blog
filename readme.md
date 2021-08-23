@@ -26,9 +26,11 @@ http://crispyblog.kr/
 
 ### Blog (tag : v0.3.4)
 - CI/CD
-    - github
     - jenkins
+        - 서버사양으로 인해 빌드가 너무 오래 걸림
+        - 서버업그레이드 까지는 일단 도커 수작업 : 로컬PC에서 빌드 -> docker-hub push -> server에서 pull
     - docker
+        - server 도커로 구동시, kakao 로그인 문제 발생
 
 ### Blog (tag : v0.3.3.3)
 - header 버그 수정
