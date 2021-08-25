@@ -20,16 +20,26 @@ http://crispyblog.kr/
 - GraphQL
 - JWT / SMTP
 
+### CI/CD
+- Jenkins
+- Docker
+
 ## Version History
 <details> 
     <summary> 👉 Click Me  ( Expand Detail Tag ) </summary>
 
+
+### Blog (tag : v0.3.6)
+- Add Markdown Plugins
+    - remark-slug : 슬러그
+    - remark-footnotes : 각주
+
 ### Blog (tag : v0.3.5)
 - CI/CD
     - jenkins
-        - 서버이관 완료 : 저사양 서버에서의 빌드를 위한 옵션 모두 해제
+        - 서버이관 완료 : 저사양 서버에서의 빌드를 위한 옵션 모두 제거
     - docker
-        - scratch 빌드로 인한 로그인 이슈 해결
+        - scratch 빌드 사용 X, 로그인 이슈 해결
 
 ### Blog (tag : v0.3.4)
 - CI/CD

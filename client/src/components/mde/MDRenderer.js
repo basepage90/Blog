@@ -2,6 +2,8 @@ import React from 'react'
 import styled from 'styled-components';
 import ReactMarkdown from 'react-markdown'
 import gfm from 'remark-gfm'
+import slug from 'remark-slug'
+import footnotes from 'remark-footnotes'
 import rehypeRaw from 'rehype-raw'
 import {Prism as SyntaxHighlighter} from 'react-syntax-highlighter'
 import {dark} from 'react-syntax-highlighter/dist/esm/styles/prism'
@@ -65,7 +67,7 @@ const components = {
 const MDRenderer = ({contents}) => {
     return (
         <ReactMarkdown  
-                        remarkPlugins={[gfm]}
+                        remarkPlugins={[gfm,slug,footnotes]}
                         rehypePlugins={[rehypeRaw]}
                         components={components}
                         children={contents}
