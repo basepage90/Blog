@@ -40,7 +40,7 @@ const Code = styled.code`
     padding: .2em .4em;
     background-color: ${({theme}) => theme.palette.gray1};
     margin: 0;
-    font-size: 95%;
+    font-size: 96%;
     color: inherit;
     border-radius: 3px;
 `;
