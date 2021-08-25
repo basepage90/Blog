@@ -166,10 +166,24 @@ func (r *articlesRepository) UpdatePrivacy(inputData models.Articles) (interface
 }
 
 func (r *articlesRepository) UpdateArticles(inputData models.Articles) (interface{}, error) {
+	var data bson.M
 	updt_date := time.Now().Format("2006-01-02")
-	result, err := r.db.UpdateOne(context.TODO(),
-		bson.M{"_id": inputData.Id},
-		bson.M{"$set": bson.M{
+
+	if inputData.Thumbnail == "unchanged" {
+		// 썸네일이 "unchanged"이면 썸네일은 업데이트 하지 않는다.
+		data = bson.M{
+			"_id":         inputData.Id,
+			"title":       inputData.Title,
+			"hashtag":     inputData.Hashtag,
+			"updt_date":   updt_date,
+			"desc":        inputData.Desc,
+			"contents":    inputData.Contents,
+			"category_lg": inputData.Category_lg,
+			"category_md": inputData.Category_md,
+			"privacy":     inputData.Privacy,
+		}
+	} else {
+		data = bson.M{
 			"_id":         inputData.Id,
 			"title":       inputData.Title,
 			"hashtag":     inputData.Hashtag,
@@ -180,8 +194,14 @@ func (r *articlesRepository) UpdateArticles(inputData models.Articles) (interfac
 			"category_md": inputData.Category_md,
 			"thumbnail":   inputData.Thumbnail,
 			"privacy":     inputData.Privacy,
-		}},
+		}
+	}
+
+	result, err := r.db.UpdateOne(context.TODO(),
+		bson.M{"_id": inputData.Id},
+		bson.M{"$set": data},
 	)
+
 	return result.ModifiedCount, err
 }
 

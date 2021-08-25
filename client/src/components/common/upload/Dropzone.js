@@ -56,7 +56,21 @@ const Dropzone = ({pdata, setFile}) => {
             document.getElementsByClassName("MuiDropzoneArea-textContainer")[0].style.display="block";
         } else{
             document.getElementsByClassName("MuiDropzoneArea-textContainer")[0].style.display="none";
-            setFile(files[0])
+
+            if(pdata != null){
+                // pdata가 null 이 아닌경우, 즉 썸네일이 탑재된경우
+                const startIndex = pdata.thumbnail.lastIndexOf("/") + 1;
+                const beforeThumb = pdata.thumbnail.substr(startIndex);
+                const afterThumb = files[0].name;
+                if(beforeThumb === afterThumb){
+                    // 기존 썸네일 그대로라면 "unchanged" 를 셋팅한다
+                    setFile("unchanged")
+                }else{
+                    setFile(files[0])
+                }
+            }else{
+                setFile(files[0]);
+            }
         }
     }
 

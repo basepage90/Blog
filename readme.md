@@ -29,6 +29,10 @@ http://crispyblog.kr/
     <summary> 👉 Click Me  ( Expand Detail Tag ) </summary>
 
 
+### Blog (tag : v0.3.6.2)
+- Edit Publisher
+    - Thumbnail 변경이 없을 시, Thumbnail 업로드는 패스한다.
+
 ### Blog (tag : v0.3.6.1)
 - Edit CSS
 

@@ -185,8 +185,11 @@ const ArtilcePublisher = ({history,pdata}) => {
     })
   }
 
-  const JustUpdate = () => {
-    const success = updateArticles({ variables:  {
+  const JustUpdate = (changeThumb) => {
+    let success;
+    
+    if(changeThumb){
+      success = updateArticles({ variables:  {
         id: pdata.id,
         title: title,
         hashtag: hashtag,
@@ -196,8 +199,22 @@ const ArtilcePublisher = ({history,pdata}) => {
         category_md: category_md,
         thumbnail: thumbnail,
         privacy: privacy,
-      }
-    })
+        }
+      })
+    }else{
+      success = updateArticles({ variables:  {
+        id: pdata.id,
+        title: title,
+        hashtag: hashtag,
+        contents: contents,
+        desc: desc,
+        category_lg : category_lg,
+        category_md: category_md,
+        thumbnail: file,
+        privacy: privacy,
+        }
+      })
+    }
     
     success.then(({data})=> {
       // gql server 로부터 return 받은 data의 id가 존재할때만, publish 를 완료한다
@@ -226,7 +243,7 @@ const ArtilcePublisher = ({history,pdata}) => {
         if(pdata === null){
           JustPublish();
         }else{
-          JustUpdate();
+          JustUpdate(true);
         }
       }).catch( (error) => {
         // catch
@@ -310,7 +327,12 @@ const ArtilcePublisher = ({history,pdata}) => {
 
     clickAlertClose();
 
-    uploadThumbnail();
+    if(file === "unchanged"){
+      // 썸네일이 "unchanged" 이면, uploadThumbnail을 생략하고 바로 업데이트한다.
+      JustUpdate(false);
+    }else{
+      uploadThumbnail();
+    }
   }
 
   useEffect(() => {
