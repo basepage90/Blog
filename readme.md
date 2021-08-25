@@ -29,6 +29,9 @@ http://crispyblog.kr/
     <summary> 👉 Click Me  ( Expand Detail Tag ) </summary>
 
 
+### Blog (tag : v0.3.6.1)
+- Edit CSS
+
 ### Blog (tag : v0.3.6)
 - Add Markdown Plugins
     - remark-slug : 슬러그
