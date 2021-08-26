@@ -62,6 +62,39 @@ const GlobalStyles = createGlobalStyle`
         margin: 16px 0 16px;
         word-break: break-all;
     }
+
+    table {
+        border-collapse: collapse;
+        box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
+    }
+
+    th,td{
+        border: none !important;
+        padding: 4px 8px;
+        //border-left: 1px solid ${({theme}) => theme.palette.gray3} !important;
+    }
+
+    tr:hover {
+        background-color: #f5f5f5;
+    }
+
+    th{
+        background-color: ${({theme}) => theme.palette.gray9} !important;
+        color: #FDFDFD !important;
+    }
+
+    th:nth-child(1),td:nth-child(1){
+        border-left: none !important;
+    }
+
+    td{
+        border-bottom: 1px solid ${({theme}) => theme.palette.gray3} !important;
+    }
+
+    tr:last-child td{
+        border-bottom: 2px solid ${({theme}) => theme.palette.gray7} !important;
+    }
+
 `;
 
 export default GlobalStyles;
