@@ -28,6 +28,9 @@ http://crispyblog.kr/
 <details> 
     <summary> 👉 Click Me  ( Expand Detail Tag ) </summary>
 
+### Blog (tag : v0.3.7.1)
+- Edit CSS
+    - figure
 
 ### Blog (tag : v0.3.7)
 - Edit Publisher

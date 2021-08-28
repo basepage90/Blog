@@ -17,7 +17,7 @@ const resizeImage = {
         var output = '';
         var selectedText = cm.getSelection();
         var text = selectedText.replace(pattern1, "").replace(pattern2,"");
-        output = '<p><img src="'+text+'" alt="" title="" width="100%"/></p>';
+        output = '<figure>\n\t<img src="'+text+'" alt="" title="" width="100%"/>\n\t<figcaption></figcaption>\n</figure>';
         cm.replaceSelection(output);
     },
     className :"fa fa-file-image-o" , 

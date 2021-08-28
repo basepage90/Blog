@@ -38,6 +38,21 @@ const GlobalStyles = createGlobalStyle`
         margin: 0 auto;
     }
 
+    figure {
+        margin-top: 2rem;
+        margin-bottom: 1rem;
+        margin-left: 0;
+        margin-right: 0;
+    }
+
+    figcaption {
+        margin-top: 0.75rem;
+        text-align: center;
+        font-size: 0.875rem;
+        font-weight: 400;
+        color: ${({theme}) => theme.palette.gray6};
+    }
+
     h1 {
         margin: 48px 0 24px;
         word-break: break-all;
@@ -94,7 +109,6 @@ const GlobalStyles = createGlobalStyle`
     tr:last-child td{
         border-bottom: 2px solid ${({theme}) => theme.palette.gray7} !important;
     }
-
 `;
 
 export default GlobalStyles;
