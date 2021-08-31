@@ -35,11 +35,10 @@ func NewSigninResolver(signinService services.SigninService, jwtService services
 }
 
 func (rsv *signinResolver) SendAuthEmail(params graphql.ResolveParams) (interface{}, error) {
-	// var ctx *gin.Context
-	res, err := rsv.signinService.FindByEmail(params.Args)
-
 	log.Println("test log----------")
 	fmt.Println("test fmt----------")
+	// var ctx *gin.Context
+	res, err := rsv.signinService.FindByEmail(params.Args)
 
 	fmt.Println(res)
 	fmt.Println(err)
