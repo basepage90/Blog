@@ -1,7 +1,6 @@
 package middleware
 
 import (
-	"log"
 	"net/smtp"
 
 	"github.com/joho/godotenv"
@@ -13,8 +12,6 @@ import (
 var smtpConfig, _ = godotenv.Read("./conf/smtpConfig.env")
 
 func SendCertiMail(user models.User) error {
-	log.Println("send mail start")
-
 	certiTag := "<a href=\"" + conf.BaseURL + conf.ServerPort + "/signin/verify/" + user.Uuid + "\"> Click Me !</a>"
 
 	e := email.NewEmail()
@@ -27,10 +24,5 @@ func SendCertiMail(user models.User) error {
 	// e.HTML = []byte("<h1>회원가입을 축하드립니다. 아래 링크를 클릭하시면,  '이메일 인증'이 완료됩니다.</h1>" + certiTag + " ")
 	e.HTML = []byte("<h1>아래 링크를 클릭하면,  '로그인' 됩니다.</h1>" + certiTag + " ")
 
-	err := e.Send("smtp.gmail.com:587", smtp.PlainAuth("", smtpConfig["SMTP_ACC"], smtpConfig["SMTP_PWD"], "smtp.gmail.com"))
-
-	log.Println(err)
-	log.Println("send mail succ")
-
-	return err
+	return e.Send("smtp.gmail.com:587", smtp.PlainAuth("", smtpConfig["SMTP_ACC"], smtpConfig["SMTP_PWD"], "smtp.gmail.com"))
 }

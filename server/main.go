@@ -11,7 +11,6 @@ import (
 )
 
 func main() {
-
 	setupLogOutPut()
 
 	// db.ConnectMysql()

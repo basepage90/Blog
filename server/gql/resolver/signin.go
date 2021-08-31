@@ -35,13 +35,10 @@ func NewSigninResolver(signinService services.SigninService, jwtService services
 }
 
 func (rsv *signinResolver) SendAuthEmail(params graphql.ResolveParams) (interface{}, error) {
-	log.Println("test log----------")
-	fmt.Println("test fmt----------")
+
+	log.Println("SendAuthEmail----------")
 	// var ctx *gin.Context
 	res, err := rsv.signinService.FindByEmail(params.Args)
-
-	fmt.Println(res)
-	fmt.Println(err)
 
 	// email 이 find 되었다면, uuid를 update 하고 인증메일을 발송한다.
 	if err == nil && res.Admin_flag == true {
@@ -53,8 +50,9 @@ func (rsv *signinResolver) SendAuthEmail(params graphql.ResolveParams) (interfac
 			// 인증메일 발송
 			sendErr := middleware.SendCertiMail(res)
 
-			log.Println("this is test")
+			log.Println("SendCertiMail error start--------")
 			log.Println(sendErr)
+			log.Println("SendCertiMail error end --------")
 
 			if sendErr != nil {
 				// ctx.JSON(http.StatusUnauthorized, gin.H{})

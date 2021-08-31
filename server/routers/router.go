@@ -1,6 +1,8 @@
 package routers
 
 import (
+	"log"
+
 	"github.com/gin-gonic/gin"
 	"github.com/woojebiz/gin-web/server/middleware"
 )
@@ -15,8 +17,10 @@ func InitRouter() {
 	// r.Use()
 	r.Use(middleware.CORSMiddleware())
 	r.Use(middleware.CookieMiddleware())
-
-	r.Use(gin.Logger(), middleware.Logger())
+	r.Use(gin.Logger())
+	// r.Use(middleware.Logger()) 	 // 커스텀 Logger
+	log.SetOutput(gin.DefaultWriter) // 모든 로그를 로깅파일에 담는다
+	r.Use(gin.Recovery())
 
 	// r.LoadHTMLGlob("templates/*")
 	r.Static("/static", "static")
