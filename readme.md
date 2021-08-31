@@ -28,6 +28,11 @@ http://crispyblog.kr/
 <details> 
     <summary> 👉 Click Me  ( Expand Detail Tag ) </summary>
 
+### Blog (tag : v0.3.7.2)
+- GSMTP
+    - server 에서는 일반 패스워드로는 접근 에러가 발생한다.
+    - 2단계 인증을 활성화 한 후, 앱 비밀번호를 발급받아 사용해야한다.
+
 ### Blog (tag : v0.3.7.1)
 - Edit CSS
     - figure

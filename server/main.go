@@ -11,7 +11,7 @@ import (
 )
 
 func main() {
-	setupLogOutPut()
+	// setupLogOutPut()
 
 	// db.ConnectMysql()
 	// defer db.CloseMysql()
