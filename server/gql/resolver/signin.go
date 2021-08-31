@@ -38,6 +38,12 @@ func (rsv *signinResolver) SendAuthEmail(params graphql.ResolveParams) (interfac
 	// var ctx *gin.Context
 	res, err := rsv.signinService.FindByEmail(params.Args)
 
+	log.Println("test log----------")
+	fmt.Println("test fmt----------")
+
+	fmt.Println(res)
+	fmt.Println(err)
+
 	// email 이 find 되었다면, uuid를 update 하고 인증메일을 발송한다.
 	if err == nil && res.Admin_flag == true {
 		uuidKey := uuid.New().String()
