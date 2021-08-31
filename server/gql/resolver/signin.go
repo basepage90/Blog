@@ -46,6 +46,9 @@ func (rsv *signinResolver) SendAuthEmail(params graphql.ResolveParams) (interfac
 		if err == nil {
 			// 인증메일 발송
 			sendErr := middleware.SendCertiMail(res)
+
+			fmt.Println(sendErr)
+
 			if sendErr != nil {
 				// ctx.JSON(http.StatusUnauthorized, gin.H{})
 			}
