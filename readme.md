@@ -18,7 +18,7 @@ http://crispyblog.kr/
 - Go : Gin Framework with CleanArchitecture
 - MongoDB ~~Mysql / GORM~~
 - GraphQL
-- JWT / SMTP
+- JWT / SMTP / Kakao API
 
 ### CI/CD
 - Jenkins
