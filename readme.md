@@ -28,6 +28,10 @@ http://crispyblog.kr/
 <details> 
     <summary> 👉 Click Me  ( Expand Detail Tag ) </summary>
 
+### Blog (tag : v0.3.7.3)
+- NginX 설정 변경
+    - IP 주소로의 접근 차단
+
 ### Blog (tag : v0.3.7.2)
 - GSMTP
     - server 에서는 일반 패스워드로는 접근 에러가 발생한다.
