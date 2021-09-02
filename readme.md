@@ -13,6 +13,7 @@ http://crispyblog.kr/
 - Redux
 - GraphQL (Apollo)
 - styled components & material-ui
+- Remark (react-markdown / react-simlemde-editor)
 
 ### backend (server)
 - Go : Gin Framework with CleanArchitecture
