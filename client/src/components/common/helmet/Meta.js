@@ -13,7 +13,7 @@ const Meta = ({ data }) => {
   // category
   if(data === undefined){
     const description = `크리스피의 블로그 - ${categoryMd}`
-    const canonical = `http://crispyblog.kr/${categoryLg}/${categoryMd}`;
+    const canonical = `https://crispyblog.kr/${categoryLg}/${categoryMd}`;
     return(
       <Helmet titleTemplate="%s">
         <title>Crispy's Blog - {categoryMd}</title>
@@ -27,7 +27,7 @@ const Meta = ({ data }) => {
   const title = data.title;
   const description = data.desc && data.desc;
   const image = data.thumbnail !== undefined && `${data.thumbnail}`;
-  const canonical = `http://crispyblog.kr/${data.category_lg}/${data.category_md}/${data.id}`;
+  const canonical = `https://crispyblog.kr/${data.category_lg}/${data.category_md}/${data.id}`;
   const type = data.type === undefined ? 'website' : data.type;
   const width = data.thumbnail && (data.width || 1200);
   const height = data.thumbnail && (data.height || 630);
