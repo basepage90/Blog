@@ -17,7 +17,7 @@ var TokenURL string = "crispyblog.kr"
 // var TokenURL string = "wjk.ddns.net"
 
 var ServerPort string = ":5000"
-var ClientPort string = ":433"
+var ClientPort string = ":443"
 
 // Read dbconfig.env for MysqlConfig
 func init() {
