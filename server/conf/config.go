@@ -10,7 +10,7 @@ import (
 var MysqlConfig string
 var MongoDBConfig string
 
-var BaseURL string = "http://crispyblog.kr"
+var BaseURL string = "https://crispyblog.kr"
 var TokenURL string = "crispyblog.kr"
 
 // var BaseURL string = "https://wjk.ddns.net"
