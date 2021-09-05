@@ -29,6 +29,11 @@ http://crispyblog.kr/
 <details> 
     <summary> 👉 Click Me  ( Expand Detail Tag ) </summary>
 
+### Blog (tag : v0.3.8)
+- HTTPS 로 전환
+    - SSL 인증 : let's encrypt
+    - nginx 설정파일(blog.conf) 수정
+
 ### Blog (tag : v0.3.7.3)
 - NginX 설정 변경
     - IP 주소로의 접근 차단

@@ -6,80 +6,100 @@
             http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">
 
 <url>
-  <loc>http://crispyblog.kr/</loc>
-  <lastmod>2021-07-27</lastmod>
+  <loc>https://crispyblog.kr/</loc>
+  <lastmod>2021-09-06</lastmod>
 </url>
 
 <!-- categoy  -->
 <url>
-  <loc>http://crispyblog.kr/about/about</loc>
-  <lastmod>2021-07-27</lastmod>
+  <loc>https://crispyblog.kr/about/about</loc>
+  <lastmod>2021-09-06</lastmod>
 </url>
 
 <url>
-  <loc>http://crispyblog.kr/development/java</loc>
-  <lastmod>2021-07-27</lastmod>
+  <loc>https://crispyblog.kr/development/java</loc>
+  <lastmod>2021-09-06</lastmod>
 </url>
 <url>
-  <loc>http://crispyblog.kr/development/java</loc>
-  <lastmod>2021-07-27</lastmod>
+  <loc>https://crispyblog.kr/development/java</loc>
+  <lastmod>2021-09-06</lastmod>
 </url>
 <url>
-  <loc>http://crispyblog.kr/development/golang</loc>
-  <lastmod>2021-07-27</lastmod>
+  <loc>https://crispyblog.kr/development/golang</loc>
+  <lastmod>2021-09-06</lastmod>
 </url>
 <url>
-  <loc>http://crispyblog.kr/development/front-end</loc>
-  <lastmod>2021-07-27</lastmod>
+  <loc>https://crispyblog.kr/development/front-end</loc>
+  <lastmod>2021-09-06</lastmod>
 </url>
 <url>
-  <loc>http://crispyblog.kr/development/dbms</loc>
-  <lastmod>2021-07-27</lastmod>
+  <loc>https://crispyblog.kr/development/dbms</loc>
+  <lastmod>2021-09-06</lastmod>
 </url>
 <url>
-  <loc>http://crispyblog.kr/development/os</loc>
-  <lastmod>2021-07-27</lastmod>
+  <loc>https://crispyblog.kr/development/os</loc>
+  <lastmod>2021-09-06</lastmod>
 </url>
 <url>
-  <loc>http://crispyblog.kr/development/architecture</loc>
-  <lastmod>2021-07-27</lastmod>
+  <loc>https://crispyblog.kr/development/architecture</loc>
+  <lastmod>2021-09-06</lastmod>
 </url>
 <url>
-  <loc>http://crispyblog.kr/development/common</loc>
-  <lastmod>2021-07-27</lastmod>
-</url>
-
-<url>
-  <loc>http://crispyblog.kr/music/%ED%9E%99%ED%95%A9</loc>
-  <lastmod>2021-07-27</lastmod>
-</url>
-<url>
-  <loc>http://crispyblog.kr/music/hiphop</loc>
-  <lastmod>2021-07-27</lastmod>
-</url>
-<url>
-  <loc>http://crispyblog.kr/music/r&amp;b</loc>
-  <lastmod>2021-07-27</lastmod>
-</url>
-<url>
-  <loc>http://crispyblog.kr/music/pop</loc>
-  <lastmod>2021-07-27</lastmod>
+  <loc>https://crispyblog.kr/development/common</loc>
+  <lastmod>2021-09-06</lastmod>
 </url>
 
 <url>
-  <loc>http://crispyblog.kr/recipe/recipe</loc>
-  <lastmod>2021-07-27</lastmod>
+  <loc>https://crispyblog.kr/music/%ED%9E%99%ED%95%A9</loc>
+  <lastmod>2021-09-06</lastmod>
+</url>
+<url>
+  <loc>https://crispyblog.kr/music/hiphop</loc>
+  <lastmod>2021-09-06</lastmod>
+</url>
+<url>
+  <loc>https://crispyblog.kr/music/r&amp;b</loc>
+  <lastmod>2021-09-06</lastmod>
+</url>
+<url>
+  <loc>https://crispyblog.kr/music/pop</loc>
+  <lastmod>2021-09-06</lastmod>
+</url>
+
+<url>
+  <loc>https://crispyblog.kr/recipe/recipe</loc>
+  <lastmod>2021-09-06</lastmod>
 </url>
 
 
 <!-- article -->
 <url>
-  <loc>http://crispyblog.kr/about/about/1</loc>
-  <lastmod>2021-07-27</lastmod>
+  <loc>https://crispyblog.kr/about/about/1</loc>
+  <lastmod>2021-09-06</lastmod>
 </url>
 <url>
-  <loc>http://crispyblog.kr/development/common/3</loc>
-  <lastmod>2021-07-30</lastmod>
+  <loc>https://crispyblog.kr/development/common/3</loc>
+  <lastmod>2021-09-06</lastmod>
+</url>
+<url>
+  <loc>https://crispyblog.kr/recipe/recipe/4</loc>
+  <lastmod>2021-09-06</lastmod>
+</url>
+<url>
+  <loc>https://crispyblog.kr/development/dbms/5</loc>
+  <lastmod>2021-09-06</lastmod>
+</url>
+<url>
+  <loc>https://crispyblog.kr/development/os/7</loc>
+  <lastmod>2021-09-06</lastmod>
+</url>
+<url>
+  <loc>https://crispyblog.kr/development/common/8</loc>
+  <lastmod>2021-09-06</lastmod>
+</url>
+<url>
+  <loc>https://crispyblog.kr/development/common/9</loc>
+  <lastmod>2021-09-06</lastmod>
 </url>
 
 </urlset>
