@@ -9,7 +9,7 @@ func CORSMiddleware() gin.HandlerFunc {
 	var allowedOrigins = [...]string{
 		conf.BaseURL,
 		"https://3.37.93.176",
-		"https://localhost",
+		"http://localhost:443",
 	}
 	return func(c *gin.Context) {
 		c.Header("Access-Control-Allow-Headers", "Content-Type, Authorization, Origin")

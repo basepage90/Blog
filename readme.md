@@ -29,6 +29,11 @@ https://crispyblog.kr/
 <details> 
     <summary> 👉 Click Me  ( Expand Detail Tag ) </summary>
 
+### Blog (tag : v0.3.8.1)
+TypeScript 전환전 마지막 커밋
+    - AS-IS : JavaSript
+    - TO-BE : TypeScript 
+
 ### Blog (tag : v0.3.8)
 - HTTPS 로 전환
     - SSL 인증 : let's encrypt
