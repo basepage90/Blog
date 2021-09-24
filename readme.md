@@ -12,11 +12,13 @@ https://crispyblog.kr/
 - React Router
 - Redux
 - GraphQL (Apollo)
+- JavaScript → TypeScript
 - styled components & material-ui
 - Remark (react-markdown / react-simlemde-editor)
 
+
 ### backend (server)
-- Go : Gin Framework with CleanArchitecture
+- Go Lang : Gin Framework & CleanArchitecture
 - MongoDB ~~Mysql / GORM~~
 - GraphQL
 - JWT / GSMTP / Kakao API
@@ -24,6 +26,7 @@ https://crispyblog.kr/
 ### CI/CD
 - Jenkins
 - Docker
+- NginX
 
 ## Version History
 <details> 
