@@ -29,6 +29,11 @@ https://crispyblog.kr/
 <details> 
     <summary> 👉 Click Me  ( Expand Detail Tag ) </summary>
 
+### Blog (tag : v0.4)
+- TypeScript 로 1차 마이그레이션 완료
+    - any 로 Type Assertion 된 코드는 개선이 필요
+    - 일부코드 제네릭으로 대체 필요 
+
 ### Blog (tag : v0.3.8.1)
 TypeScript 전환전 마지막 커밋
     - AS-IS : JavaSript
