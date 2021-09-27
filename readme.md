@@ -1,7 +1,7 @@
 # Blog
 Crispy's Blog
 
-React and Go with Clean-Architecture
+React and Go with Uncle Bob's Clean-Architecture
 
 https://crispyblog.kr/
 
@@ -38,9 +38,9 @@ https://crispyblog.kr/
     - 일부코드 제네릭으로 대체 필요 
 
 ### Blog (tag : v0.3.8.1)
-TypeScript 전환전 마지막 커밋
+- TypeScript 전환전 마지막 커밋
     - AS-IS : JavaSript
-    - TO-BE : TypeScript 
+    - TO-BE : TypeScript
 
 ### Blog (tag : v0.3.8)
 - HTTPS 로 전환
