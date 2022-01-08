@@ -251,7 +251,7 @@ func (s *schema) Query() *graphql.Object {
 				Resolve:     s.signinRsv.GetCurrentUser,
 			},
 			"reply": &graphql.Field{
-				Type:        graphql.NewList(replyTypeSecurity),
+				Type:        graphql.NewList(replyType),
 				Description: "Get Reply in this Article",
 				Args: graphql.FieldConfigArgument{
 					"article_id": &graphql.ArgumentConfig{
