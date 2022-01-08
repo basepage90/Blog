@@ -155,7 +155,6 @@ export const Reply = gql`
       group_no,
       sibling_name,
       name,
-      password,
       reg_date,
       contents,
       blind,
