@@ -11,7 +11,7 @@ import (
 type ReplyService interface {
 	CreateReply(args map[string]interface{}) (interface{}, error)
 	FindByArticleId(args map[string]interface{}) ([]models.Reply, error)
-	RemoveReply(args map[string]interface{}) (interface{}, error)
+	RemoveReply(args map[string]interface{}, signFlag bool) (interface{}, error)
 }
 
 type replyService struct {
@@ -46,7 +46,7 @@ func (service *replyService) FindByArticleId(args map[string]interface{}) ([]mod
 	return res, err
 }
 
-func (service *replyService) RemoveReply(args map[string]interface{}) (interface{}, error) {
+func (service *replyService) RemoveReply(args map[string]interface{}, signFlag bool) (interface{}, error) {
 	var res interface{}
 	var err error
 
@@ -68,7 +68,13 @@ func (service *replyService) RemoveReply(args map[string]interface{}) (interface
 		// 대댓글이 달려있고, Depth가 0 이면, blind 처리
 		res, err = service.repository.BlindReply(id, password)
 	} else {
-		res, err = service.repository.DeleteReply(id, password)
+
+		// wjkim : 아니이거 위에 블라인드 처리부터 signFlag 로 판별해야하잖아...
+		if signFlag == false && password != "" {
+			res, err = service.repository.DeleteReply(id, password)
+		} else if signFlag == true {
+			res, err = service.repository.DeleteReply(id, password)
+		}
 	}
 
 	return res, err

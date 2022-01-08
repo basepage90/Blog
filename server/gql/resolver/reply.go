@@ -2,6 +2,7 @@ package resolver
 
 import (
 	"github.com/graphql-go/graphql"
+	"github.com/woojebiz/gin-web/server/middleware"
 	"github.com/woojebiz/gin-web/server/services"
 )
 
@@ -32,6 +33,8 @@ func (rsv *replyResolver) GetReplyByArticleId(params graphql.ResolveParams) (int
 }
 
 func (rsv *replyResolver) RemoveReply(params graphql.ResolveParams) (interface{}, error) {
-	res, err := rsv.service.RemoveReply(params.Args)
+	CA := middleware.GetCookieAccess(params.Context)
+	signFlag := CA.IsSignedIn
+	res, err := rsv.service.RemoveReply(params.Args, signFlag)
 	return res, err
 }
