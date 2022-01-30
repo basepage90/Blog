@@ -10,6 +10,7 @@ func CORSMiddleware() gin.HandlerFunc {
 		conf.BaseURL,
 		"https://3.37.93.176",
 		"http://localhost:443",
+		"http://wjkim.ddns.net:443",
 	}
 	return func(c *gin.Context) {
 		c.Header("Access-Control-Allow-Headers", "Content-Type, Authorization, Origin")

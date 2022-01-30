@@ -11,6 +11,7 @@ import (
 	"github.com/woojebiz/gin-web/server/conf"
 	"github.com/woojebiz/gin-web/server/middleware"
 	"github.com/woojebiz/gin-web/server/services"
+	"github.com/woojebiz/gin-web/server/utils"
 )
 
 type SigninResolver interface {
@@ -46,7 +47,7 @@ func (rsv *signinResolver) SendAuthEmail(params graphql.ResolveParams) (interfac
 
 		if err == nil {
 			// 인증메일 발송
-			sendErr := middleware.SendCertiMail(res)
+			sendErr := utils.SendCertiMail(res)
 
 			log.Println("SendCertiMail error start--------")
 			log.Println(sendErr)

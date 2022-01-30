@@ -9,6 +9,7 @@ import (
 	"github.com/woojebiz/gin-web/server/middleware"
 	"github.com/woojebiz/gin-web/server/models"
 	"github.com/woojebiz/gin-web/server/services"
+	"github.com/woojebiz/gin-web/server/utils"
 	"gopkg.in/go-playground/validator.v9"
 )
 
@@ -70,7 +71,7 @@ func (con *loginController) Login(ctx *gin.Context) {
 			uuidSaveErr := con.loginService.SaveUUID(user)
 			if uuidSaveErr == nil {
 				// 인증메일 발송
-				middleware.SendCertiMail(user)
+				utils.SendCertiMail(user)
 				ctx.JSON(http.StatusUnauthorized, gin.H{"err": 2})
 				return
 			}
