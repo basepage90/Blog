@@ -32,6 +32,11 @@ https://crispyblog.kr/
 <details> 
     <summary> 👉 Click Me  ( Expand Detail Tag ) </summary>
 
+### Blog (tag : v0.4.1)
+- create utils package 
+- crypto 유틸 추가
+
+
 ### Blog (tag : v0.4)
 - TypeScript 로 1차 마이그레이션 완료
     - any 로 Type Assertion 된 코드는 개선이 필요
