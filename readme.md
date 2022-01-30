@@ -33,7 +33,6 @@ https://crispyblog.kr/
     <summary> 👉 Click Me  ( Expand Detail Tag ) </summary>
 
 ### Blog (tag : v0.4.1)
-- create utils package 
 - crypto 유틸 추가
 
 
