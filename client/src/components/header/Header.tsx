@@ -13,6 +13,8 @@ import AdminDialog from 'components/header/AdminDialog'
 import initKakao from 'util/initKakao'
 import ResultViewer from 'containers/search/ResultViewer'
 import { RootState } from "store/store"
+import NotificationButton from "components/header/NotificationButton"
+
 
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
@@ -105,7 +107,7 @@ function Header({ loading, data }: HeaderProps){
             // email: state.user.email,
             admin_flag: state.user.admin_flag,
     }), shallowEqual);
-        
+
     const handleSideBarOpen = () => { dispatch(transSideBar()) };
     
     // Admin Dialog
@@ -220,6 +222,7 @@ function Header({ loading, data }: HeaderProps){
                             <IconButton color="inherit" component={Link} to="/write" >
                                 <CreateIcon />
                             </IconButton>
+                            <NotificationButton />
                             <IconButton
                              onClick={signout}
                              color="inherit"

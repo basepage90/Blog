@@ -11,10 +11,11 @@ type Schema interface {
 }
 
 type schema struct {
-	articlesRsv resolver.ArticlesResolver
-	categoryRsv resolver.CategoryResolver
-	signinRsv   resolver.SigninResolver
-	replyRsv    resolver.ReplyResolver
+	articlesRsv     resolver.ArticlesResolver
+	categoryRsv     resolver.CategoryResolver
+	signinRsv       resolver.SigninResolver
+	replyRsv        resolver.ReplyResolver
+	notificationRsv resolver.NotificationResolver
 }
 
 func NewSchema(
@@ -22,12 +23,14 @@ func NewSchema(
 	categoryRsv resolver.CategoryResolver,
 	signinRsv resolver.SigninResolver,
 	replyRsv resolver.ReplyResolver,
+	notificationRsv resolver.NotificationResolver,
 ) Schema {
 	return &schema{
-		articlesRsv: articlesRsv,
-		categoryRsv: categoryRsv,
-		signinRsv:   signinRsv,
-		replyRsv:    replyRsv,
+		articlesRsv:     articlesRsv,
+		categoryRsv:     categoryRsv,
+		signinRsv:       signinRsv,
+		replyRsv:        replyRsv,
+		notificationRsv: notificationRsv,
 	}
 }
 
@@ -259,6 +262,17 @@ func (s *schema) Query() *graphql.Object {
 					},
 				},
 				Resolve: s.replyRsv.GetReplyByArticleId,
+			},
+			"notificationList": &graphql.Field{
+				Type:        graphql.NewList(notificationType),
+				Description: "List of notification",
+				Args: graphql.FieldConfigArgument{
+					"reading_status": &graphql.ArgumentConfig{
+						Type:         graphql.String,
+						DefaultValue: "",
+					},
+				},
+				Resolve: s.notificationRsv.GetNotificationList,
 			},
 		},
 	}

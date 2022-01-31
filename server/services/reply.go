@@ -16,12 +16,15 @@ type ReplyService interface {
 }
 
 type replyService struct {
-	repository repositories.ReplyRepository
+	repository             repositories.ReplyRepository
+	notificationRepository repositories.NotificationRepository
 }
 
-func NewReplyService(replyRepository repositories.ReplyRepository) ReplyService {
+func NewReplyService(replyRepository repositories.ReplyRepository,
+	notificationRepository repositories.NotificationRepository) ReplyService {
 	return &replyService{
-		repository: replyRepository,
+		repository:             replyRepository,
+		notificationRepository: notificationRepository,
 	}
 }
 
@@ -40,6 +43,7 @@ func (service *replyService) CreateReply(args map[string]interface{}) (interface
 		Admin_flag: args["admin_flag"].(bool),
 	}
 	res, err := service.repository.InsertReply(inputData)
+	service.notificationRepository.InsertNotification(inputData)
 	return res, err
 }
 

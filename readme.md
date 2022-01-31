@@ -28,13 +28,19 @@ https://crispyblog.kr/
 - Docker
 - NginX
 
+### Enviroment Change
+- router.go / dbConfig.go / config.go
+- AddressConstant.tsx
+
 ## Version History
 <details> 
     <summary> 👉 Click Me  ( Expand Detail Tag ) </summary>
 
+### Blog (tag : v0.4.2)
+- admin 댓글 알림 추가 (미완성)
+
 ### Blog (tag : v0.4.1)
 - crypto 유틸 추가
-
 
 ### Blog (tag : v0.4)
 - TypeScript 로 1차 마이그레이션 완료

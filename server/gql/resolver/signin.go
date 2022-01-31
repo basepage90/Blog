@@ -2,7 +2,6 @@ package resolver
 
 import (
 	"fmt"
-	"log"
 	"net/http"
 
 	"github.com/gin-gonic/gin"
@@ -48,11 +47,6 @@ func (rsv *signinResolver) SendAuthEmail(params graphql.ResolveParams) (interfac
 		if err == nil {
 			// 인증메일 발송
 			sendErr := utils.SendCertiMail(res)
-
-			log.Println("SendCertiMail error start--------")
-			log.Println(sendErr)
-			log.Println("SendCertiMail error end --------")
-
 			if sendErr != nil {
 				// ctx.JSON(http.StatusUnauthorized, gin.H{})
 			}

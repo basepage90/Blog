@@ -192,3 +192,15 @@ export const RemoveReply = gql`
                 password: $password)
   }
 `;
+
+export const NotificationList = gql`
+  query NotificationList($reading_status: String){
+    notificationList(reading_status: $reading_status){
+      article_id,
+      name,
+      contents
+      reg_date,
+      reading_status
+    }
+  }
+`;
