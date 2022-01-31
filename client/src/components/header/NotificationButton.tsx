@@ -14,7 +14,7 @@ function NotificationButton(){
 
     const loadingUnread = UnreadNotificationListQuery.loading;
     const dataUnread = UnreadNotificationListQuery.data;
-    const refetchUnread = UnreadNotificationListQuery.refetch;
+    // const refetchUnread = UnreadNotificationListQuery.refetch;
     
     return (
             <IconButton color="inherit" >
