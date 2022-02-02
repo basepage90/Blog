@@ -36,6 +36,6 @@ func InitRouter() {
 	// InitIndexRouter(rgUser)
 	// InitArticleRouter(rgUser)
 
-	r.Run(":5000")
-	// r.RunTLS(":5000", "/etc/letsencrypt/archive/crispyblog.kr/fullchain1.pem", "/etc/letsencrypt/archive/crispyblog.kr/privkey1.pem")
+	// r.Run(":5000")
+	r.RunTLS(":5000", "/etc/letsencrypt/archive/crispyblog.kr/fullchain1.pem", "/etc/letsencrypt/archive/crispyblog.kr/privkey1.pem")
 }
