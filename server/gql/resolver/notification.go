@@ -7,6 +7,7 @@ import (
 
 type NotificationResolver interface {
 	GetNotificationList(params graphql.ResolveParams) (interface{}, error)
+	ModifyReadingStatus(params graphql.ResolveParams) (interface{}, error)
 }
 
 type notificationResolver struct {
@@ -21,5 +22,10 @@ func NewNotificationResolver(service services.NotificationService) NotificationR
 
 func (rsv *notificationResolver) GetNotificationList(params graphql.ResolveParams) (interface{}, error) {
 	res, err := rsv.service.GetNotificationList(params.Args)
+	return res, err
+}
+
+func (rsv *notificationResolver) ModifyReadingStatus(params graphql.ResolveParams) (interface{}, error) {
+	res, err := rsv.service.ModifyReadingStatus(params.Args)
 	return res, err
 }

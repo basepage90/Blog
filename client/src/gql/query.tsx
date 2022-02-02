@@ -196,11 +196,18 @@ export const RemoveReply = gql`
 export const NotificationList = gql`
   query NotificationList($reading_status: String){
     notificationList(reading_status: $reading_status){
+      id,
       article_id,
       name,
       contents
       reg_date,
       reading_status
     }
+  }
+`;
+
+export const ModifyReadingStatus = gql`
+  mutation ModifyReadingStatus($id: ID, $reading_status: String){
+    modifyReadingStatus(id: $id, reading_status: $reading_status)
   }
 `;

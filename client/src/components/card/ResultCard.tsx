@@ -167,20 +167,19 @@ export default function ResultCard({data}: ResultCardProps){
 
     return (
         <Link to={{pathname: `/${category_lg}/${category_md}/${id}`}} style={{textDecoration: 'none'}}>
-        <Item>
-            {thumbnail === "" ? <Thumb /> : <Thumb style={{backgroundImage: 'url("'+thumbnail+'")'}} />}
-            <Article>
-                <h4 className="title">{doTextHighlight(title,"title")}</h4>
-                <p className="resultText">{doTextHighlight(cutResultText(),"")}</p>
-                <span className="categoryInfo">
-                    {category_lg}{arrowIcon}{category_md}
-                    <div className="privacyWrapper">
-                        {privacy === 'private' && <span className="privacy">비공개</span>}
-                    </div>
-                </span>
-              
-            </Article>
-        </Item>
+            <Item>
+                {thumbnail === "" ? <Thumb /> : <Thumb style={{backgroundImage: 'url("'+thumbnail+'")'}} />}
+                <Article>
+                    <h4 className="title">{doTextHighlight(title,"title")}</h4>
+                    <p className="resultText">{doTextHighlight(cutResultText(),"")}</p>
+                    <span className="categoryInfo">
+                        {category_lg}{arrowIcon}{category_md}
+                        <div className="privacyWrapper">
+                            {privacy === 'private' && <span className="privacy">비공개</span>}
+                        </div>
+                    </span>
+                </Article>
+            </Item>
         </Link>
     );
 };

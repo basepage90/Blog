@@ -173,6 +173,19 @@ func (s *schema) Mutation() *graphql.Object {
 				},
 				Resolve: s.replyRsv.RemoveReply,
 			},
+			"modifyReadingStatus": &graphql.Field{
+				Type:        graphql.Int,
+				Description: "modify notification's ReadingStauts",
+				Args: graphql.FieldConfigArgument{
+					"id": &graphql.ArgumentConfig{
+						Type: graphql.ID,
+					},
+					"reading_status": &graphql.ArgumentConfig{
+						Type: graphql.String,
+					},
+				},
+				Resolve: s.notificationRsv.ModifyReadingStatus,
+			},
 		},
 	}
 	return graphql.NewObject(objectConfig)

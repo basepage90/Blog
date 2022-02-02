@@ -1,14 +1,15 @@
 import { combineReducers, configureStore } from '@reduxjs/toolkit';
-import error, {ErrorState} from 'store/error';
-import search, {SearchState} from 'store/search';
-import sideBarHidden, {SideBarHiddenState} from 'store/sideBarHidden';
-import menuClick, {MenuClickState} from 'store/menuClick';
-import admin, {AdminState} from 'store/admin';
-import snackBar, {SnackBarState} from 'store/snackBar';
-import article, {ArticleState} from 'store/article';
-import publish, {PublishState} from 'store/publish';
-import post, {PostState} from 'store/post';
-import user, {UserState} from 'store/user';
+import error, { ErrorState } from 'store/error';
+import search, { SearchState } from 'store/search';
+import sideBarHidden, { SideBarHiddenState } from 'store/sideBarHidden';
+import menuClick, { MenuClickState } from 'store/menuClick';
+import admin, { AdminState } from 'store/admin';
+import snackBar, { SnackBarState } from 'store/snackBar';
+import article, { ArticleState } from 'store/article';
+import publish, { PublishState } from 'store/publish';
+import post, { PostState } from 'store/post';
+import user, { UserState } from 'store/user';
+import notification, { NotificationState } from 'store/notification';
 
 export type RootState = {
     error: ErrorState;
@@ -21,6 +22,8 @@ export type RootState = {
     publish: PublishState;
     post: PostState;
     user: UserState;
+    notification: NotificationState;
+
 };
 
 const rootReducer = combineReducers({
@@ -34,6 +37,7 @@ const rootReducer = combineReducers({
     publish: publish.reducer,
     post: post.reducer,
     user: user.reducer,
+    notification: notification.reducer,
 });
 
 const store = configureStore({
@@ -52,5 +56,6 @@ export const {
     showResult, hiddenResult, updateSearchword,
     updateSearchwordMobile, openSearchDialog, closeSearchDialog
 } = search.actions;
+export const { updateFucusNoti } = notification.actions;
 
 export default store;

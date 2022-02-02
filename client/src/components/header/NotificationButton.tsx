@@ -1,29 +1,44 @@
 import React from "react";
-import IconButton from '@material-ui/core/IconButton';
 import { NotificationList } from 'gql/query';
 import { useQuery } from "@apollo/client";
+import { useDispatch } from "react-redux";
+import { updateFucusNoti } from "store/store";
+
+import IconButton from '@material-ui/core/IconButton';
 import NotificationImportantOutlined from '@material-ui/icons/NotificationImportantOutlined';
 import Notifications from '@material-ui/icons/Notifications';
 
-function NotificationButton(){
-    const UnreadNotificationListQuery  = useQuery(NotificationList,{
-        variables: {reading_status: "UNREAD"},
+function NotificationButton() {
+    const { loading, data } = useQuery(NotificationList, {
+        variables: { reading_status: "UNREAD" },
         fetchPolicy: 'network-only'
         // fetchPolicy: "cache-first",
     });
 
-    const loadingUnread = UnreadNotificationListQuery.loading;
-    const dataUnread = UnreadNotificationListQuery.data;
-    // const refetchUnread = UnreadNotificationListQuery.refetch;
-    
+    const dispatch = useDispatch();
+
+    const showNotification = () => {
+        dispatch(updateFucusNoti());
+    }
+
+    const getUnreadCount = (notificationList: Array<Object>) => {
+        let count = 0
+        notificationList.forEach((notification: any) => {
+            if (notification.reading_status === "UNREAD") {
+                count++;
+            }
+        });
+        return count;
+    }
+
     return (
-            <IconButton color="inherit" >
-                {!loadingUnread && dataUnread.notificationList.length > 0 ?
-                    <NotificationImportantOutlined />
+        <IconButton color="inherit" onClick={showNotification} >
+            {!loading && getUnreadCount(data.notificationList) > 0 ?
+                <NotificationImportantOutlined />
                 :
-                    <Notifications />
-                }
-            </IconButton>
+                <Notifications />
+            }
+        </IconButton>
     );
 };
 

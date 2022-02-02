@@ -9,11 +9,12 @@ import { useDispatch, useSelector, shallowEqual } from "react-redux";
 import SearchBox from "components/header/SearchBox";
 import SpeedDialButton from "components/header/SpeedDialButton"
 import {Link} from "react-router-dom";
-import AdminDialog from 'components/header/AdminDialog'
-import initKakao from 'util/initKakao'
-import ResultViewer from 'containers/search/ResultViewer'
-import { RootState } from "store/store"
-import NotificationButton from "components/header/NotificationButton"
+import AdminDialog from 'components/header/AdminDialog';
+import initKakao from 'util/initKakao';
+import ResultViewer from 'containers/search/ResultViewer';
+import { RootState } from "store/store";
+import NotificationButton from "components/header/NotificationButton";
+import NotificationViewer from "containers/notification/NotificationViewer";
 
 
 import AppBar from '@material-ui/core/AppBar';
@@ -246,6 +247,7 @@ function Header({ loading, data }: HeaderProps){
                 </StToolbar>
             </StAppBar>
             <ResultViewer />
+            <NotificationViewer />
         </Div>
     )
 };

@@ -13,8 +13,9 @@ import (
 )
 
 type NotificationRepository interface {
+	FindAllByReadingStatusAndOneMonth(reading_status string) (interface{}, error)
 	InsertNotification(inputData models.Reply) (interface{}, error)
-	FindAllByReadingStatus(reading_status string) (interface{}, error)
+	UpdateReadingStatus(inputData models.Notification) (interface{}, error)
 }
 
 type notificationRepository struct {
@@ -27,6 +28,34 @@ func NewNotificationRepository() NotificationRepository {
 	return &notificationRepository{
 		db: db,
 	}
+}
+
+func (r *notificationRepository) FindAllByReadingStatusAndOneMonth(reading_status string) (interface{}, error) {
+	var res []models.Notification
+	now := time.Now()
+	currentDate := now.Format("2006-01-02 15:04:05")
+	AMonthAgo := now.AddDate(0, -1, 0).Format("2006-01-02 15:04:05")
+
+	filter := bson.M{
+		"reg_date": bson.M{"$lte": currentDate, "$gte": AMonthAgo},
+	}
+
+	if reading_status != "" {
+		filter = bson.M{
+			"reading_status": reading_status,
+			"reg_date":       bson.M{"$lte": currentDate, "$gte": AMonthAgo},
+		}
+	}
+
+	opts := options.Find().
+		SetSort(bson.M{"reg_date": -1}).
+		SetCollation(&options.Collation{
+			Locale:          "en_US",
+			NumericOrdering: true,
+		})
+	data, err := r.db.Find(context.TODO(), filter, opts)
+	err = data.All(context.TODO(), &res)
+	return res, err
 }
 
 func (r *notificationRepository) InsertNotification(inputData models.Reply) (interface{}, error) {
@@ -48,22 +77,11 @@ func (r *notificationRepository) InsertNotification(inputData models.Reply) (int
 	return res, err
 }
 
-func (r *notificationRepository) FindAllByReadingStatus(reading_status string) (interface{}, error) {
-	var res []models.Notification
-
-	filter := bson.M{}
-
-	if reading_status != "" {
-		filter = bson.M{"reading_status": reading_status}
-	}
-
-	opts := options.Find().
-		SetSort(bson.M{"reg_date": -1}).
-		SetCollation(&options.Collation{
-			Locale:          "en_US",
-			NumericOrdering: true,
-		})
-	data, err := r.db.Find(context.TODO(), filter, opts)
-	err = data.All(context.TODO(), &res)
-	return res, err
+func (r *notificationRepository) UpdateReadingStatus(inputData models.Notification) (interface{}, error) {
+	result, err := r.db.UpdateOne(
+		context.TODO(),
+		bson.M{"_id": inputData.Id},
+		bson.M{"$set": bson.M{"reading_status": inputData.Reading_status}},
+	)
+	return result.ModifiedCount, err
 }
