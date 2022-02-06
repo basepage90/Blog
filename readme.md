@@ -36,6 +36,10 @@ https://crispyblog.kr/
 <details> 
     <summary> 👉 Click Me  ( Expand Detail Tag ) </summary>
 
+### Blog (tag : v0.4.4)
+- locale time 적용
+    - UTC -> Asia/Seoul
+
 ### Blog (tag : v0.4.3)
 - adming 댓글 알림 추가(refactoring 필요: presentation, container 분리 후 header 상위에서 데이터 전달 필요 -> 건수 카운트와 refetch 등등...)
 

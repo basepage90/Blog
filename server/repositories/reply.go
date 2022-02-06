@@ -37,7 +37,8 @@ func NewReplyRepository() ReplyRepository {
 }
 
 func (r *replyRepository) InsertReply(inputData models.Reply) (interface{}, error) {
-	reg_date := time.Now().Format("2006-01-02 15:04:05")
+	loc, _ := time.LoadLocation("Asia/Seoul")
+	reg_date := time.Now().In(loc).Format("2006-01-02 15:04:05")
 	insertData := bson.M{}
 
 	if inputData.Depth == 0 {
