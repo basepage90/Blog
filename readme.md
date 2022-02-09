@@ -36,6 +36,11 @@ https://crispyblog.kr/
 <details> 
     <summary> 👉 Click Me  ( Expand Detail Tag ) </summary>
 
+### Blog (tag : v0.4.4.1)
+- 버그 수정
+    - locale time 빠뜨린 것 추가
+    - notification card css edit
+
 ### Blog (tag : v0.4.4)
 - locale time 적용
     - UTC -> Asia/Seoul

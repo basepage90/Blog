@@ -66,7 +66,6 @@ const Article = styled.div<{ reading_status: string }>`
         color: #808999;
         display: flex;
         align-items: center;
-        width: 40%;
     }
 `;
 

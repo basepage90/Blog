@@ -33,7 +33,8 @@ func NewNotificationRepository() NotificationRepository {
 func (r *notificationRepository) FindAllByReadingStatusAndOneMonth(reading_status string) (interface{}, error) {
 	var res []models.Notification
 	now := time.Now()
-	currentDate := now.Format("2006-01-02 15:04:05")
+	loc, _ := time.LoadLocation("Asia/Seoul")
+	currentDate := time.Now().In(loc).Format("2006-01-02 15:04:05")
 	AMonthAgo := now.AddDate(0, -1, 0).Format("2006-01-02 15:04:05")
 
 	filter := bson.M{
