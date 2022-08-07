@@ -21,7 +21,7 @@ type signinRepository struct {
 
 func NewSigninRepository() SigninRepository {
 	client := db.GetClient()
-	db := client.Database("admin").Collection("user")
+	db := client.Database("blog").Collection("user")
 	return &signinRepository{
 		db: db,
 	}

@@ -20,7 +20,7 @@ type categoryRepository struct {
 
 func NewCategoryRepository() CategoryRepository {
 	client := db.GetClient()
-	db := client.Database("admin").Collection("category")
+	db := client.Database("blog").Collection("category")
 
 	return &categoryRepository{
 		db: db,

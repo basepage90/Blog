@@ -28,8 +28,8 @@ type replyRepository struct {
 
 func NewReplyRepository() ReplyRepository {
 	client := db.GetClient()
-	db := client.Database("admin").Collection("reply")
-	seqdb := client.Database("admin").Collection("sequence")
+	db := client.Database("blog").Collection("reply")
+	seqdb := client.Database("blog").Collection("sequence")
 	return &replyRepository{
 		db:    db,
 		seqdb: seqdb,

@@ -31,8 +31,8 @@ type articlesRepository struct {
 
 func NewArticlesRepository() ArticlesRepository {
 	client := db.GetClient()
-	db := client.Database("admin").Collection("articles")
-	seqdb := client.Database("admin").Collection("sequence")
+	db := client.Database("blog").Collection("articles")
+	seqdb := client.Database("blog").Collection("sequence")
 	return &articlesRepository{
 		db:    db,
 		seqdb: seqdb,

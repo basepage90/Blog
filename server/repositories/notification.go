@@ -24,7 +24,7 @@ type notificationRepository struct {
 
 func NewNotificationRepository() NotificationRepository {
 	client := db.GetClient()
-	db := client.Database("admin").Collection("notification")
+	db := client.Database("blog").Collection("notification")
 	return &notificationRepository{
 		db: db,
 	}

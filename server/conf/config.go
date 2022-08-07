@@ -37,8 +37,11 @@ func init() {
 	)
 
 	MongoDBConfig = fmt.Sprintf(
-		"mongodb://%s:%s",
+		"mongodb://%s:%s@%s:%s/%s",
+		appConfig["MONGODB_USER"],
+		appConfig["MONGODB_PASSWORD"],
 		appConfig["MONGODB_HOST"],
 		appConfig["MONGODB_PORT"],
+		appConfig["MONGODB_DBNAME"],
 	)
 }
