@@ -36,6 +36,10 @@ https://crispyblog.kr/
 <details> 
     <summary> 👉 Click Me  ( Expand Detail Tag ) </summary>
 
+
+### Blog (tag : v0.4.5)
+- MongoDB Authorization enabled
+
 ### Blog (tag : v0.4.4.1)
 - bug fix
     - locale time 빠뜨린 것 추가
