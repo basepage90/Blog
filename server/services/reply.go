@@ -43,7 +43,11 @@ func (service *replyService) CreateReply(args map[string]interface{}) (interface
 		Admin_flag: args["admin_flag"].(bool),
 	}
 	res, err := service.repository.InsertReply(inputData)
-	service.notificationRepository.InsertNotification(inputData)
+
+	if inputData.Admin_flag != true {
+		service.notificationRepository.InsertNotification(inputData)
+	}
+
 	return res, err
 }
 
