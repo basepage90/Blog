@@ -36,8 +36,13 @@ https://crispyblog.kr/
 <details> 
     <summary> 👉 Click Me  ( Expand Detail Tag ) </summary>
 
+
+### Blog (tag : v0.4.7)
+- upload router : 주석 정리, 파일이름 길이 관련 로직 수정
+
 ### Blog (tag : v0.4.6)
 - Notification :  관리자 댓글일, 경우 등록하지 않음
+
 ### Blog (tag : v0.4.5)
 - MongoDB Authorization enabled
 

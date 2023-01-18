@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { MouseEventHandler, useState } from 'react';
 import styled from 'styled-components';
 
 import TextField from '@material-ui/core/TextField';
@@ -92,7 +92,7 @@ const CountDescSpan = styled.span<{ currentLength: number, maxLength: number }>`
 interface ReplyWriterProps {
   replyId: number | null;
   admin_flag: boolean;
-  doCreateReply: () => void;
+  doCreateReply: MouseEventHandler<HTMLButtonElement> | undefined;
 }
 
 const ReplyWriter = ({replyId,admin_flag,doCreateReply}: ReplyWriterProps) => {
