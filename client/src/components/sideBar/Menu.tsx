@@ -17,6 +17,7 @@ import RestaurantIcon from '@material-ui/icons/Restaurant';
 import ExpandLess from '@material-ui/icons/ExpandLess';
 import ExpandMore from '@material-ui/icons/ExpandMore';
 import Collapse from '@material-ui/core/Collapse';
+import CreateIcon from '@material-ui/icons/Create';
 
 const JustDiv = styled.div`
 `;
@@ -93,6 +94,8 @@ function Menu(){
           return <HeadsetIcon />
         case 'recipe' :
           return  <RestaurantIcon />
+        case 'diary' :
+          return  <CreateIcon />
         default :
           return 
       }

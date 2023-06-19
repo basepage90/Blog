@@ -85,6 +85,8 @@ const selectIcon = (text: string) => {
             return <HeadsetIcon key="headset" />
         case 'recipe' :
             return  <RestaurantIcon key="restaurant" />
+        case 'diary' :
+                return  <CreateIcon key="diary" />
         default : 
             return <HomeIcon key="home" /> 
     }
