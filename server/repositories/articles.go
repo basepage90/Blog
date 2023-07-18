@@ -151,10 +151,15 @@ func (r *articlesRepository) FindAll(cursorId, limit int) ([]models.Articles, er
 
 	if cursorId == 0 {
 		// first fetch
-		data, err = r.db.Find(context.TODO(), bson.M{}, opts)
+		data, err = r.db.Find(context.TODO(), bson.M{
+			"category_md": bson.M{"$ne": "diary"},
+		}, opts)
 	} else {
 		// fetchMore : cursor pagination
-		data, err = r.db.Find(context.TODO(), bson.M{"_id": bson.M{"$lt": cursorId}}, opts)
+		data, err = r.db.Find(context.TODO(), bson.M{
+			"_id":         bson.M{"$lt": cursorId},
+			"category_md": bson.M{"$ne": "diary"},
+		}, opts)
 	}
 
 	err = data.All(context.TODO(), &res)
