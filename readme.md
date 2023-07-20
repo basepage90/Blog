@@ -36,6 +36,9 @@ https://crispyblog.kr/
 <details> 
     <summary> 👉 Click Me  ( Expand Detail Tag ) </summary>
 
+### Blog (tag : v0.4.7)
+- Articles : 조건에 제외할 카테고리 추가
+
 ### Blog (tag : v0.4.6)
 - Notification :  관리자 댓글일, 경우 등록하지 않음
 

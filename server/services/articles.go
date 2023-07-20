@@ -57,6 +57,7 @@ func (service *articlesService) FindAll(args map[string]interface{}) ([]models.A
 	var limit int
 	var searchType int
 	var searchWord string
+	var excludedCategoryLg string
 
 	if args["cursorId"] == nil {
 		cursorId = 0
@@ -82,12 +83,18 @@ func (service *articlesService) FindAll(args map[string]interface{}) ([]models.A
 		searchWord = args["searchWord"].(string)
 	}
 
+	if args["excludedCategoryLg"] == nil {
+		excludedCategoryLg = ""
+	} else {
+		excludedCategoryLg = args["excludedCategoryLg"].(string)
+	}
+
 	switch searchType {
 	case 1:
 		res, err = service.repository.FindAllBySearchWord(cursorId, limit, searchWord)
 		break
 	default:
-		res, err = service.repository.FindAll(cursorId, limit)
+		res, err = service.repository.FindAll(cursorId, limit, excludedCategoryLg)
 		break
 	}
 

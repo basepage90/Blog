@@ -17,7 +17,7 @@ type ArticlesRepository interface {
 	FindAllByCategorylg(category_lg string) ([]models.Articles, error)
 	FindAllByCategorymd(category_lg, caategory_md string) ([]models.Articles, error)
 	FindAllBySearchWord(cursorId, limit int, searchWord string) ([]models.Articles, error)
-	FindAll(cursorId, limit int) ([]models.Articles, error)
+	FindAll(cursorId, limit int, excludedCategoryLg string) ([]models.Articles, error)
 	UpdatePrivacy(inputData models.Articles) (interface{}, error)
 	UpdateArticles(inputData models.Articles) (interface{}, error)
 	DeleteArticlesById(id int) (interface{}, error)
@@ -136,7 +136,7 @@ func (r *articlesRepository) FindAllBySearchWord(cursorId, limit int, searchWord
 	return res, err
 }
 
-func (r *articlesRepository) FindAll(cursorId, limit int) ([]models.Articles, error) {
+func (r *articlesRepository) FindAll(cursorId, limit int, excludedCategoryLg string) ([]models.Articles, error) {
 	var res []models.Articles
 	var data *mongo.Cursor
 	var err error
@@ -152,13 +152,13 @@ func (r *articlesRepository) FindAll(cursorId, limit int) ([]models.Articles, er
 	if cursorId == 0 {
 		// first fetch
 		data, err = r.db.Find(context.TODO(), bson.M{
-			"category_md": bson.M{"$ne": "diary"},
+			"category_lg": bson.M{"$ne": excludedCategoryLg},
 		}, opts)
 	} else {
 		// fetchMore : cursor pagination
 		data, err = r.db.Find(context.TODO(), bson.M{
 			"_id":         bson.M{"$lt": cursorId},
-			"category_md": bson.M{"$ne": "diary"},
+			"category_lg": bson.M{"$ne": excludedCategoryLg},
 		}, opts)
 	}
 

@@ -240,6 +240,9 @@ func (s *schema) Query() *graphql.Object {
 					"searchWord": &graphql.ArgumentConfig{
 						Type: graphql.String,
 					},
+					"excludedCategoryLg": &graphql.ArgumentConfig{
+						Type: graphql.String,
+					},
 				},
 				Resolve: s.articlesRsv.GetArticlesAll,
 			},

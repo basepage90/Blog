@@ -20,7 +20,7 @@ const Div = styled.div`
 
 const LatestViewer = () => {
     const { loading, data, fetchMore } = useQuery(GetArticlesList,{
-        variables: { cursorId: 0, limit: limit },
+        variables: { cursorId: 0, limit: limit, excludedCategoryLg: 'diary' },
     })
 
     const { admin_flag } = useSelector( (state: RootState) => ({admin_flag: state.user.admin_flag}) );
