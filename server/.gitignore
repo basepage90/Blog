@@ -11,3 +11,6 @@
 ## img
 static/img/postImg/*
 static/img/thumbnail/*
+
+## log
+blog*.log

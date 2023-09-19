@@ -10,6 +10,7 @@ func CORSMiddleware() gin.HandlerFunc {
 		conf.BaseURL,
 		"https://3.37.93.176",
 		"https://localhost:443",
+		"http://localhost:443",
 		"http://localhost:3000",
 	}
 	return func(c *gin.Context) {

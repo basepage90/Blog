@@ -204,7 +204,7 @@ $(document).ready(function() {
 
     function loginWithKakao() {
       Kakao.Auth.authorize({
-        redirectUri: 'http://wjk.ddns.net:5000/login/kakao'
+        redirectUri: 'https://crispyblog.kr:5000/login/kakao'
       })
     }
           
