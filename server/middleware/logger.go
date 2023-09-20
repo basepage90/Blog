@@ -13,12 +13,11 @@ func Logger() gin.HandlerFunc {
 		loc, _ := time.LoadLocation("Asia/Seoul")
 		kstTime := param.TimeStamp.In(loc).Format(layout)
 
-		return fmt.Sprintf("%s - [%s] %s %s %s %d %s \n",
+		return fmt.Sprintf("%s - [%s] %s %s %d %s \n",
 			param.ClientIP,
 			kstTime,
 			param.Method,
 			param.Path,
-			param.Request.Referer(),
 			param.StatusCode,
 			param.Latency,
 		)
