@@ -15,7 +15,7 @@ func InitRouter() {
 	// r.Use()
 	r.Use(middleware.CORSMiddleware())
 	r.Use(middleware.CookieMiddleware())
-	r.Use(gin.Logger())
+	// r.Use(gin.Logger()) // gin default logger
 	r.Use(middleware.Logger()) // 커스텀 Logger
 
 	r.Use(gin.Recovery())

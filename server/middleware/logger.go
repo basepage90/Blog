@@ -9,11 +9,16 @@ import (
 
 func Logger() gin.HandlerFunc {
 	return gin.LoggerWithFormatter(func(param gin.LogFormatterParams) string {
-		return fmt.Sprintf("%s - [%s] %s %s %d %s \n",
+		layout := "2006-01-02 15:04:05.000"
+		loc, _ := time.LoadLocation("Asia/Seoul")
+		kstTime := param.TimeStamp.In(loc).Format(layout)
+
+		return fmt.Sprintf("%s - [%s] %s %s %s %d %s \n",
 			param.ClientIP,
-			param.TimeStamp.Format(time.RFC822),
+			kstTime,
 			param.Method,
 			param.Path,
+			param.Request.Referer(),
 			param.StatusCode,
 			param.Latency,
 		)
