@@ -14,8 +14,8 @@ import (
 type ArticlesRepository interface {
 	InsertArticles(inputData models.Articles) (interface{}, error)
 	FindById(id int) (models.Articles, error)
-	FindAllByCategorylg(category_lg string) ([]models.Articles, error)
-	FindAllByCategorymd(category_lg, caategory_md string) ([]models.Articles, error)
+	FindAllByCategorylg(cursorId, limit int, category_lg string) ([]models.Articles, error)
+	FindAllByCategorymd(cursorId, limit int, category_lg, caategory_md string) ([]models.Articles, error)
 	FindAllBySearchWord(cursorId, limit int, searchWord string) ([]models.Articles, error)
 	FindAll(cursorId, limit int, excludedCategoryLg string) ([]models.Articles, error)
 	UpdatePrivacy(inputData models.Articles) (interface{}, error)
@@ -70,29 +70,55 @@ func (r *articlesRepository) FindById(id int) (models.Articles, error) {
 	return res, err
 }
 
-func (r *articlesRepository) FindAllByCategorylg(category_lg string) ([]models.Articles, error) {
+func (r *articlesRepository) FindAllByCategorylg(cursorId, limit int, category_lg string) ([]models.Articles, error) {
+	var data *mongo.Cursor
+	var err error
 	var res []models.Articles
+
 	opts := options.Find().
 		SetSort(bson.M{"_id": -1}).
+		SetLimit(int64(limit)).
 		SetCollation(&options.Collation{
 			Locale:          "en_US",
 			NumericOrdering: true,
 		})
-	data, err := r.db.Find(context.TODO(), bson.M{"category_lg": category_lg}, opts)
+
+	if cursorId == 0 {
+		// first fetch
+		data, _ = r.db.Find(context.TODO(), bson.M{"category_lg": category_lg}, opts)
+	} else {
+		// fetchMore : cursor pagination
+		data, _ = r.db.Find(context.TODO(), bson.M{"category_lg": category_lg, "_id": bson.M{"$lt": cursorId}}, opts)
+	}
+
 	err = data.All(context.TODO(), &res)
+
 	return res, err
 }
 
-func (r *articlesRepository) FindAllByCategorymd(category_lg, category_md string) ([]models.Articles, error) {
+func (r *articlesRepository) FindAllByCategorymd(cursorId, limit int, category_lg, category_md string) ([]models.Articles, error) {
+	var data *mongo.Cursor
+	var err error
 	var res []models.Articles
+
 	opts := options.Find().
 		SetSort(bson.M{"_id": -1}).
+		SetLimit(int64(limit)).
 		SetCollation(&options.Collation{
 			Locale:          "en_US",
 			NumericOrdering: true,
 		})
-	data, err := r.db.Find(context.TODO(), bson.M{"category_lg": category_lg, "category_md": category_md}, opts)
+
+	if cursorId == 0 {
+		// first fetch
+		data, _ = r.db.Find(context.TODO(), bson.M{"category_lg": category_lg, "category_md": category_md}, opts)
+	} else {
+		// fetchMore : cursor pagination
+		data, _ = r.db.Find(context.TODO(),  bson.M{"category_lg": category_lg, "category_md": category_md, "_id": bson.M{"$lt": cursorId}}, opts)
+	}
+
 	err = data.All(context.TODO(), &res)
+
 	return res, err
 }
 
@@ -111,7 +137,7 @@ func (r *articlesRepository) FindAllBySearchWord(cursorId, limit int, searchWord
 
 	if cursorId == 0 {
 		// first fetch
-		data, err = r.db.Find(context.TODO(), bson.M{
+		data, _ = r.db.Find(context.TODO(), bson.M{
 			"$or": []bson.M{
 				{"title": bson.M{"$regex": searchWord, "$options": "i"}},
 				{"desc": bson.M{"$regex": searchWord, "$options": "i"}},
@@ -121,7 +147,7 @@ func (r *articlesRepository) FindAllBySearchWord(cursorId, limit int, searchWord
 		}, opts)
 	} else {
 		// fetchMore : cursor pagination
-		data, err = r.db.Find(context.TODO(), bson.M{
+		data, _ = r.db.Find(context.TODO(), bson.M{
 			"_id": bson.M{"$lt": cursorId},
 			"$or": []bson.M{
 				{"title": bson.M{"$regex": searchWord, "$options": "i"}},
@@ -151,12 +177,12 @@ func (r *articlesRepository) FindAll(cursorId, limit int, excludedCategoryLg str
 
 	if cursorId == 0 {
 		// first fetch
-		data, err = r.db.Find(context.TODO(), bson.M{
+		data, _ = r.db.Find(context.TODO(), bson.M{
 			"category_lg": bson.M{"$ne": excludedCategoryLg},
 		}, opts)
 	} else {
 		// fetchMore : cursor pagination
-		data, err = r.db.Find(context.TODO(), bson.M{
+		data, _ = r.db.Find(context.TODO(), bson.M{
 			"_id":         bson.M{"$lt": cursorId},
 			"category_lg": bson.M{"$ne": excludedCategoryLg},
 		}, opts)
