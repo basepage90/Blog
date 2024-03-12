@@ -32,18 +32,33 @@ func (service *articlesService) FindById(args map[string]interface{}) (models.Ar
 }
 
 func (service *articlesService) FindAllByCategory(args map[string]interface{}) ([]models.Articles, error) {
-	category_lg, _ := args["category_lg"].(string)
-	category_md, _ := args["category_md"].(string)
-
 	var res []models.Articles
 	var err error
 
+	var cursorId int
+	var limit int
+	category_lg, _ := args["category_lg"].(string)
+	category_md, _ := args["category_md"].(string)
+
+
+	if args["cursorId"] == nil {
+		cursorId = 0
+	} else {
+		cursorId = args["cursorId"].(int)
+	}
+
+	if args["limit"] == nil {
+		limit = 10
+	} else {
+		limit = args["limit"].(int)
+	}
+
 	switch category_md {
 	case "":
-		res, err = service.repository.FindAllByCategorylg(category_lg)
+		res, err = service.repository.FindAllByCategorylg(cursorId, limit, category_lg)
 		break
 	default:
-		res, err = service.repository.FindAllByCategorymd(category_lg, category_md)
+		res, err = service.repository.FindAllByCategorymd(cursorId, limit, category_lg, category_md)
 		break
 	}
 
