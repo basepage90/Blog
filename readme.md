@@ -37,7 +37,7 @@ https://crispyblog.kr/
     <summary> 👉 Click Me  ( Expand Detail Tag ) </summary>
 
 ### Blog (tag : v0.4.8)
-- Articles : card List 페이지네이션 추가
+- Articles : card List 페이징 추가
 
 ### Blog (tag : v0.4.7)
 - Articles : 조건에 제외할 카테고리 추가

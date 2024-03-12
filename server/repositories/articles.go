@@ -92,7 +92,6 @@ func (r *articlesRepository) FindAllByCategorylg(cursorId, limit int, category_l
 	}
 
 	err = data.All(context.TODO(), &res)
-
 	return res, err
 }
 
@@ -118,7 +117,6 @@ func (r *articlesRepository) FindAllByCategorymd(cursorId, limit int, category_l
 	}
 
 	err = data.All(context.TODO(), &res)
-
 	return res, err
 }
 
