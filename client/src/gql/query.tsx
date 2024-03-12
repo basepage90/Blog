@@ -33,8 +33,8 @@ export const GetArticles = gql`
 `;
 
 export const GetCardList = gql`
-  query GetCardList($cursorId: Int, $category_lg: String!, $category_md: String!) {
-	  articlesListByCategory (cursorId: $cursorId, category_lg: $category_lg, category_md: $category_md) {
+  query GetCardList($cursorId: Int, $limit: Int, $category_lg: String!, $category_md: String!) {
+	  articlesListByCategory (cursorId: $cursorId, limit: $limit, category_lg: $category_lg, category_md: $category_md) {
       category_lg,
       category_md,
       id,

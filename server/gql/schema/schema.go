@@ -209,6 +209,12 @@ func (s *schema) Query() *graphql.Object {
 				Type:        graphql.NewList(articlesType),
 				Description: "List of articles by category",
 				Args: graphql.FieldConfigArgument{
+					"cursorId": &graphql.ArgumentConfig{
+						Type: graphql.Int,
+					},
+					"limit": &graphql.ArgumentConfig{
+						Type: graphql.Int,
+					},
 					"category_lg": &graphql.ArgumentConfig{
 						Type: graphql.String,
 					},

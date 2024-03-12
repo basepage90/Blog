@@ -17,7 +17,7 @@ const CardListViewer = () => {
     const { categoryLg, categoryMd } = useParams<{categoryLg: string, categoryMd: string}>();
 
      const { loading, data, fetchMore } = useQuery(GetCardList,{
-         variables: { cursorId: 0, category_lg: String(categoryLg), category_md: String(categoryMd, limit: limit },
+         variables: { cursorId: 0, category_lg: String(categoryLg), category_md: String(categoryMd), limit: limit },
          fetchPolicy: "cache-first"
     })
 
@@ -33,7 +33,7 @@ const CardListViewer = () => {
                 updateQuery: (prev, { fetchMoreResult }) => {
                     if (!fetchMoreResult) return prev;
                     return Object.assign({}, prev, {
-                        articlesList: [...prev.articlesList, ...fetchMoreResult.articlesList]
+                        articlesListByCategory: [...prev.articlesListByCategory, ...fetchMoreResult.articlesListByCategory]
                     });
                 }
             })
