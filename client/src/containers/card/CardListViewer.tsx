@@ -49,8 +49,10 @@ const CardListViewer = () => {
             <>
                 <Meta />
                 <GridContainer className="sub__container">
-                    {data.articlesListByCategory.map((articlesData: any, key: string) =>
-                        admin_flag === false && articlesData.privacy === "private" ? null : <Card data={articlesData} key={key}/>
+                    {data.articlesListByCategory.map((articlesData: any, key: string) => {
+                            cursorId = articlesData.id
+                            return admin_flag === false && articlesData.privacy === "private" ? null : <Card data={articlesData} key={key}/> ;
+                        }
                     )}
                 </GridContainer>
                 <div ref={ref} style={{visibility:'hidden', position: 'absolute', bottom: '300px', width:'1px',height:'1px'}} />
