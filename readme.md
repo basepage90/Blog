@@ -36,6 +36,9 @@ https://crispyblog.kr/
 <details> 
     <summary> 👉 Click Me  ( Expand Detail Tag ) </summary>
 
+### Blog (tag : v0.4.9)
+- instagram icon 추가
+
 ### Blog (tag : v0.4.8)
 - card List 페이징 추가 (기존에는 최근포스트에만 페이징 걸어놨었다;)
 
