@@ -28,6 +28,7 @@ func InitRouter() {
 	InitUploadRouter(rgGuest)
 	InitSigninRouter(rgGuest)
 	InitGql(rgGuest)
+	InitWhereuatRouter(rgGuest)
 	// InitLoginRouter(rgGuest)
 
 	// rgUser := r.Group("", middleware.AuthorizeJWT())
