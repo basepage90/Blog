@@ -44,7 +44,7 @@ func HandleSendPush(c *gin.Context) {
 }
 
 func getAccessToken() (string, error) {
-	jsonKey, err := ioutil.ReadFile("firebase-service-account.json")
+	jsonKey, err := ioutil.ReadFile("conf/firebase-service-account.json")
 	if err != nil {
 		return "", fmt.Errorf("read service account: %w", err)
 	}
