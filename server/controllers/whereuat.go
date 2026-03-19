@@ -69,7 +69,7 @@ func sendFCMMessage(accessToken, targetToken, title, body string) error {
 	message := map[string]interface{}{
 		"message": map[string]interface{}{
 			"token": targetToken,
-			"notification": map[string]string{
+			"data": map[string]string{
 				"title": title,
 				"body":  body,
 			},
