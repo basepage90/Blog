@@ -7,5 +7,5 @@ import (
 
 func InitWhereuatRouter(Router *gin.RouterGroup) {
 	Router.POST("/whereuat/send_push", controllers.HandleSendPush)
-	Router.POST("/whereuat-google/send_push", controllers.HandleSendPushGoogle)
+	Router.POST("/whereuat-naver/send_push", controllers.HandleSendPushNaver)
 }

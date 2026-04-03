@@ -19,23 +19,23 @@ type SendPushRequest struct {
 	Body        string `json:"body" binding:"required"`
 }
 
-func HandleSendPushGoogle(c *gin.Context) {
+func HandleSendPushNaver(c *gin.Context) {
 	var req SendPushRequest
 	if err := c.ShouldBindJSON(&req); err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
 		return
 	}
 
-	accessToken, err := getAccessTokenGoogle()
+	accessToken, err := getAccessTokenNaver()
 	if err != nil {
-		log.Printf("FCM access token error (google): %v", err)
+		log.Printf("FCM access token error (naver): %v", err)
 		c.JSON(http.StatusInternalServerError, gin.H{"error": "failed to get access token"})
 		return
 	}
 
-	err = sendFCMMessageGoogle(accessToken, req.TargetToken, req.Title, req.Body)
+	err = sendFCMMessageNaver(accessToken, req.TargetToken, req.Title, req.Body)
 	if err != nil {
-		log.Printf("FCM send error (google): %v", err)
+		log.Printf("FCM send error (naver): %v", err)
 		c.JSON(http.StatusInternalServerError, gin.H{"error": "failed to send push"})
 		return
 	}
@@ -127,8 +127,8 @@ func sendFCMMessage(accessToken, targetToken, title, body string) error {
 	return nil
 }
 
-func getAccessTokenGoogle() (string, error) {
-	jsonKey, err := ioutil.ReadFile("conf/firebase-service-account-google.json")
+func getAccessTokenNaver() (string, error) {
+	jsonKey, err := ioutil.ReadFile("conf/firebase-service-account-naver.json")
 	if err != nil {
 		return "", fmt.Errorf("read service account: %w", err)
 	}
@@ -146,8 +146,8 @@ func getAccessTokenGoogle() (string, error) {
 	return token.AccessToken, nil
 }
 
-func sendFCMMessageGoogle(accessToken, targetToken, title, body string) error {
-	projectID := "whereuat-17df6"
+func sendFCMMessageNaver(accessToken, targetToken, title, body string) error {
+	projectID := "whereuat-naver"
 	url := fmt.Sprintf("https://fcm.googleapis.com/v1/projects/%s/messages:send", projectID)
 
 	message := map[string]interface{}{
