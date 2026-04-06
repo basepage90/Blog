@@ -10,14 +10,27 @@ import (
 var MysqlConfig string
 var MongoDBConfig string
 
-var BaseURL string = "https://crispyblog.kr"
-var TokenURL string = "crispyblog.kr"
+var IsLocal bool
 
-// var BaseURL string = "http://wjkim.ddns.net"
-// var TokenURL string = "wjkim.ddns.net"
+var BaseURL string
+var TokenURL string
+var ServerPort string
+var ClientPort string
 
-var ServerPort string = ":5000"
-var ClientPort string = ":443"
+func SetMode(mode string) {
+	IsLocal = mode == "local"
+	if IsLocal {
+		BaseURL = "http://localhost:3000"
+		TokenURL = "localhost"
+		ServerPort = ":5000"
+		ClientPort = ":3000"
+	} else {
+		BaseURL = "https://crispyblog.kr"
+		TokenURL = "crispyblog.kr"
+		ServerPort = ":5000"
+		ClientPort = ":443"
+	}
+}
 
 // Read dbconfig.env for MysqlConfig
 func init() {

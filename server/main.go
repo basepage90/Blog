@@ -6,6 +6,7 @@ import (
 	"time"
 
 	"github.com/gin-gonic/gin"
+	"github.com/woojebiz/gin-web/server/conf"
 	"github.com/woojebiz/gin-web/server/db"
 	"github.com/woojebiz/gin-web/server/routers"
 )
@@ -19,6 +20,11 @@ func main() {
 	db.ConnectionMongoDB()
 	defer db.CloseMongoDB()
 
+	mode := ""
+	if len(os.Args) > 1 {
+		mode = os.Args[1]
+	}
+	conf.SetMode(mode)
 	routers.InitRouter()
 }
 

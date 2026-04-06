@@ -2,6 +2,7 @@ package routers
 
 import (
 	"github.com/gin-gonic/gin"
+	"github.com/woojebiz/gin-web/server/conf"
 	"github.com/woojebiz/gin-web/server/middleware"
 )
 
@@ -31,6 +32,9 @@ func InitRouter() {
 	InitWhereuatRouter(rgGuest)
 	// InitLoginRouter(rgGuest)
 
-	// r.Run(":5000")
-	r.RunTLS(":5000", "/etc/letsencrypt/archive/crispyblog.kr/fullchain1.pem", "/etc/letsencrypt/archive/crispyblog.kr/privkey1.pem")
+	if conf.IsLocal {
+		r.Run(":5000")
+	} else {
+		r.RunTLS(":5000", "/etc/letsencrypt/archive/crispyblog.kr/fullchain1.pem", "/etc/letsencrypt/archive/crispyblog.kr/privkey1.pem")
+	}
 }
