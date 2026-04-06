@@ -28,9 +28,14 @@ https://crispyblog.kr/
 - Docker
 - NginX
 
-### Enviroment Change
-- router.go / dbConfig.go / config.go
-- AddressConstant.tsx
+### Local Development
+```bash
+# server
+cd server && go run main.go local
+
+# client
+cd client && yarn start:local
+```
 
 ## Version History
 <details> 
