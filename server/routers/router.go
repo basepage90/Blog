@@ -31,10 +31,6 @@ func InitRouter() {
 	InitWhereuatRouter(rgGuest)
 	// InitLoginRouter(rgGuest)
 
-	// rgUser := r.Group("", middleware.AuthorizeJWT())
-	// InitIndexRouter(rgUser)
-	// InitArticleRouter(rgUser)
-
 	// r.Run(":5000")
 	r.RunTLS(":5000", "/etc/letsencrypt/archive/crispyblog.kr/fullchain1.pem", "/etc/letsencrypt/archive/crispyblog.kr/privkey1.pem")
 }
